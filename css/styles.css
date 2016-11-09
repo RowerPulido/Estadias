@@ -123,6 +123,7 @@ div.option:hover .opciones{
 
 .opciones nav a:link{
 	text-decoration: none;
+	color:white;
 }
 .opciones nav a:visited{
 	color: white;

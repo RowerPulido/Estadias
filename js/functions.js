@@ -143,12 +143,16 @@ function configuracion()
 	body.innerHTML = "";
 	p.innerHTML = "Configuracion";
 	correoElectronicoTitulo.innerHTML = 'Correo Electronico:';
-	telefonoTitulo.innerHTML = 'Telefono:'
+	telefonoTitulo.innerHTML = 'Teléfono:'
 	contraseniaActualTitulo.innerHTML = 'Ingresa tu constraseña actual:';
 	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu constraseña nueva:';
 	correoEletectronicoCampo.setAttribute('class','campo');
 	correoEletectronicoCampo.setAttribute('type','email');
+	correoEletectronicoCampo.setAttribute('placeholder','Correo Electronico');
 	contraseniaNuevaCampo.setAttribute('type','password');
+	contraseniaNuevaCampo.setAttribute('placeholder','Constraseña Nueva');
+	contraseniaActualCampo.setAttribute('placeholder','Constraseña Actual');
+	telefonoCampo.setAttribute('placeholder','Teléfono');
 	botonCancelar.setAttribute('type','submit');
 	botonCancelar.setAttribute('value','Cancelar');
 	botonAceptar.setAttribute('type','submit');

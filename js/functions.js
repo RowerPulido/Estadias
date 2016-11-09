@@ -117,6 +117,7 @@ function fechas(){
 
 function tablero(){
 	var body=document.getElementById('cuerpo');
+	body.innerHTML="";
 	var div=document.createElement('div');
 	div.setAttribute('id','mi-info');
 	var table=document.createElement('table');

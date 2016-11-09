@@ -132,17 +132,37 @@ function configuracion()
 	var p = document.createElement('p');
 	var correoElectronicoTitulo = document.createElement('p');
 	var telefonoTitulo = document.createElement('p');
+	var contraseniaActualTitulo = document.createElement('p');
+	var contraseniaNuevaTitulo = document.createElement('p');
 	var correoEletectronicoCampo = document.createElement('input');
 	var telefonoCampo = document.createElement('input');
+	var contraseniaActualCampo = document.createElement('input');
+	var contraseniaNuevaCampo = document.createElement('input');
+	var botonCancelar = document.createElement('input');
+	var botonAceptar = document.createElement('input');
 	body.innerHTML = "";
 	p.innerHTML = "Configuracion";
 	correoElectronicoTitulo.innerHTML = 'Correo Electronico:';
-	telefonoTitulo.innerHTML = 'Telefono: '
-	
+	telefonoTitulo.innerHTML = 'Telefono:'
+	contraseniaActualTitulo.innerHTML = 'Ingresa tu constraseña actual:';
+	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu constraseña nueva:';
 	correoEletectronicoCampo.setAttribute('class','campo');
+	correoEletectronicoCampo.setAttribute('type','email');
+	contraseniaNuevaCampo.setAttribute('type','password');
+	botonCancelar.setAttribute('type','submit');
+	botonCancelar.setAttribute('value','Cancelar');
+	botonAceptar.setAttribute('type','submit');
+	botonAceptar.setAttribute('value','Aceptar');
 	body.appendChild(p);
 	body.appendChild(correoElectronicoTitulo);
 	body.appendChild(correoEletectronicoCampo);
 	body.appendChild(telefonoTitulo);
 	body.appendChild(telefonoCampo);
+	body.appendChild(contraseniaActualTitulo);
+	body.appendChild(contraseniaActualCampo);
+	body.appendChild(contraseniaNuevaTitulo);
+	body.appendChild(contraseniaNuevaCampo);
+	body.appendChild(botonCancelar);
+	body.appendChild(botonAceptar);
+
 }

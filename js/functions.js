@@ -126,3 +126,23 @@ function tablero(){
 	var td=document.createElement('td');
 	td.setAttribute('rowspan',2);
 }
+function configuracion()
+{
+	var body = document.getElementById('cuerpo');
+	var p = document.createElement('p');
+	var correoElectronicoTitulo = document.createElement('p');
+	var telefonoTitulo = document.createElement('p');
+	var correoEletectronicoCampo = document.createElement('input');
+	var telefonoCampo = document.createElement('input');
+	body.innerHTML = "";
+	p.innerHTML = "Configuracion";
+	correoElectronicoTitulo.innerHTML = 'Correo Electronico:';
+	telefonoTitulo.innerHTML = 'Telefono: '
+	
+	correoEletectronicoCampo.setAttribute('class','campo');
+	body.appendChild(p);
+	body.appendChild(correoElectronicoTitulo);
+	body.appendChild(correoEletectronicoCampo);
+	body.appendChild(telefonoTitulo);
+	body.appendChild(telefonoCampo);
+}

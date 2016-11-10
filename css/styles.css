@@ -177,15 +177,15 @@ div#menu-lateral footer{
 	margin: 10px 0px 10px 0px;
 	padding: 10px;
 	border: none;
-	border-bottom: solid 2px #c9c9c9;
-	transition: border 0.3s;
+	border-bottom: solid 5px #81D4FA;
+	transition: border 0.1s;
 	outline: none;
 	background: transparent;
 }
 .campo:focus
 {
 	outline: none;
-	border-bottom: solid 2px #969696;
+	border-bottom: solid 5px #03A9F4;
 }
 /*termina css Victor*/
 /*Cuerpo*/

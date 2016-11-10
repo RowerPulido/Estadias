@@ -155,8 +155,8 @@ function configuracion()
 	titulo.innerHTML = "Configuracion";
 	correoElectronicoTitulo.innerHTML = 'Correo Electrónico :';
 	telefonoTitulo.innerHTML = 'Teléfono:'
-	contraseniaActualTitulo.innerHTML = 'Ingresa tu contraseña actual:';
-	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu contraseña nueva:';
+	contraseniaActualTitulo.innerHTML = 'Contraseña actual:';
+	contraseniaNuevaTitulo.innerHTML = 'Contraseña nueva:';
 	correoEletectronicoCampo.setAttribute('class','campo');
 	correoEletectronicoCampo.setAttribute('type','email');
 	correoEletectronicoCampo.setAttribute('placeholder','Correo Electrónico ');

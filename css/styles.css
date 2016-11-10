@@ -156,11 +156,29 @@ div#menu-lateral footer{
 /*css Victor*/
 #cuerpo h1
 {
-	position: relative;
 	left: 100%;
 	top: 60px;
 	font-size: 14pt;
 	
+}
+.campo
+{
+	width: 50%;
+	height: 20px;
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: none;
+	border-bottom: solid 2px #c9c9c9;
+	-webkit-transition: border 0.3s;
+    -moz-transition: border 0.3s;
+    -o-transition: border 0.3s;
+	transition: border 0.3s;
+	outline: none;
+}
+.campo:focus
+{
+	outline: none;
+	border-bottom: solid 2px #969696;
 }
 /*termina css Victor*/
 

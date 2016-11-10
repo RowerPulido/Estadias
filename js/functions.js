@@ -149,10 +149,13 @@ function configuracion()
 	correoEletectronicoCampo.setAttribute('class','campo');
 	correoEletectronicoCampo.setAttribute('type','email');
 	correoEletectronicoCampo.setAttribute('placeholder','Correo Electrónico ');
+	contraseniaNuevaCampo.setAttribute('class','campo');
 	contraseniaNuevaCampo.setAttribute('type','password');
 	contraseniaNuevaCampo.setAttribute('placeholder','Contraseña Nueva');
 	contraseniaActualCampo.setAttribute('placeholder','Contraseña Actual');
+	contraseniaActualCampo.setAttribute('class','campo');
 	telefonoCampo.setAttribute('placeholder','Teléfono');
+	telefonoCampo.setAttribute('class','campo');
 	botonCancelar.setAttribute('type','submit');
 	botonCancelar.setAttribute('value','Cancelar');
 	botonAceptar.setAttribute('type','submit');

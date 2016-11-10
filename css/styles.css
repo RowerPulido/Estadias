@@ -61,6 +61,9 @@ div#menu-lateral:hover{
 	width: 250px;
 	border-right: 5px solid #00AD47;
 }
+#menu-lateral div{
+	cursor: pointer;
+}
 div#menu-icon{
 	width: 80px;
 	height: 80px;
@@ -153,17 +156,6 @@ div#menu-lateral footer{
 	margin-top: 250px;
 	text-align: center;
 }
-/*css Victor*/
-#cuerpo h1
-{
-	position: relative;
-	left: 100%;
-	top: 60px;
-	font-size: 14pt;
-	
-}
-/*termina css Victor*/
-
 /*Cuerpo*/
 #cuerpo{
 	position: absolute;
@@ -224,3 +216,21 @@ tr.rowtable-docs:hover{
 background-color: #F44336;
 
 }
+
+/*css Victor*/
+/*
+#cuerpo h1
+{
+	position: relative;
+	left: 100%;
+	top: 60px;
+	font-size: 14pt;
+	
+}*/
+
+#configuracion-titulo{
+	color:  #03A9F4;
+	font-size: 25pt;
+	left: 50%;
+}
+/*termina css Victor*/

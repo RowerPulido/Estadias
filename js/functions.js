@@ -129,7 +129,7 @@ function tablero(){
 function configuracion()
 {
 	var body = document.getElementById('cuerpo');
-	var p = document.createElement('p');
+	var titulo = document.createElement('p');
 	var correoElectronicoTitulo = document.createElement('p');
 	var telefonoTitulo = document.createElement('p');
 	var contraseniaActualTitulo = document.createElement('p');
@@ -141,11 +141,16 @@ function configuracion()
 	var botonCancelar = document.createElement('input');
 	var botonAceptar = document.createElement('input');
 	body.innerHTML = "";
-	p.innerHTML = "Configuracion";
+	titulo.innerHTML = "Configuracion";
+	titulo.setAttribute('id','configuracion-titulo');
 	correoElectronicoTitulo.innerHTML = 'Correo Electronico:';
+	correoElectronicoTitulo.setAttribute('id','p-email');
 	telefonoTitulo.innerHTML = 'Telefono:'
+	telefonoTitulo.setAttribute('id','p-telefono');
 	contraseniaActualTitulo.innerHTML = 'Ingresa tu constraseña actual:';
+	contraseniaActualTitulo.setAttribute('id','p-passactual');
 	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu constraseña nueva:';
+	contraseniaNuevaTitulo.setAttribute('id','p-passnew');
 	correoEletectronicoCampo.setAttribute('class','campo');
 	correoEletectronicoCampo.setAttribute('type','email');
 	contraseniaNuevaCampo.setAttribute('type','password');
@@ -153,7 +158,7 @@ function configuracion()
 	botonCancelar.setAttribute('value','Cancelar');
 	botonAceptar.setAttribute('type','submit');
 	botonAceptar.setAttribute('value','Aceptar');
-	body.appendChild(p);
+	body.appendChild(titulo);
 	body.appendChild(correoElectronicoTitulo);
 	body.appendChild(correoEletectronicoCampo);
 	body.appendChild(telefonoTitulo);

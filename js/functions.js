@@ -141,6 +141,7 @@ function configuracion()
 	var botonCancelar = document.createElement('input');
 	var botonAceptar = document.createElement('input');
 	body.innerHTML = "";
+<<<<<<< HEAD
 	titulo.innerHTML = "Configuracion";
 	titulo.setAttribute('id','configuracion-titulo');
 	correoElectronicoTitulo.innerHTML = 'Correo Electronico:';
@@ -151,9 +152,20 @@ function configuracion()
 	contraseniaActualTitulo.setAttribute('id','p-passactual');
 	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu constraseña nueva:';
 	contraseniaNuevaTitulo.setAttribute('id','p-passnew');
+=======
+	p.innerHTML = "Configuracion";
+	correoElectronicoTitulo.innerHTML = 'Correo Electrónico :';
+	telefonoTitulo.innerHTML = 'Teléfono:'
+	contraseniaActualTitulo.innerHTML = 'Ingresa tu contraseña actual:';
+	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu contraseña nueva:';
+>>>>>>> origin/master
 	correoEletectronicoCampo.setAttribute('class','campo');
 	correoEletectronicoCampo.setAttribute('type','email');
+	correoEletectronicoCampo.setAttribute('placeholder','Correo Electrónico ');
 	contraseniaNuevaCampo.setAttribute('type','password');
+	contraseniaNuevaCampo.setAttribute('placeholder','Contraseña Nueva');
+	contraseniaActualCampo.setAttribute('placeholder','Contraseña Actual');
+	telefonoCampo.setAttribute('placeholder','Teléfono');
 	botonCancelar.setAttribute('type','submit');
 	botonCancelar.setAttribute('value','Cancelar');
 	botonAceptar.setAttribute('type','submit');

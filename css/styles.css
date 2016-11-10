@@ -172,6 +172,8 @@ div#menu-lateral footer{
 }
 .campo
 {
+	position: relative;
+	left: 250px;
 	width: 50%;
 	height: 20px;
 	margin: 10px 0px 10px 0px;
@@ -186,6 +188,21 @@ div#menu-lateral footer{
 {
 	outline: none;
 	border-bottom: solid 5px #03A9F4;
+}
+.boton
+{
+	position: relative;
+	padding: 10px;
+	top: 70px;
+	left: 50px;
+	margin: 15px 0px 0px 0px;
+	background-color: #00AD47;
+	color: #fff;
+}
+#configuracion-titulo{
+	color:  #03A9F4;
+	font-size: 25pt;
+	left: 50%;
 }
 /*termina css Victor*/
 /*Cuerpo*/
@@ -249,20 +266,3 @@ background-color: #F44336;
 
 }
 
-/*css Victor*/
-/*
-#cuerpo h1
-{
-	position: relative;
-	left: 100%;
-	top: 60px;
-	font-size: 14pt;
-	
-}*/
-
-#configuracion-titulo{
-	color:  #03A9F4;
-	font-size: 25pt;
-	left: 50%;
-}
-/*termina css Victor*/

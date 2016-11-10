@@ -6,12 +6,13 @@ function createP(parent,htmlTitle)
 
 	parent.appendChild(parrafo);
 }
-function createInput(parent,htmlPlaceHolder,type,cssClass)
+function createInput(parent,htmlPlaceHolder,type,cssClass,value)
 {
 	var input = document.createElement('input');
 	input.setAttribute('type',type);
 	input.setAttribute('placeholder',htmlPlaceHolder);
 	input.setAttribute('class',cssClass);
+	input.setAttribute('value',value);
 
 	parent.appendChild(input);
 }

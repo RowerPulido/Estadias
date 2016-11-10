@@ -135,19 +135,15 @@ function configuracion()
 	var botonAceptar = document.createElement('input');
 	body.innerHTML = "";
 	titulo.setAttribute('class','configuracion-titulo');
-	botonCancelar.setAttribute('type','submit');
-	botonCancelar.setAttribute('value','Cancelar');
-	botonAceptar.setAttribute('type','submit');
-	botonAceptar.setAttribute('value','Aceptar');
 	createP(body,'Configuracion');
 	createP(body,'Correo Electronico:');
-	createInput(body,'Correo Electrónico','email','campo');
+	createInput(body,'Correo Electrónico','email','campo','');
 	createP(body,'Teléfono:');
-	createInput(body,'Teléfono','','campo');
+	createInput(body,'Teléfono','','campo','');
 	createP(body,'Constraseña actual:');
-	createInput(body,'Contraseña Nueva','','campo');
+	createInput(body,'Contraseña Nueva','','campo','');
 	createP(body,'Contraseña Nueva:');
-	createInput(body,'Contraseña Nueva','password','campo');
-	body.appendChild(botonCancelar);
-	body.appendChild(botonAceptar);
+	createInput(body,'Contraseña Nueva','password','campo','');
+	createInput(body,'','submit','boton','Aceptar');
+	createInput(body,'','submit','boton','Cancelar');
 }

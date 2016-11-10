@@ -152,7 +152,7 @@ function configuracion()
 	contraseniaActualTitulo.setAttribute('id','p-passactual');
 	contraseniaNuevaTitulo.innerHTML = 'Ingresa tu constraseña nueva:';
 	contraseniaNuevaTitulo.setAttribute('id','p-passnew');
-	p.innerHTML = "Configuracion";
+	titulo.innerHTML = "Configuracion";
 	correoElectronicoTitulo.innerHTML = 'Correo Electrónico :';
 	telefonoTitulo.innerHTML = 'Teléfono:'
 	contraseniaActualTitulo.innerHTML = 'Ingresa tu contraseña actual:';

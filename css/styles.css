@@ -6,7 +6,6 @@ body{	border:0px;
 /*LOGIN*/
 #datos{
 	font-size: 15pt;
-	background: #fff;
 	position: absolute;
 	top: 150px;
 	left: 950px;
@@ -24,7 +23,13 @@ body{	border:0px;
 #datos input{
 	width: 100%;
 	height: 35px;
-	outline: 0px;	
+	outline: none;
+	border: none;
+	margin-bottom: 20px;
+}
+#datos input:focus{
+		border-bottom: 5px solid #03A9F4;
+		color: #00AD47;
 }
 #datos label{
 	top: 100px;
@@ -35,13 +40,14 @@ body{	border:0px;
 	width: 100%;
 }
 #datos button{
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-right: 20px;
 	width: 125px;
 	height: 25px;
 	background-color: #00AD47;
 	color: #fff;
 }
+
 /*Index*/
 #user-name p{
 	font-weight: bold;
@@ -60,6 +66,9 @@ div#menu-lateral{
 div#menu-lateral:hover{
 	width: 250px;
 	border-right: 5px solid #00AD47;
+}
+#menu-lateral div{
+	cursor: pointer;
 }
 div#menu-icon{
 	width: 80px;
@@ -144,7 +153,7 @@ div.option:hover .opciones{
 	padding-bottom: 10px;
 }
 
-body{
+#body{
 	background-image: url("../images/template/logo-estadias.jpg");
 	background-size: 1920px 1080px;
 }
@@ -153,6 +162,7 @@ div#menu-lateral footer{
 	margin-top: 250px;
 	text-align: center;
 }
+<<<<<<< HEAD
 /*css Victor*/
 #cuerpo h1
 {
@@ -182,6 +192,8 @@ div#menu-lateral footer{
 }
 /*termina css Victor*/
 
+=======
+>>>>>>> origin/master
 /*Cuerpo*/
 #cuerpo{
 	position: absolute;
@@ -242,3 +254,21 @@ tr.rowtable-docs:hover{
 background-color: #F44336;
 
 }
+
+/*css Victor*/
+/*
+#cuerpo h1
+{
+	position: relative;
+	left: 100%;
+	top: 60px;
+	font-size: 14pt;
+	
+}*/
+
+#configuracion-titulo{
+	color:  #03A9F4;
+	font-size: 25pt;
+	left: 50%;
+}
+/*termina css Victor*/

@@ -29,6 +29,7 @@ body{	border:0px;
 }
 #datos input:focus{
 		border-bottom: 5px solid #03A9F4;
+		color: #00AD47;
 }
 #datos label{
 	top: 100px;

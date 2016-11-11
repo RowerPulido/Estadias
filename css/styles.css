@@ -163,17 +163,10 @@ div#menu-lateral footer{
 	text-align: center;
 }
 /*css Victor*/
-#cuerpo h1
-{
-	left: 100%;
-	top: 60px;
-	font-size: 14pt;
-	
-}
-#cuerpo .campo
+#cuerpo #datosConfig #formaConfig .campo
 {
 	position: relative;
-	left: 330px;
+	left: 360px;
 	width: 50%;
 	height: 20px;
 	margin: 10px 0px 10px 0px;
@@ -189,39 +182,42 @@ div#menu-lateral footer{
 	outline: none;
 	border-bottom: solid 5px #03A9F4;
 }
-.button
+#datosConfig
 {
 	position: relative;
-	top: 65px;
-	left: 170px;
+	width: 100%;
+}
+#datosConfig .button
+{
+	position: relative;
+	left: 250px;
 	padding: 10px;
+	margin: 40px;
 	background-color: #00AD47;
-	color: #fff;
-	font-size: 14pt;
-	width: 100px;
+	color: #E0E0E0;
+	font-size: 20pt;
+	width: 150px;
 	border-radius: 7px;
  	transition: 1s;
-
 }
-.button:hover
+#datosConfig .button:hover
 {
- 	color: #3a7999;
- 	box-shadow: inset 0 0 0 3px #3a7999;
+ 	color: #fff;
+ 	box-shadow: inset 0 0 0 3px #2E7D32;
 
 }
-#cuerpo .label
+#cuerpo #datosConfig #formaConfig .label
 {
 	position: relative;
-	left: 100%;
+	left: 80%;
 	font-size: 18pt;
 	color: #757575;
 }
-#cuerpo .labelConfiguracion
+#cuerpo #datosConfig .labelConfiguracion
 {
-	font-size: 30pt;
+	font-size: 28pt;
 	position: relative;
-	left: 90%;
-	top: 0px;
+	left: 58%;
 	text-align: center;
 	text-decoration: none;
 }

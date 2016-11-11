@@ -136,9 +136,8 @@ function configuracion()
 	forma.setAttribute('id','formaConfig');
 	forma.setAttribute('name','formaConfig');
 	forma.setAttribute('method','post');
-
 	body.innerHTML = "";
-	createP(forma,'Configuración','labelConfiguracion');
+	createP(division,'Configuración','labelConfiguracion');
 	createP(forma,'Correo Electronico:','label');
 	createInput(forma,'Correo Electrónico','email','campo','');
 	createP(forma,'Teléfono:','label');
@@ -147,9 +146,9 @@ function configuracion()
 	createInput(forma,'Contraseña Nueva','','campo','');
 	createP(forma,'Contraseña Nueva:','label');
 	createInput(forma,'Contraseña Nueva','password','campo','');
+	division.appendChild(forma);
 	createInput(division,'','submit','button','Cancelar');
 	createInput(division,'','submit','button','Aceptar');
-	division.appendChild(forma);
 	body.appendChild(division);
 	
 }

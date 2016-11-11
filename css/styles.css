@@ -177,7 +177,7 @@ div#menu-lateral footer{
 	outline: none;
 	background: transparent;
 }
-#cuerpo .campo:focus
+#cuerpo #datosConfig #formaConfig .campo:focus
 {
 	outline: none;
 	border-bottom: solid 5px #03A9F4;

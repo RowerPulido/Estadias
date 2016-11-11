@@ -1,6 +1,7 @@
-function createP(parent,htmlTitle)
+function createP(parent,htmlTitle,cssClass)
 {
 	var parrafo = document.createElement('p');
+	parrafo.setAttribute('class',cssClass);
 	parrafo.innerHTML = htmlTitle;
 	//parrafo.setAttribute('class','cssClass');
 

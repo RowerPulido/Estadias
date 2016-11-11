@@ -130,20 +130,26 @@ function tablero(){
 function configuracion()
 {
 	var body = document.getElementById('cuerpo');
-	var titulo = document.createElement('p');
-	var botonCancelar = document.createElement('input');
-	var botonAceptar = document.createElement('input');
+	var division = document.createElement('div');
+	var forma = document.createElement('form');
+	division.setAttribute('id','datosConfig');
+	forma.setAttribute('id','formaConfig');
+	forma.setAttribute('name','formaConfig');
+	forma.setAttribute('method','post');
+
 	body.innerHTML = "";
-	titulo.setAttribute('class','configuracion-titulo');
-	createP(body,'Configuracion');
-	createP(body,'Correo Electronico:');
-	createInput(body,'Correo Electrónico','email','campo','');
-	createP(body,'Teléfono:');
-	createInput(body,'Teléfono','','campo','');
-	createP(body,'Constraseña actual:');
-	createInput(body,'Contraseña Nueva','','campo','');
-	createP(body,'Contraseña Nueva:');
-	createInput(body,'Contraseña Nueva','password','campo','');
-	createInput(body,'','submit','boton','Aceptar');
-	createInput(body,'','submit','boton','Cancelar');
+	createP(forma,'Configuración','labelConfiguracion');
+	createP(forma,'Correo Electronico:','label');
+	createInput(forma,'Correo Electrónico','email','campo','');
+	createP(forma,'Teléfono:','label');
+	createInput(forma,'Teléfono','','campo','');
+	createP(forma,'Constraseña actual:','label');
+	createInput(forma,'Contraseña Nueva','','campo','');
+	createP(forma,'Contraseña Nueva:','label');
+	createInput(forma,'Contraseña Nueva','password','campo','');
+	createInput(division,'','submit','button','Cancelar');
+	createInput(division,'','submit','button','Aceptar');
+	division.appendChild(forma);
+	body.appendChild(division);
+	
 }

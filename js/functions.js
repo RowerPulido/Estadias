@@ -131,24 +131,79 @@ function configuracion()
 {
 	var body = document.getElementById('cuerpo');
 	var division = document.createElement('div');
+	var divisionIma = document.createElement('div');
 	var forma = document.createElement('form');
+	var img = document.createElement('img');
+	var span = document.createElement('span');
+
 	division.setAttribute('id','datosConfig');
+	divisionIma.setAttribute('id','divIma');
 	forma.setAttribute('id','formaConfig');
 	forma.setAttribute('name','formaConfig');
 	forma.setAttribute('method','post');
+	img.setAttribute('onClick','cambiarContrasenia()');
+	span.setAttribute('onClick','cambiarContrasenia()');	
+	img.setAttribute('src','images/question_password.png');
+	img.setAttribute('class','imagenPassword');
+	span.setAttribute('class','tooltiptext');
+
 	body.innerHTML = "";
+	span.innerHTML = "Cambiar Contraseña";
+	//method createP(parent,htmlTitle,cssClass)
+	//method createInput(parent,htmlPlaceHolder,type,cssClass,value)
 	createP(division,'Configuración','labelConfiguracion');
 	createP(forma,'Correo Electronico:','label');
 	createInput(forma,'Correo Electrónico','email','campo','');
 	createP(forma,'Teléfono:','label');
 	createInput(forma,'Teléfono','','campo','');
-	createP(forma,'Constraseña actual:','label');
-	createInput(forma,'Contraseña Nueva','','campo','');
-	createP(forma,'Contraseña Nueva:','label');
-	createInput(forma,'Contraseña Nueva','password','campo','');
+	createP(forma,'Constraseña:','label');
+	createInput(forma,'Ingresa tu contraseña','password','campo','');
+
+	forma.appendChild(divisionIma);
+	divisionIma.appendChild(span);
+	divisionIma.appendChild(img);
 	division.appendChild(forma);
+
 	createInput(division,'','submit','button','Cancelar');
 	createInput(division,'','submit','button','Aceptar');
+
 	body.appendChild(division);
 	
+}
+function cambiarContrasenia()
+{
+	//method createP(parent,htmlTitle,cssClass)
+	//method createInput(parent,htmlPlaceHolder,type,cssClass,value)
+	var cuerpo = document.getElementById('cuerpo');
+	var bodyOpaca = document.getElementById('body');
+	var divEnsima = document.createElement('div');
+	var ima = document.createElement('img');
+	var forma = document.createElement('form');
+
+	cuerpo.setAttribute('class','opaca');
+	divEnsima.setAttribute('id','divPassword');
+	forma.setAttribute('id','formPassword');
+	ima.setAttribute('src','images/exit_password.png')
+	ima.setAttribute('onClick','normal();');
+	ima.setAttribute('class','imaExitPassword');
+
+	createP(forma,'Contraseña Actual:','label');
+	createInput(forma,'Contraseña Actual','','campo','');
+	createP(forma,'Repetir Contraseña:','label');
+	createInput(forma,'Repetir Contraseña','password','campo','');
+	createP(forma,'Contraseña Nueva:','label');
+	createInput(forma,'Contraseña Nueva','password','campo','');
+	createInput(forma,'','submit','button','Aceptar');
+	divEnsima.appendChild(ima);
+	bodyOpaca.appendChild(divEnsima);
+	divEnsima.appendChild(forma);
+}
+
+function normal()
+{
+	var cuerpo = document.getElementById('cuerpo');
+	cuerpo.setAttribute('class','normal');
+	var body = document.getElementById('body');
+	var divEnsimaRemove = document.getElementById('divPassword');
+	body.removeChild(divEnsimaRemove);
 }

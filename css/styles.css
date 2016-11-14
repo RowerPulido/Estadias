@@ -182,10 +182,21 @@ div#menu-lateral footer{
 	outline: none;
 	border-bottom: solid 5px #03A9F4;
 }
-#datosConfig
+#divPassword .campo
 {
-	position: relative;
-	width: 100%;
+	height: 20px;
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: none;
+	border-bottom: solid 5px #81D4FA;
+	transition: border 0.1s;
+	outline: none;
+	background: transparent;
+}
+#divPassword .campo:focus
+{
+	outline: none;
+	border-bottom: solid 5px #03A9F4;
 }
 #datosConfig .button
 {
@@ -206,12 +217,33 @@ div#menu-lateral footer{
  	box-shadow: inset 0 0 0 3px #2E7D32;
 
 }
+#divPassword .button
+{
+	padding: 10px;
+	margin: 30px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 16pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+}
+#divPassword .button:hover
+{
+	color: #fff;
+ 	box-shadow: inset 0 0 0 3px #2E7D32;
+}
 #cuerpo #datosConfig #formaConfig .label
 {
 	position: relative;
 	left: 80%;
 	font-size: 18pt;
 	color: #757575;
+}
+#divPassword .label
+{
+	color: #E0E0E0;
+	font-size: 18pt;
 }
 #cuerpo #datosConfig .labelConfiguracion
 {
@@ -220,6 +252,76 @@ div#menu-lateral footer{
 	left: 58%;
 	text-align: center;
 	text-decoration: none;
+}
+#divIma
+{
+	position: relative;
+	left: 625px;
+	top: -50px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+#divIma .tooltiptext 
+{
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#divIma .tooltiptext::after 
+{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+#divIma:hover .tooltiptext 
+{
+    visibility: visible;
+    opacity: 1;
+}
+.opaca
+{
+
+	filter: blur(6px);
+}
+
+.normal
+{
+	filter: none;
+
+}
+.imaExitPassword{cursor: pointer;}
+#divPassword
+{
+	position: fixed;
+	top: 50px;
+    width: 390px;
+    left: 600px;
+	background: #000000;
+	opacity: 0.6;
+}
+#formPassword
+{
+    padding-left: 80px;
+    padding-right: 60px;
 }
 /*termina css Victor*/
 /*Cuerpo*/

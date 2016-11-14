@@ -183,6 +183,7 @@ function cambiarContrasenia()
 	cuerpo.setAttribute('class','opaca');
 	divEnsima.setAttribute('id','divPassword');
 	forma.setAttribute('id','formPassword');
+	forma.setAttribute('method','POST');
 	ima.setAttribute('src','images/exit_password.png')
 	ima.setAttribute('onClick','normal();');
 	ima.setAttribute('class','imaExitPassword');

@@ -30,6 +30,7 @@ function verDocs(){
 	
 	var body=document.getElementById('cuerpo');
 	body.innerHTML="";
+	body.setAttribute('class','');
 	var p= document.createElement('p');
 	p.innerHTML="Lista de Documentos";
 	body.appendChild(p);
@@ -65,6 +66,7 @@ function verDocs(){
 function misDocs(){
 	var body=document.getElementById('cuerpo');
 	body.innerHTML="";
+	body.setAttribute('class','');
 	var p= document.createElement('p');
 	p.innerHTML="Lista de Documentos";
 	body.appendChild(p);

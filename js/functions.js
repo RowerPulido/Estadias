@@ -114,7 +114,7 @@ function misCalis()
 	svgParent.setAttribute('id','svg');
 	body.innerHTML = "";
 	
-	writeText(svgParent,'text','50%','50px','Calificaciones','textHeader');
+	writeText(svgParent,'text','50%','50px','Mis Calificaciones','textHeader');
 	for(var n = 0; n<=10;n++)
         writeText(svgParent,'textNum',(30+(n*6))+'%','725px',n,'num');
     writeText(svgParent,'text','60%','760px','Calificacion','textBottom');

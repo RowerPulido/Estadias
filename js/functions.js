@@ -107,8 +107,24 @@ function misDocs(){
 	body.appendChild(table);
 }
 
-function misCalis(){
+function misCalis()
+{
+	//drawLine(svgParent,x1,y1,x2,y2,cssClass)
+	//wirteText(svgParent,id,x,y,innetText,cssClass)
+	//drawRectangle(svgParent,id,x,y,width,height,cssClass)
 	var body=document.getElementById('cuerpo');
+	var div = document.createElement('div');
+	var svgParent = document.createElement('svg');
+
+	div.setAttribute('id','chart');
+	svgParent.setAttribute('id','svg');
+	body.innerHTML = "";
+	writeText(svgParent,'text','50%','50px','Calificaciones','textHeader');
+	
+	div.appendChild(svgParent);
+	body.appendChild(div);
+	
+	
 }
 
 function fechas(){

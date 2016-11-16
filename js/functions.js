@@ -30,6 +30,7 @@ function verDocs(){
 	
 	var body=document.getElementById('cuerpo');
 	body.innerHTML="";
+	body.setAttribute('class','');
 	var p= document.createElement('p');
 	p.innerHTML="Lista de Documentos";
 	body.appendChild(p);
@@ -65,6 +66,7 @@ function verDocs(){
 function misDocs(){
 	var body=document.getElementById('cuerpo');
 	body.innerHTML="";
+	body.setAttribute('class','');
 	var p= document.createElement('p');
 	p.innerHTML="Lista de Documentos";
 	body.appendChild(p);
@@ -106,10 +108,36 @@ function misDocs(){
 	
 	body.appendChild(table);
 }
-
-function misCalis(){
-	var body=document.getElementById('cuerpo');
+function misCalis()
+{
+	var body = document.getElementById('cuerpo');
+	var svgParent = document.createElementNS("http://www.w3.org/2000/svg","svg");
+	body.setAttribute('class','cuerpoCalificaciones');
+	svgParent.setAttribute('id','svg');
+	body.innerHTML = "";
+	
+	writeText(svgParent,'text','50%','50px','Mis Calificaciones','textHeader');
+	for(var n = 0; n<=10;n++)
+        writeText(svgParent,'textNum',(30+(n*6))+'%','725px',n,'num');
+    writeText(svgParent,'text','60%','760px','Calificacion','textBottom');
+    drawLine(svgParent,'30%','160px','30%','700px','axis');
+    drawLine(svgParent,'90%','700px','30%','700px','axis');
+    for(var x =0; x<=10;x++)
+        drawLine(svgParent,(30+(x*6))+'%','705px',(30+(x*6))+'%','695px','axis2')
+    for(var n = 1; n<=3;n++){
+        var x = 500 / 3;
+        var y =80+(n*x)+(x*0.1);
+        writeText(svgParent,'nameParcial','28%',y+'px','Parcial '+n,'parcialName')
+    }
+    for (var r = 1; r<=3; r++){
+        var x = 500 / 3;
+        var y= 1+(r*x)+(x*0.1);
+        var h= x*0.8;
+        drawRectangle(svgParent,'bar'+r,'30%',y+'px','1%',h+'px','bar')
+    }
+    body.appendChild(svgParent);
 }
+
 
 function fechas(){
 	var body=document.getElementById('cuerpo');
@@ -136,6 +164,7 @@ function configuracion()
 	var img = document.createElement('img');
 	var span = document.createElement('span');
 
+	body.setAttribute('class','');
 	division.setAttribute('id','datosConfig');
 	divisionIma.setAttribute('id','divIma');
 	forma.setAttribute('id','formaConfig');
@@ -168,7 +197,6 @@ function configuracion()
 	createInput(division,'','submit','button','Aceptar');
 
 	body.appendChild(division);
-	
 }
 function cambiarContrasenia()
 {

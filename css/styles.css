@@ -224,6 +224,7 @@ div#menu-lateral footer{
 	width: 150px;
 	border-radius: 7px;
  	transition: 1s;
+ 	text-align: center;
 }
 #divPassword .button:hover
 {

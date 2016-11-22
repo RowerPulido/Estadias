@@ -176,6 +176,7 @@ GO
 
 CREATE TABLE [Estadias]
 (
+	[idEstadias] char(10) NOT NULL,
 	[idAlumno] char(10) NOT NULL,
 	[deptoEmp] varchar(20) NULL,
 	[asesorEmp] char(10) NULL,
@@ -259,6 +260,7 @@ GO
 
 CREATE TABLE [Actividades]
 (
+	[idActividad] int identity(1,1) not null,
 	[nombre] varchar(50) NULL,
 	[inicio] date NULL,
 	[fin] date NULL,
@@ -312,11 +314,11 @@ GO
 
 ALTER TABLE [Estadias] 
  ADD CONSTRAINT [PK_Estadias]
-	PRIMARY KEY CLUSTERED ([idAlumno])
+	PRIMARY KEY CLUSTERED ([idEstadias])
 GO
 
-CREATE INDEX [IXFK_Estadias_Alumnos] 
- ON [Estadias] ([idAlumno] ASC)
+CREATE INDEX [IXFK_Estadias_Estadias] 
+ ON [Estadias] ([idEstadias] ASC)
 GO
 
 CREATE INDEX [IXFK_Estadias_asesor_empresarial] 
@@ -388,11 +390,11 @@ GO
 
 ALTER TABLE [Actividades] 
  ADD CONSTRAINT [PK_Actividades]
-	PRIMARY KEY CLUSTERED ([proyecto])
+	PRIMARY KEY CLUSTERED ([idActividad])
 GO
 
 CREATE INDEX [IXFK_Actividades_proyectos] 
- ON [Actividades] ([proyecto] ASC)
+ ON [Actividades] ([idActividad] ASC)
 GO
 
 /* Create Foreign Key Constraints */

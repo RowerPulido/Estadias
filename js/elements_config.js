@@ -18,3 +18,12 @@ function createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 
 	parent.appendChild(input);
 }
+
+function createDiv(id,cssClass){
+
+	var div=document.createElement('div');
+	div.setAttribute('id',id);
+	div.setAttribute('class',cssClass);
+
+	return div;
+}

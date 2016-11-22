@@ -241,3 +241,40 @@ function normal()
 	var divEnsimaRemove = document.getElementById('divPassword');
 	body.removeChild(divEnsimaRemove);
 }
+
+function dashboard(){
+
+	var fecha= new Date();
+	var meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+	var cuerpo=	document.getElementById('cuerpo');
+
+	var divDQ=createDiv('divDQ');
+		var table=document.createElement('table');
+		table.setAttribute('id','tableDQ');
+		var tr=document.createElement('tr');
+		var td=document.createElement('td');
+		td.setAttribute('id','numDia');
+		td.innerHTML=fecha.getDate();
+		td.setAttribute('rowspan',2);
+		tr.appendChild(td);
+		var td=document.createElement('td');
+		td.setAttribute('id','nomMes');
+		td.innerHTML=meses[fecha.getMonth()];
+		tr.appendChild(td);
+		var td=document.createElement('td');
+		td.setAttribute('id','frase');
+		td.setAttribute('rowspan',2);
+		td.innerHTML='frase';
+		tr.appendChild(td);
+		table.appendChild(tr);
+		var tr=document.createElement('tr');
+		var td=document.createElement('td');
+		td.setAttribute('id','anio');
+		td.innerHTML=fecha.getFullYear();
+		tr.appendChild(td);
+		table.appendChild(tr);
+		cuerpo.appendChild(table);
+
+
+}

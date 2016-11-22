@@ -207,6 +207,7 @@ div#menu-lateral footer{
 	width: 150px;
 	border-radius: 7px;
  	transition: 1s;
+ 	cursor: pointer;
 }
 #datosConfig .button:hover
 {
@@ -225,6 +226,7 @@ div#menu-lateral footer{
 	border-radius: 7px;
  	transition: 1s;
  	text-align: center;
+ 	cursor: pointer;
 }
 #divPassword .button:hover
 {
@@ -307,12 +309,15 @@ div#menu-lateral footer{
 
 }
 .imaExitPassword{cursor: pointer;}
+
 #divPassword
 {
 	position: fixed;
 	top: 50px;
     width: 390px;
-    left: 600px;
+    left: 550px;
+    right: 100px;
+    bottom: 110px;
 	background: #000000;
 	opacity: 0.6;
 }

@@ -1,0 +1,84 @@
+body{
+	width: 702px;
+	height: 612px;
+}
+table{
+	border-collapse: collapse;
+	width: 100%;
+}
+table td{
+	border: 2px solid black;
+	font-size: 9pt;
+	padding: 1px 4px 1px 4px;
+}
+#logo-utt{
+	width: 200px;
+}
+
+#primertabla{
+	text-align: center;
+	font-size: 9pt;
+	font-weight: bold;
+}
+#formato{
+	font-size: 11pt;
+}
+#definicion{
+	font-size: 10pt;
+}
+#sello{
+	position: relative;
+	top:136px;
+	left: 6%;
+}
+
+#tfirmas{
+	position: relative;
+	width: 60%;
+	left: 37%;
+	text-align: center;
+}
+#tfirmas #titfirmas{
+	font-weight: bold;
+	font-size: 10pt;
+}
+.n10{
+	font-size: 10pt;
+	font-weight: bold;
+}
+#tactividades{
+	text-align: center;
+}
+#tothrs{
+	text-align: right;
+}
+td.tit{
+	border:0px;
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: left;
+}
+.noborder{
+	border: 0px;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	padding-top: 5px;
+}
+#tdmatricula{
+	font-weight: bold;
+	font-size: 10pt;
+
+}
+#bottom{
+	border-bottom: 2px solid black;
+	font-weight: bold;
+}
+
+#tdcarreras td{
+	border: 0px;
+	font-weight: bold;
+	font-size: 12pt;
+}
+.wborder{
+	border: 2px solid black;
+}

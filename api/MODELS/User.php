@@ -1,6 +1,6 @@
 <?php 
 header('Access-Control-Allow-Origin:*');
-require_once('connection.php');
+require_once('MODELS/connection_sql_server.php');
 require_once('UserType.php');
 class User
 {
@@ -28,33 +28,30 @@ class User
 			$args=func_get_args();
 			$pswd=$args[1];
 			$id=$args[0];
-			//query
-			$query='select id,type from usuarios where id=? and password=?';
 			//connection
-			$connection=get_connection();
-			//command
-			$command= $connection->prepare($query);
-			if ($command === false)
+			$connection= new SqlServerConnection();
+			try
 			{
-				echo 'Error in query : '.$query;
-				die;
+				//query
+				$query=sprintf('select id,type from usuarios where id=\''.$id.'" and password=\''.$pswd."'");
+				//command
+				$data= $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+					$this->id=odbc_result($data, 'id');
+					$this->password=$args[1];
+					$user_tupe =new Usertype( dbc_result($data, 'type'));
+					$this->user_type=$user_type;
+				
 			}
-			$command->bind_param('ss',$id,$pswd);
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($id,$type);
-			//suelta resultados
-			$command->fetch();
-			//close command
-			mysqli_stmt_close($command);
-			$connection->close();
-			$this->id=$id;
-			$this->password=$args[1];
-		
-
-			$user_type=new Usertype($type);
-			$this->user_type=$user_type;
+			finally
+			{
+				$connection->close();
+			}
 		} 
 }
 }

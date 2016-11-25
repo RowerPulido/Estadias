@@ -55,29 +55,15 @@
 			{                			
                 require_once('MODELS/connection_sql_server.php');
 	
-                $connection=get_connection();
-	
-                $query = 'insert into docs values (?,?,?,?,?,?);';
-                
-                $command = $connection->prepare($query);
-                
-				$arguments = func_get_args();
-	            
-				$command->bind_param('iissds',$arguments[0],$arguments[1],$arguments[2],$arguments[3],$arguments[4],$arguments[5]);
-	
-			    if($command===false)
-			    {
-				    echo 'Error in query : '.$query;
-				    die;
-			    }	
-			    $command->execute();
-                
-				$this->id = $arguments[0];
-				$this->estado = $arguments[3];
-				$this->matricula = $arguments[2];
-				$this->ruta = $arguments[5];
-				$this->fecha_upd = $arguments[4];
-				$this->tipo = $arguments[1];
+                $connection= new SqlServerConnection();
+	            $query = sprintf('insert into documentos values (?,?,?,?,?,?);');
+	                
+	            $connection->execute_non_query($query, array($this->id,
+	            											 $this->tipo,
+	            											 $this->matricula,
+	            											 $this->estado,
+	            											 $this->fecha_upd,
+	            											 $this->ruta));
 			}
 			if(func_num_args()==7)
 			{

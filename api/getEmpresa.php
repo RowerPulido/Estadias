@@ -2,7 +2,7 @@
 	//allow external access
 	header('Access-Control-Allow-Origin:*');
 	//use empresa
-	require_once('models/empresa.php');
+	require_once('empresa.php');
 	//start json
 	$json = '{ "status" : 0, "Empresas" : [';
 	//read data
@@ -15,7 +15,10 @@
 		$json .= '{
 					"NIF" : "'.$e->get_nif().'",
 					"name" : "'.$e->get_name().'",
-					"position" : "'.$e->get_position().'"
+					"position" : "'.$e->get_position().'",
+					"telefono" : "'.$e->get_tel().'",
+					"direccion": "'.$e->get_direccion().'",
+					"email" : "'.$e->get_email().'"
 				}';
 		$found=true;
 	}

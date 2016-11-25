@@ -10,6 +10,8 @@ require_once('proyectoo.php');
 		private $matricula;
 		private $empresa_id;
 		private $asesor_empresarial_id;
+		private $objetivos;
+		private $totalHoras;
 		//getters and setters
 		public function get_id() { return $this->id; }
 		public function set_id($value) { $this->id = $value; }
@@ -23,6 +25,11 @@ require_once('proyectoo.php');
 		public function set_empresa_id($value) { $this->empresa_id = $value; }
 		public function get_asesor() { return $this->asesor_empresarial_id; }
 		public function set_asesor($value) { $this->asesor_empresarial_id = $value; }
+		public function get_objetivos() { return $this->objetivos; }
+		public function set_objetivos($value) { $this->objetivos = $value; }
+		public function get_totalHoras() { return $this->totalHoras; }
+		public function set_totalHoras($value) { $this->totalHoras = $value; }
+
 		//constructor
 		public function __construct()
 		{
@@ -34,6 +41,8 @@ require_once('proyectoo.php');
 				$this->matricula_student = '';
 				$this->empresa_id='';
 				$this->asesor_empresarial_id='';
+				$this->objetivos = '';
+				$this->totalHoras = '';
 			}
 			if (func_num_args() == 4)
 			{
@@ -43,7 +52,7 @@ require_once('proyectoo.php');
 				$this->empresa_id=$args[2];
 				$this->asesor_empresarial_id=$args[3];
 			}
-			if (func_num_args() == 5)
+			if (func_num_args() == 7)
 			{
 				$args = func_get_args();
 				$this->id=$args[0];
@@ -51,22 +60,18 @@ require_once('proyectoo.php');
 				$this->descripcion = $args[2];
 				$this->empresa_id=$args[3];
 				$this->asesor_empresarial_id=$args[4];
+				$this->objetivos = $args[5];
+				$this->objetivos = $args[6];
 			}
 			
 		}
 		public static function set_proyecto($setName, $setNameStudent, $setMatriculaStudent, $setTime)
 		{
 			//get connection
-			$connection = get_connection();
+			$connection = new SqlServerConnection();
 			//query
-			$query = 'insert into Estadias.Proyecto values(?,?,?,?)';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
-			{
-				echo 'Error in query : '.$query;
-				die;
-			}
+			$query = sprintf('insert into Estadias.Proyecto values(?,?,?,?)');
+			$connection->execute_non_query($query, array($setName,$setNameStudent,$setMatriculaStudent,$setTime));
 			//link parametters
 			$command->bind_param('ssis',$setName, $setNameStudent, $setMatriculaStudent, $setTime);
 			//execute command
@@ -80,10 +85,8 @@ require_once('proyectoo.php');
 			$connection = new SqlServerConnection();
 			try
 			{
-				//ME QUEDE AQUI
 				//query
-				$query = sprintf('select p.nombre, p.descripcion, e.nombre, ae.nombres
-				from proyectos p join asesor_empresarial ae join empresas e on p.alumno = \''.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial');
+				$query = sprintf('select p.nombre, p.descripcion, e.nombre, ae.nombre from proyectos p , asesor_empresarial ae , empresas e where p.alumno = \''.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -105,7 +108,7 @@ require_once('proyectoo.php');
 			}
 			return $list;		
 		}
-		
+		// METODO MAL
 		public static function get_info_por_grupo($grupo)
 		{
 			$list = array();
@@ -128,11 +131,8 @@ require_once('proyectoo.php');
 			//read data
 			while($command->fetch())
 			{
-			   //add states to list
 			   array_push($list, new Proyecto($nombre, $descripcion, $empresa_id, $asesor_empresarial_id));
 			}
-
-			//return list of empresas
 			return $list;		
 		}
 		

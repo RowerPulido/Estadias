@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin:*');
-require_once('connection.php');
+require_once('MODELS/connection_sql_server.php');
 
 class Usertype
 {
@@ -23,22 +23,24 @@ class Usertype
 		if (func_num_args()==1) 
 		{
 			$args=func_get_args();
-			$query='select id , description from typeofuser where id= ?';
-			
-			$connection=get_connection();
-
-			$command=$connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
+			{
+			$query=sprintf('select id , description from typeofuser where id= \''.$args[0]."'");
+			$data=$connection->execute_query($query);
+			$found = odbc_num_rows($data) > 0;
+			if (!$found)
 			{
 				echo 'Error in query : '.$query;
 				die;
 			}
-			$command->bind_param('s',$args[0]);
-			$command->execute();
-			$command->bind_result($this->id_type, $this->description);
-			$command->fetch();
-			mysqli_stmt_close($command);
-			$connection->close();
+			$this->id_type = odbc_result($data, 'id');
+			$this->description = odbc_result($data, 'description');
+			}
+			finally
+			{
+				$connection->close();
+			}
 		} 
 		
 	}

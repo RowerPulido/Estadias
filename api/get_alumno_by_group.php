@@ -2,7 +2,7 @@
 	//allow external access
 	header('Access-Control-Allow-Origin:*');
 	//use empresa
-	require_once('connection.php');
+	require_once('MODELS/connection_sql_server.php');
 	require_once('Alumno.php');
 	$found=false;
 	if(isset($_GET['group']) && $_GET['group']!='')
@@ -31,5 +31,6 @@
 		//display json
 		echo $json;
 	}
-	echo '{ "status" : 2 , "message" : "invalid parameters"}';
+	else
+		echo '{ "status" : 2 , "message" : "invalid parameters"}';
 ?>

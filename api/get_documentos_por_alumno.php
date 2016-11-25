@@ -2,7 +2,7 @@
 	//allow external access
 	header('Access-Control-Allow-Origin:*');
 	//use empresa
-	require_once('connection.php');
+	require_once('MODELS/connection_sql_server.php');
 	require_once('Alumno.php');
 	require_once('class_doc.php');
 	$found=false;

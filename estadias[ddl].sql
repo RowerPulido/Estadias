@@ -201,10 +201,10 @@ GO
 CREATE TABLE [Documentos]
 (
 	[id] bigint NOT NULL IDENTITY,
-	[type] tinyint NULL,
+	[typeDocs] tinyint NULL,
 	[alumno] char(10) NULL,
 	[status] char(10) NULL,
-	[fecha_actualizacion] timestamp NULL,
+	[fecha_actualizacion] datetime NULL,
 	[ubicacion] varchar(50) NULL
 )
 GO
@@ -344,7 +344,7 @@ CREATE INDEX [IXFK_Documentos_Alumno]
 GO
 
 CREATE INDEX [IXFK_Documentos_typesofdocs] 
- ON [Documentos] ([type] ASC)
+ ON [Documentos] ([typeDocs] ASC)
 GO
 
 ALTER TABLE [ContactoAlumno] 

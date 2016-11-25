@@ -1,5 +1,5 @@
 <?php
-require_once('connection.php');
+require_once('MODELS/connection_sql_server.php');
 	class Alumno
 	{
 		private $nombre;
@@ -110,177 +110,212 @@ require_once('connection.php');
 		}
 		public static function get_all_Alumnos()
 		{
-			//create lis of states
+			
 			$list = array();
 			//get connection
-			$connection = get_connection();
+			$connection = new SqlServerConnection();
 			//query
-			$query = 'select alum_nombre, alum_apellidoPaterno, alum_apellidoMaterno, alum_matricula, alum_grupo, alum_imagen from Alumno';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
-			{
-			   echo 'Error in query : '.$query;
-			   die;
-			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo, $imagen);
-			//read data
-			while($command->fetch())
-			{
-			   //add states to list
-			   array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo, $imagen));
-			}
-			//return list of empresas
+            try{
+                $query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from Alumnos;');
+                //command
+                $data = $connection->execute_query($query);
+                $found = odbc_num_rows($data) > 0;
+                if (!$found)
+                {
+                   echo 'Error in query : '.$query;
+                   die;
+                }
+                while(odbc_fetch_array($data))
+                {
+                    array_push($list,new Alumno(odbc_result($data,'nombres'),
+                                                odbc_result($data,'paterno'),
+                                                odbc_result($data,'materno'),
+                                                odbc_result($data,'matricula'),
+                                                odbc_result($data,'grupo'),
+                                                odbc_result($data, 'imagen')));
+                }
+            }
+            finally
+            {
+				$connection->close();
+            }
 			return $list;
 		}
      
-    public static function get_Alumno($matricula)
-	{
-		//create lis of states
-		$list = array();
-		//get connection
-		$connection = get_connection();
-		//query
-		$query = 'select nombres, paterno, maternvar, grupo, imagen from alumnos where matricula="'.$matricula.'"';
-		//command
-		$command = $connection->prepare($query);
-		if ($command === false)
+   	 	public static function get_Alumno($matricula)
 		{
-	       echo 'Error in query : '.$query;
-	       die;
-		}
-		//execute command
-		$command->execute();
-		//link columns to variables
-		$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $grupo, $imagen);
-		//read data
-		while($command->fetch())
-		{
-	       //add states to list
-	       array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $grupo, $imagen));
-		}
-		//return list of empresas
-		return $list;
-	}
-						  
-		public static function get_Alumno_by_group($group)
-		{
-			//create lis of states
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select nombres, paterno, maternvar, matricula, grupo, imagen from alumnos where grupo="'.$group.'"';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-			   echo 'Error in query : '.$query;
-			   die;
+				//query
+				$query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from Alumnos where matricula=\''.$matricula."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+			       echo 'Error in query : '.$query;
+			       die;
+				}
+				while(odbc_fetch_array($data))
+				{
+			       //add states to list
+			       array_push($list,new Alumno(odbc_result($data,'nombres'),
+	                                                odbc_result($data,'paterno'),
+	                                                odbc_result($data,'materno'),
+	                                                odbc_result($data,'matricula'),
+	                                                odbc_result($data,'grupo'),
+	                                                odbc_result($data, 'imagen')));
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $group, $imagen);
-			//read data
-			while($command->fetch())
+			finally
 			{
-			   //add states to list
-			   array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $group, $imagen));
+				$connection->close();
 			}
-			//return list of empresas
+			return $list;
+		}		  
+		public static function get_Alumno_by_group($group)
+		{
+			$list = array();
+			//get connection
+			$connection = new SqlServerConnection();
+			try
+			{
+				//query
+				$query = sprintf('SELECT nombres, paterno, materno, matricula, grupo, imagen from alumnos where grupo = \''.$group."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+				   echo 'Error in query : '.$query;
+				   die;
+				}
+				//read data
+				while(odbc_fetch_array($data))
+				{
+				   array_push($list,new Alumno(odbc_result($data,'nombres'),
+                                                odbc_result($data,'paterno'),
+                                                odbc_result($data,'materno'),
+                                                odbc_result($data,'matricula'),
+                                                odbc_result($data,'grupo'),
+                                                odbc_result($data, 'imagen')));
+				}
+			}
+			finally
+			{
+				$connection->close();
+			}
 			return $list;				  
 		}
 		
 		public static function get_todos_alumnos_documentos()
 		{
-			//create lis of states
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select a.nombres, a.paterno, a.maternvar, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-			   echo 'Error in query : '.$query;
-			   die;
+				//query
+				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.type = t.id');
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+				   echo 'Error in query : '.$query;
+				   die;
+				}
+				while(odbc_fetch_array($data))
+				{
+				   array_push($list, new Alumno(odbc_result($data, 'nombres'),
+				   								odbc_result($data, 'paterno'),
+				   								odbc_result($data, 'materno'),
+				   								odbc_result($data, 'matricula'),
+				   								odbc_result($data, 'grupo'),
+				   								odbc_result($data, 'imagen'),
+				   								odbc_result($data, 'name'),
+				   								odbc_result($data, 'status')));
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo ,$imagen, $nombre_documento, $estado);
-			//read data
-			while($command->fetch())
+			finally
 			{
-			   //add states to list
-			   array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo, $imagen, $nombre_documento, $estado));
+				$connection->close();
 			}
-
-			//return list of empresas
 			return $list;				  
 		}
 		
+		
 		public static function get_documentos_por_alumno($estado)
 		{
-			//create lis of states
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select a.nombres, a.paterno, a.grupo, a.imagen, a.maternvar,t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and d.status ="'.$estado.'"';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-			   echo 'Error in query : '.$query;
-			   die;
+				//query
+				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and d.status =\''.$estado."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+				   echo 'Error in query : '.$query;
+				   die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Alumno(odbc_result($data, 'nombres'),
+												 odbc_result($data, 'paterno'),
+												 odbc_result($data, 'materno'),
+												 odbc_result($data, 'matricula'),
+												 odbc_result($data, 'grupo'),
+												 odbc_result($data, 'imagen'),
+												 odbc_result($data, 'name'),
+												 odbc_result($data, 'satus')));
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $grupo ,$imagen, $nombre_documento, $estado);
-			//read data
-			while($command->fetch())
+			finally
 			{
-			   //add states to list
-			   array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $grupo, $imagen, $nombre_documento, $estado));
+				$connection->close();
 			}
-
-			//return list of empresas
 			return $list;		
 		}
-		
 		public static function get_documentos_por_grupo($grupo)
 		{
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select a.nombres, a.paterno, a.maternvar, a.matricula ,a.grupo, a.imagen,t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and a.grupo="'.$grupo.'"';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-			   echo 'Error in query : '.$query;
-			   die;
+				//query
+				$query = sprintf('select a.nombres, a.paterno, a.maternvar, a.matricula ,a.grupo, a.imagen,t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and a.grupo=\''.$grupo."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+				   echo 'Error in query : '.$query;
+				   die;
+				}
+				while(odbc_fetch_array($data))
+				{
+				   array_push($list, new Alumno(odbc_result($data, 'nombres'),
+												 odbc_result($data, 'paterno'),
+												 odbc_result($data, 'materno'),
+												 odbc_result($data, 'matricula'),
+												 odbc_result($data, 'grupo'),
+												 odbc_result($data, 'imagen'),
+												 odbc_result($data, 'name'),
+												 odbc_result($data, 'satus')));
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo ,$imagen, $nombre_documento, $estado);
-			//read data
-			while($command->fetch())
+			finally
 			{
-			   //add states to list
-			   array_push($list, new Alumno($nombre, $apellidoPaterno, $apellidoMaterno, $matricula, $grupo, $imagen, $nombre_documento, $estado));
+				$connection->close();
 			}
-
-			//return list of empresas
 			return $list;		
 		}
 		

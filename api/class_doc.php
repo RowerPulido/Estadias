@@ -53,7 +53,7 @@
 			
 			if(func_num_args()==6)
 			{                			
-                require_once('connection.php');
+                require_once('MODELS/connection_sql_server.php');
 	
                 $connection=get_connection();
 	
@@ -105,121 +105,135 @@
         
         public function get_docs()
 		{
-            require_once('connection.php');
-			//create lis of states
+            require_once('MODELS/connection_sql_server.php');
 			$list = array();
 			//get connection
-			$connection = get_connection();
+			$connection = new SqlServerConnection();
 			//query
-			$query = 'select d.id, name, ubicacion, status, fecha_actualizacion, alumno, type from documentos d join typesofdocs tod on d.type = tod.id;';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			try
 			{
-				echo 'Error in query : '.$query;
-				die;
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, type from documentos d join typesofdocs tod on d.type = tod.id;');
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Doc(odbc_result($data, 'id'),
+											  odbc_result($data, 'name'),
+											  odbc_result($data, 'ubicacion'),
+											  odbc_result($data, 'status'),
+											  odbc_result($data, 'fecha_actualizacion'),
+											  odbc_result($data, 'alumno'),
+											  odbc_result($data, 'type')));
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($id, $nombre, $ruta, $estado, $fecha_upd, $matricula, $tipo);
-			//read data
-			while($command->fetch())
+			finally
 			{
-				array_push($list, new Doc($id, $nombre, $ruta, $estado, $fecha_upd, $matricula, $tipo));
+				$connection->close();
 			}
-			//return list of cities
 			return $list;
 		}
 		
 		public function get_docs_alum($matricula)
 		{
-            require_once('connection.php');
-			//create lis of states
+            require_once('MODELS/connection_sql_server.php');
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select d.id, name, ubicacion, status, fecha_actualizacion from documentos d join typesofdocs tod on d.type = tod.id where alumno = ?;';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-				echo 'Error in query : '.$query;
-				die;
+				//query
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Doc(odbc_result($data, 'id'),
+											  odbc_result($data, 'name'),
+											  odbc_result($data, 'ubicacion'),
+											  odbc_result($data, 'status'),
+											  odbc_result($data, 'fecha_actualizacion')));
+				}
 			}
-			
-			$command->bind_param('s', $matricula);
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($id, $nombre, $ruta, $estado, $fecha_upd);
-			//read data
-			while($command->fetch())
+			finally
 			{
-				array_push($list, new Doc($id, $nombre, $ruta, $estado, $fecha_upd));
+				$connection->close();
 			}
-			//return list of cities
 			return $list;
 		}
 		public function get_info($matricula)
 		{
-			require_once('connection.php');
-			//create lis of states
+			require_once('MODELS/connection_sql_server.php');
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select d.id, tod.name, d.status from documentos d join typesofdocs tod on d.type = tod.id where alumno = ?;';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-				echo 'Error in query : '.$query;
-				die;
+				//query
+				$query = sprintf('select d.id, tod.name, d.status from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Doc(odbc_result($data, 'id'),
+											  odbc_result($data, 'name'),
+											  odbc_result($data, 'status')));
+				}
 			}
-			
-			$command->bind_param('s', $matricula);
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($id, $nombre, $estado);
-			//read data
-			while($command->fetch())
+			finally
 			{
-				array_push($list, new Doc($id, $nombre, $estado));
+				$connection->close();
 			}
-			//return list of cities
 			return $list;
 		}
 		public function get_info_por_alumno($matricula)
 		{
-			require_once('connection.php');
-			//create lis of states
+			require_once('MODELS/connection_sql_server.php');
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from documentos d join typesofdocs tod on d.type = tod.id where d.alumno = ?;';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-				echo 'Error in query : '.$query;
-				die;
+				//query
+				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from documentos d join typesofdocs tod on d.type = tod.id where d.alumno = \''.$matricula."'");
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Doc(odbc_result($data, 'id'),
+											  odbc_result($data, 'name'),
+											  odbc_result($data, 'status'),
+											  odbc_result($data, 'fecha_actualizacion'),
+											  odbc_result($data, 'ubicacion')));
+				}
 			}
-			
-			$command->bind_param('s', $matricula);
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($id, $nombre, $estado, $fecha_upd, $ruta);
-			//read data
-			while($command->fetch())
+			finally
 			{
-				array_push($list, new Doc($id, $nombre, $estado, $fecha_upd, $ruta));
+				$connection->close();
 			}
-			//return list of cities
 			return $list;
 		}
 	}	

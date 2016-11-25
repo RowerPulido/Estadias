@@ -1,5 +1,5 @@
 <?php
-require_once('connection.php');
+require_once('MODELS/connection_sql_server.php');
 require_once('proyectoo.php');
 	class Proyecto
 	{
@@ -77,29 +77,32 @@ require_once('proyectoo.php');
 		{
 			$list = array();
 			//get connection
-			$connection = get_connection();
-			//query
-			$query = 'select p.nombre, p.descripcion, e.nombre, ae.nombres
-			from proyectos p join asesor_empresarial ae join empresas e on p.alumno = "'.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
+			$connection = new SqlServerConnection();
+			try
 			{
-			   echo 'Error in query : '.$query;
-			   die;
+				//ME QUEDE AQUI
+				//query
+				$query = sprintf('select p.nombre, p.descripcion, e.nombre, ae.nombres
+				from proyectos p join asesor_empresarial ae join empresas e on p.alumno = \''.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial');
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+				   echo 'Error in query : '.$query;
+				   die;
+				}
+				while(odbc_fetch_array($data))
+				{
+				   array_push($list, new Proyecto($nombre, $descripcion, $empresa_id, $asesor_empresarial_id));
+				   array_push($list, new Proyecto(odbc_result($list, 'nombre'),
+				   								   odbc_result($list, 'descripcion'),
+				   								   odbc_result($list, 'nombre'),
+				   								   odbc_result($list, 'nombres'),
+				   								   odbc_result($list, 'nombre'),
+				   								   odbc_result($list, 'nombres'),))
+				}
 			}
-			//execute command
-			$command->execute();
-			//link columns to variables
-			$command->bind_result($nombre, $descripcion, $empresa_id, $asesor_empresarial_id);
-			//read data
-			while($command->fetch())
-			{
-			   //add states to list
-			   array_push($list, new Proyecto($nombre, $descripcion, $empresa_id, $asesor_empresarial_id));
-			}
-
-			//return list of empresas
 			return $list;		
 		}
 		

@@ -3,7 +3,7 @@
 	header('Access-Control-Allow-Origin:*');
 	//use empresa
 	require_once('Alumno.php');
-	require_once('connection.php');
+	require_once('MODELS/connection_sql_server.php');
 	//start json
 	if(isset($_GET['matricula']))
 	{
@@ -16,6 +16,7 @@
 		$found=true;
 		if (!$first) $json .= ','; else $first = false;
 		$json .= '{
+                    "matricu;a" : "'.$e->get_matricula().'",
 					"nombre" : "'.$e->get_nombre().'",
 					"apellidoPaterno" : "'.$e->get_apellidoPaterno().'",
 					"apellidoMaterno" : "'.$e->get_apellidoMaterno().'",

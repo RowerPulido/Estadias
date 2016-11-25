@@ -244,10 +244,11 @@ function normal()
 
 function dashboard(){
 
+	var cuerpo=	document.getElementById('cuerpo');
+	cuerpo.innerHTML=" ";
 	var fecha= new Date();
 	var meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
-	var cuerpo=	document.getElementById('cuerpo');
 
 	var divDQ=createDiv('divDQ');
 		var table=document.createElement('table');
@@ -265,7 +266,7 @@ function dashboard(){
 		var td=document.createElement('td');
 		td.setAttribute('id','frase');
 		td.setAttribute('rowspan',2);
-		td.innerHTML='frase';
+		td.innerHTML='"A veces una herida te recuerda que estas vivo, es esto el amor, mi estupida muerte, como explicartelo, si no estas viva"';
 		tr.appendChild(td);
 		table.appendChild(tr);
 		var tr=document.createElement('tr');

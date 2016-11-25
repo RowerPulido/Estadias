@@ -401,7 +401,7 @@ tr.rowtable-docs:hover{
 background-color: #F44336;
 
 }
-#tableDQ table{
+#tableDQ{
 	position: static;
 	background-color: white;
 	width: 50%;
@@ -413,19 +413,25 @@ background-color: #F44336;
 #numDia{
 	text-align: center;
 	font-size: 100pt;
-}
-#nomDia{
-	font-size: 50pt;
+	color: #00AD47;
 }
 #frase{
+	font-size: 15pt;
+	font-style: italic;
+	padding-left: 10px;
 }
 #anio{
 	vertical-align: text-top;
 }
 #nomMes{
 	vertical-align: bottom;
+	border-bottom: dashed 2px gray;
 }
 
+#nomMes,#anio{
+	font-size: 30pt;
+	color:#03A9F4;
+}
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

@@ -27,3 +27,11 @@ function createDiv(id,cssClass){
 
 	return div;
 }
+function insertImg(parent,direccion,id,cssClass){
+	var img=document.createElement('img');
+	img.setAttribute('src',direccion);
+	img.setAttribute('id',id);
+	img.setAttribute('class',cssClass);
+
+	parent.appendChild(img);
+}

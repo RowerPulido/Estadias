@@ -26,6 +26,15 @@ var user=
 	'e-House'
 ]
 
+function initAlum(){
+	dashboard();
+}
+function createNotification(){
+	var body=document.getElementById('body');
+	var notificacion= createDiv('notificacion','sinClick');
+	body.appendChild(notificacion);
+	var divImagenNot= createDiv('imgNoti');
+}
 function verDocs(){
 	
 

@@ -28,6 +28,13 @@ var user=
 
 function initAlum(){
 	dashboard();
+	divTwitter();
+}
+function divTwitter(){
+	var cuerpo=document.getElementById('cuerpo');
+	var divTwitter=createDiv('divTwitter');
+	divTwitter.innerHTML='<a class="twitter-timeline" href="https://twitter.com/UTTIJ">Tweets by UTTIJ</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
+	cuerpo.appendChild(divTwitter);
 }
 function createNotification(){
 	var body=document.getElementById('body');

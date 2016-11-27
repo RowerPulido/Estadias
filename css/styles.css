@@ -432,6 +432,12 @@ background-color: #F44336;
 	font-size: 30pt;
 	color:#03A9F4;
 }
+
+#divTwitter{
+	position: static;
+	right: 10%;
+	top:60%;
+}
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

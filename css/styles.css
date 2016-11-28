@@ -438,6 +438,40 @@ background-color: #F44336;
 	right: 10%;
 	top:60%;
 }
+
+div#notificacion{
+	position: fixed;
+	top:5%;
+	left: 95%;
+	background-color: #03A9F4;
+	color: white;
+	font-size: 15pt;
+	width: 5%;
+	height: 60pt;
+	border-left: solid #00AD47 5px;
+	vertical-align:middle;
+	overflow: hidden;
+	-webkit-transition:height 1s ,width 1s , left 1s;
+}
+#divNumNot{
+	position: relative;
+	width: 100%;
+	font-size: 50pt;
+		text-align: center;
+	border-bottom:dotted 5px white;
+}
+div#notificacion:hover{
+	cursor:pointer;
+	width: 25%;
+	left: 75%;
+	height: auto;
+	max-height: 80%;
+
+}
+.notis{
+	border-bottom: 3px double whites;
+	padding: 5px 2px 5px 10px;
+}
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

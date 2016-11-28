@@ -25,10 +25,11 @@ var user=
 	'DOMOTICA',
 	'e-House'
 ]
-
+var typeofuser="tut";
 function initAlum(){
 	dashboard();
 	divTwitter();
+	createNotification();
 }
 function divTwitter(){
 	var cuerpo=document.getElementById('cuerpo');
@@ -38,9 +39,35 @@ function divTwitter(){
 }
 function createNotification(){
 	var body=document.getElementById('body');
-	var notificacion= createDiv('notificacion','sinClick');
-	body.appendChild(notificacion);
-	var divImagenNot= createDiv('imgNoti');
+	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada'];
+	if (document.getElementById('notificacion')) {
+		var not=document.getElementById('notificacion');
+		not.innerHTML='';
+	}
+		var notificacion= createDiv('notificacion','');
+		body.appendChild(notificacion);
+		var divNumNot= createDiv('divNumNot');
+		var numNotificaciones=nots.length;
+		divNumNot.innerHTML=numNotificaciones;
+		notificacion.appendChild(divNumNot);
+		notificacion.setAttribute('onClick','openNotificaciones()');
+
+		var divNots=createDiv('divNots');
+		for(var i=0; i<nots.length; i++){
+			var divnot=createDiv('not'+(i+1),'notis');
+			divnot.innerHTML=nots[i];
+			divNots.appendChild(divnot);
+		}
+		notificacion.appendChild(divNots);
+
+}
+
+function openNotificaciones(){
+	
+	var notificacion=document.getElementById('notificacion');
+	notificacion.classList.toggle('opennotificaciones');
+
+
 }
 function verDocs(){
 	

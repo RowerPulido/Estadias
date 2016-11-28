@@ -30,3 +30,10 @@ function drawRectangle(svgParent,id,x,y,width,height,cssClass){
     r.setAttribute('class',cssClass);
     svgParent.appendChild(r);
 }
+
+function createSvg(parent,id){
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('id',id);
+    parent.appendChild(svg);
+    return svg;
+}

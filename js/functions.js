@@ -25,11 +25,28 @@ var user=
 	'DOMOTICA',
 	'e-House'
 ]
-var typeofuser="tut";
+var typeofuser="tuts";
 function initAlum(){
+	menuOfUser();
 	dashboard();
 	divTwitter();
 	createNotification();
+}
+function menuOfUser(){
+var divInicio=document.getElementById('inicio');
+var divDocumentos=document.getElementById('documentos');
+var divEstadisticas=document.getElementById('estadisticas');
+var divConfiguracion=document.getElementById('configuracion');
+var estadisticas1=document.getElementById('estadisticas1');
+	if (typeofuser=="tut") {
+		estadisticas1.style.display='none';
+	}
+}
+
+
+function registrarEstadia(){
+ 	var body=document.getElementById('cuerpo');
+ 	cuerpo.innerHTML=" ";	
 }
 function divTwitter(){
 	var cuerpo=document.getElementById('cuerpo');
@@ -39,7 +56,7 @@ function divTwitter(){
 }
 function createNotification(){
 	var body=document.getElementById('body');
-	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada'];
+	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm'];
 	if (document.getElementById('notificacion')) {
 		var not=document.getElementById('notificacion');
 		not.innerHTML='';

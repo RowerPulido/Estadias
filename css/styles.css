@@ -442,7 +442,7 @@ background-color: #F44336;
 div#notificacion{
 	position: fixed;
 	top:5%;
-	left: 95%;
+	right: 0%;
 	background-color: #03A9F4;
 	color: white;
 	font-size: 15pt;
@@ -463,13 +463,14 @@ div#notificacion{
 div#notificacion:hover{
 	cursor:pointer;
 	width: 25%;
-	left: 75%;
+	right: 0px;
 	height: auto;
 	max-height: 80%;
+overflow: auto;
 
 }
 .notis{
-	border-bottom: 3px double whites;
+	border-bottom: 3px solid white;
 	padding: 5px 2px 5px 10px;
 }
 /*NO TOCAR*/

@@ -16,25 +16,26 @@ $pswd=$_POST['usr_psw'];
 if (isset($user) && isset($pswd))
 {
 
-	$connection = new SqleServerConnection();
-	$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.type = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$usr_id.'"  and u.password = \''.$usr_psw."'");
+	$connection = new SqlServerConnection();
+	$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.type = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = \''.$pswd."';");
+	echo $query;
 	$data=$connection->execute_query($query);
-	$found = odbc_num_rows($data) > 0;
-	if (!$found)
-		{
-			$result='{"status" : 2 , "Descrition" : "Error in query : '.$query .'"}';
-			echo $result;
-			die;
-		}
-		// MODIFICAR EN ESTA SECCION....
-		//odbc_result($data, '');
+		
+	odbc_result($data, 'matricula');
+	odbc_result($data, 'password');
+	odbc_result($data, 'nombres');
+ 	odbc_result($data, 'paterno');
+	odbc_result($data, 'id');
+	odbc_result($data, 'description');
 
-	if ($id=='' && $pswd=='') {
+	if (odbc_result($data, 'matricula')=='' && odbc_result($data, 'password')=='') {
 		
 			echo $result='{"status" : 1 , "Descrition" : "User Not Found" }';
 					die;
 	}
-	$u= new User($id,$pswd);
+	echo odbc_result($data, 'id');
+	echo "passwrod".odbc_result($data, 'password');
+	$u = new User(odbc_result($data, 'id'),odbc_result($data, 'password'));
 	echo '
 		{ "status" : "0" ,
 			 "User":

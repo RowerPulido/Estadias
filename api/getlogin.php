@@ -17,8 +17,7 @@ if (isset($user) && isset($pswd))
 {
 
 	$connection = new SqleServerConnection();
-	$query=sprintf(
-	'select todos.matricula,u.password, todos.nombres,todos.paterno,t.id ,t.description, todos.imagen from usuarios u join typeofuser t on u.type = t.id join (select matricula,nombres, paterno, imagen from alumnos union select id as matricula, nombres, paterno, imagen from tutores union select id as matricula, nombres, paterno, imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'" and u.password = \''.$pswd."'");
+	$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.type = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$usr_id.'"  and u.password = \''.$usr_psw."'");
 	$data=$connection->execute_query($query);
 	$found = odbc_num_rows($data) > 0;
 	if (!$found)
@@ -28,7 +27,7 @@ if (isset($user) && isset($pswd))
 			die;
 		}
 		// MODIFICAR EN ESTA SECCION....
-		odbc_result($data, '')
+		//odbc_result($data, '');
 
 	if ($id=='' && $pswd=='') {
 		

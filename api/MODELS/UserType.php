@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin:*');
-require_once('MODELS/connection_sql_server.php');
+require_once('connection_sql_server.php');
 
 class Usertype
 {

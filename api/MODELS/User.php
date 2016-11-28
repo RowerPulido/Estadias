@@ -1,6 +1,6 @@
 <?php 
 header('Access-Control-Allow-Origin:*');
-require_once('MODELS/connection_sql_server.php');
+require_once('connection_sql_server.php');
 require_once('UserType.php');
 class User
 {
@@ -43,7 +43,6 @@ class User
 					die;
 				}
 					$this->id=odbc_result($data, 'id');
-					$this->password=$args[1];
 					$user_tupe =new Usertype( dbc_result($data, 'type'));
 					$this->user_type=$user_type;
 				

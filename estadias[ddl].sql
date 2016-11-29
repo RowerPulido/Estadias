@@ -6,6 +6,7 @@
 
 /* Drop Foreign Key Constraints */
 
+
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[FK_Usuarios_typeofuser]') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1) 
 ALTER TABLE [Usuarios] DROP CONSTRAINT [FK_Usuarios_typeofuser]
 GO
@@ -255,8 +256,7 @@ CREATE TABLE [Alumnos]
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
 	[grupo] char(7) NULL,
-	[imagen] varchar(50) NULL,
-	[idAlumno] char(10) NULL
+	[imagen] varchar(50) NULL
 )
 GO
 
@@ -383,7 +383,7 @@ ALTER TABLE [Alumnos]
 GO
 
 CREATE INDEX [IXFK_Alumnos_ContactoAlumno] 
- ON [Alumnos] ([idAlumno] ASC)
+ ON [Alumnos] ([matricula] ASC)
 GO
 
 CREATE INDEX [IXFK_Alumnos_grupos] 
@@ -442,7 +442,7 @@ ALTER TABLE [asesor_empresarial] ADD CONSTRAINT [FK_asesor_empresarial_empresas]
 GO
 
 ALTER TABLE [Alumnos] ADD CONSTRAINT [FK_Alumnos_ContactoAlumno]
-	FOREIGN KEY ([idAlumno]) REFERENCES [ContactoAlumno] ([idAlumno]) ON DELETE No Action ON UPDATE No Action
+	FOREIGN KEY ([matricula]) REFERENCES [ContactoAlumno] ([idAlumno]) ON DELETE No Action ON UPDATE No Action
 GO
 
 ALTER TABLE [Alumnos] ADD CONSTRAINT [FK_Alumnos_grupos]

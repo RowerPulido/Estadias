@@ -35,7 +35,3 @@ function insertImg(parent,direccion,id,cssClass){
 
 	parent.appendChild(img);
 }
-
-function createInput(){
-	
-}

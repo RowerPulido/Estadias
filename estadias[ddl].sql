@@ -125,8 +125,8 @@ GO
 CREATE TABLE [Usuarios]
 (
 	[id] char(10) NOT NULL,
-	[password] char(3) NULL,
-	[type] char(3) NULL
+	[constrasenia] char(3) NULL,
+	[tipo] char(3) NULL
 )
 GO
 
@@ -149,7 +149,8 @@ CREATE TABLE [Tutores]
 	[id] char(10) NOT NULL,
 	[numbres] varchar(50) NULL,
 	[paterno] varchar(50) NULL,
-	[materno] varchar(50) NULL
+	[materno] varchar(50) NULL,
+	[imagen] varchar(50) NULL
 )
 GO
 
@@ -242,7 +243,8 @@ CREATE TABLE [asesor_empresarial]
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
 	[empresa] int NULL,
-	[correo] varchar(20) NULL
+	[correo] varchar(20) NULL,
+	[imagen] varchar(50) NULL
 )
 GO
 

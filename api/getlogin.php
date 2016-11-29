@@ -19,7 +19,7 @@ if (isset($user) && isset($pswd))
 	$connection = new SqlServerConnection();
 	try
 	{
-		$query = sprintf('select todos.matricula,u.constrasenia, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.constrasenia = \''.$pswd."';");
+		$query = sprintf('select todos.matricula,u.constrasenia, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.constrasenia = \''.$pswd."';");
 		
 		$data=$connection->execute_query($query);
 			
@@ -27,28 +27,30 @@ if (isset($user) && isset($pswd))
 		$password=odbc_result($data, 'constrasenia');
 		$nombre=odbc_result($data, 'nombres');
 	 	$paterno=odbc_result($data, 'paterno');
+	 	$imagen=odbc_result($data, 'imagen');
 		$idTipo=odbc_result($data, 'id');
 		$descripccion=odbc_result($data, 'description');
 
 		if ($matricula=='' && $password=='') {
 			
-				echo $result='{"status" : 1 , "Descrition" : "User Not Found" }';
+				echo $result='{"Status" : 1 , "Description" : "User Not Found" }';
 						die;
 		}
 		$u = new User($matricula,$password);
 		echo '
-			{ "status" : "0",
+			{ "Status" : "0",
 				 "User": 
 				 {
 				 	"userID" : "'.$u->get_id().'",
-				 	"nombre" : "'.$nombre.'",
-				 	"paterno" : "'.$paterno.'",
+				 	"Nombre" : "'.$nombre.'",
+				 	"Paterno" : "'.$paterno.'",
+				 	"Imagen" : "'.$imagen.'",
 				 	"UserType" : 
 				 					{
-				 						"ID" : "'.$u->get_user_type()->get_id_type().'",
+				 						"IDtype" : "'.$u->get_user_type()->get_id_type().'",
 				 						"Description" : "'.$u->get_user_type()->get_description().'"
 				 					},
-				 	"token" : "'.generate_token($matricula).'"					
+				 	"Token" : "'.generate_token($matricula).'"					
 				 } 
 			}';
 	}

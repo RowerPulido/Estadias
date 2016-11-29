@@ -25,7 +25,7 @@ var user=
 	'DOMOTICA',
 	'e-House'
 ]
-var typeofuser="tuts";
+var typeofuser="tutssss";
 function initAlum(){
 	menuOfUser();
 	dashboard();
@@ -47,6 +47,7 @@ var estadisticas1=document.getElementById('estadisticas1');
 function registrarEstadia(){
  	var body=document.getElementById('cuerpo');
  	cuerpo.innerHTML=" ";	
+
 }
 function divTwitter(){
 	var cuerpo=document.getElementById('cuerpo');

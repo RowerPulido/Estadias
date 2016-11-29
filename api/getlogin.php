@@ -11,47 +11,51 @@ require_once('MODELS/generate_token.php');
 	3 -> No parameters found
  */
 
-$user= $_POST['usr_id'];
-$pswd=$_POST['usr_psw'];
+$user = $_POST['usr_id'];
+$pswd = $_POST['usr_psw'];
 if (isset($user) && isset($pswd))
 {
 
 	$connection = new SqlServerConnection();
-	$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.type = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = \''.$pswd."';");
-	echo $query;
-	$data=$connection->execute_query($query);
+	try
+	{
+		$query = sprintf('select todos.matricula,u.constrasenia, todos.nombres,todos.paterno,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno from Alumnos union select id as id, numbres, paterno from tutores union select id as id, nombre, paterno from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.constrasenia = \''.$pswd."';");
 		
-	odbc_result($data, 'matricula');
-	odbc_result($data, 'password');
-	odbc_result($data, 'nombres');
- 	odbc_result($data, 'paterno');
-	odbc_result($data, 'id');
-	odbc_result($data, 'description');
+		$data=$connection->execute_query($query);
+			
+		$matricula=odbc_result($data, 'matricula');
+		$password=odbc_result($data, 'constrasenia');
+		$nombre=odbc_result($data, 'nombres');
+	 	$paterno=odbc_result($data, 'paterno');
+		$idTipo=odbc_result($data, 'id');
+		$descripccion=odbc_result($data, 'description');
 
-	if (odbc_result($data, 'matricula')=='' && odbc_result($data, 'password')=='') {
-		
-			echo $result='{"status" : 1 , "Descrition" : "User Not Found" }';
-					die;
+		if ($matricula=='' && $password=='') {
+			
+				echo $result='{"status" : 1 , "Descrition" : "User Not Found" }';
+						die;
+		}
+		$u = new User($matricula,$password);
+		echo '
+			{ "status" : "0",
+				 "User": 
+				 {
+				 	"userID" : "'.$u->get_id().'",
+				 	"nombre" : "'.$nombre.'",
+				 	"paterno" : "'.$paterno.'",
+				 	"UserType" : 
+				 					{
+				 						"ID" : "'.$u->get_user_type()->get_id_type().'",
+				 						"Description" : "'.$u->get_user_type()->get_description().'"
+				 					},
+				 	"token" : "'.generate_token($matricula).'"					
+				 } 
+			}';
 	}
-	echo odbc_result($data, 'id');
-	echo "passwrod".odbc_result($data, 'password');
-	$u = new User(odbc_result($data, 'id'),odbc_result($data, 'password'));
-	echo '
-		{ "status" : "0" ,
-			 "User":
-			 {
-			 	"userID" : "'.$u->get_id().'",
-			 	"nombre" : "'.$nombre.'",
-			 	"paterno" : "'.$paterno.'",
-			 	"imagen" : "'.$img.'",
-			 	"UserType" : 
-			 					{
-			 						"ID" : "'.$u->get_user_type()->get_id_type().'",
-			 						"Description" : "'.$u->get_user_type()->get_description().'"
-			 					},
-			 	"token" : "'.generate_token($user).'"					
-			 } 
-		}';
+	finally
+	{
+		$connection->close();
+	}
 }
 else
 	{

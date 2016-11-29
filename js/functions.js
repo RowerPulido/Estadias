@@ -250,15 +250,15 @@ function configuracion()
 	createP(forma,'Constraseña:','label');
 	createInput(forma,'Ingresa tu contraseña','password','campo','','');
 
-	forma.appendChild(divisionIma);
-	divisionIma.appendChild(span);
-	divisionIma.appendChild(img);
 	division.appendChild(forma);
 
 	createInput(division,'','submit','button','Cancelar','');
 	createInput(division,'','submit','button','Aceptar','');
+	createInput(division,'','submit','btnPassword','Cambiar Contraseña','btnPassword');
 
 	body.appendChild(division);
+	var btnPassword = document.getElementById('btnPassword');
+	btnPassword.setAttribute('onClick','cambiarContrasenia()');
 }
 function cambiarContrasenia()
 {
@@ -289,7 +289,7 @@ function cambiarContrasenia()
 	divEnsima.appendChild(ima);
 	bodyOpaca.appendChild(divEnsima);
 	divEnsima.appendChild(forma);
-	var btnok= document.getElementById('idConfigPass');console.log('ok');
+	var btnok= document.getElementById('idConfigPass');
 	btnok.setAttribute('onClick','normal();');
 }
 

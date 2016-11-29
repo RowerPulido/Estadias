@@ -26,26 +26,25 @@ class User
 		}
 		if (func_num_args()==2) {
 			$args=func_get_args();
-			$pswd=$args[1];
 			$id=$args[0];
+			$pswd=$args[1];
 			//connection
 			$connection= new SqlServerConnection();
 			try
 			{
 				//query
-				$query=sprintf('select id,type from usuarios where id=\''.$id.'" and password=\''.$pswd."'");
+				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and constrasenia=\''.$pswd."'");
+				
 				//command
 				$data= $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
 				if (!$found)
 				{
-					echo 'Error in query : '.$query;
+					echo 'Error in query CLASE USER : '.$query;
 					die;
 				}
-					$this->id=odbc_result($data, 'id');
-					$user_tupe =new Usertype( dbc_result($data, 'type'));
-					$this->user_type=$user_type;
-				
+				$this->id = odbc_result($data, 'id');
+				$this->user_type = new Usertype(odbc_result($data, 'tipo'));
 			}
 			finally
 			{

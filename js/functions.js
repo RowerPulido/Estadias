@@ -25,6 +25,7 @@ var user=
 	'DOMOTICA',
 	'e-House'
 ]
+var alums=[0315110132,0315110133,0315110134,0315110135];
 var typeofuser="tutssss";
 function initAlum(){
 	menuOfUser();
@@ -46,8 +47,65 @@ var estadisticas1=document.getElementById('estadisticas1');
 
 function registrarEstadia(){
  	var body=document.getElementById('cuerpo');
+ 	body.setAttribute('class','registrarEstadia');
  	cuerpo.innerHTML=" ";	
+	var divAlumDatos=createDiv('divAlumDatos');
+	var sAlums=createSelect('alumSelect','selects');
+		sAlums.setAttribute('onchange','actualizarValoresAlum();');
+	for(var i= 0; i<alums.length;i++){
+		sAlums.appendChild(createOption(alums[i],alums[i]));
+	}
+	var pNombre=createP(divAlumDatos,'Nombre del Alumno:','pAlumDatos');
+	var inNombre=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
+	inNombre.disabled=true;
+	var pGrupo=createP(divAlumDatos,'Grupo del Alumno:','pAlumDatos');
+	var inGrupo=createInput(divAlumDatos,'Grupo','text','inAlumDatos','','inAlumGrupo');
+	inGrupo.disabled=true;
+	divAlumDatos.appendChild(sAlums);
+	cuerpo.appendChild(divAlumDatos);
+	var divRegistro= createDiv('divFormRegistro');
+	var divRegistroAlum=createDiv('divRegistroAlum');
+	var formDatosRegistro=createForm('formDatosRegistro','formDatosRegistro','POST');
+	
+	/*Empiezo a crear los elemntos del formulario Alumno*/
+	var lblDireccionAlum=createLabel('inDireccionAlum','Direccion:');
+	var divDireccionAlum=createDiv('divDireccionAlum','divsDatosReg');
+		divDireccionAlum.appendChild(lblDireccionAlum);
+		divRegistroAlum.appendChild(divDireccionAlum);
+	var inDireccionAlum=createInput(divRegistroAlum,'Direccion Alumno','text','inAlumDatos','','inDireccionAlum');
 
+
+	var lblNumTelAlum=createLabel('inTelAlum','Num. Telefono:')
+	var divNumTelAlum=createDiv('divNumTelAlum','divsDatosReg');
+		divNumTelAlum.appendChild(lblNumTelAlum);
+		divRegistroAlum.appendChild(divNumTelAlum);
+	var inNumTelAlum=createInput(divRegistroAlum,'Numero de Telefono de Alumno','text','inAlumDatos','','inNumTelAlum');
+	
+	var lblEmailAlum=createLabel('inEmailAlum','Correo Electronico:');
+	var divEmailAlum=createDiv('divEmailAlum','divsDatosReg');
+		divEmailAlum.appendChild(lblEmailAlum);
+		divRegistroAlum.appendChild(divEmailAlum);
+	var inEmailAlum=createInput(divRegistroAlum,'Correo Electronico Alumno','email','inAlumDatos','','inEmailAlum');
+	
+	formDatosRegistro.appendChild(divRegistroAlum);
+
+	var divRegistroEmp=createDiv('divRegistroEmp');
+
+	formDatosRegistro.appendChild(divRegistroEmp);
+
+	var divRegistroEst=createDiv('divRegistroEst');
+	
+	formDatosRegistro.appendChild(divRegistroEst);
+	
+	divRegistro.appendChild(formDatosRegistro);
+	cuerpo.appendChild(divRegistro);
+
+}
+
+function actualizarValoresAlum(){
+	var alumSelect= document.getElementById('alumSelect');
+	var selectedOption=alumSelect.selectedIndex;
+	console.log(alumSelect[selectedOption].value);
 }
 function divTwitter(){
 	var cuerpo=document.getElementById('cuerpo');
@@ -337,6 +395,5 @@ function dashboard(){
 		tr.appendChild(td);
 		table.appendChild(tr);
 		cuerpo.appendChild(table);
-
-
 }
+/*ALTA - FIN*/

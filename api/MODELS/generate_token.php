@@ -1,4 +1,5 @@
 <?php 
+header('Access-Control-Allow-Origin:*');
 function generate_token()
 {
 	if(func_num_args()==0)

@@ -17,21 +17,28 @@ var docs=
 	['POR-CD','PORTADA DE CD',2],
 	['ETI-CD','ETIQUETA DE CD',2]
 	];
-var user=
-[
-	'Jorge Pulido',
-	'0315110132',
-	'4A',
-	'DOMOTICA',
-	'e-House'
-]
+var user = '';
 var alums=[0315110132,0315110133,0315110134,0315110135];
+
 var typeofuser="tutssss";
+
 function initAlum(){
-	menuOfUser();
-	dashboard();
-	divTwitter();
-	createNotification();
+	if(sessionStorage['user'])
+	{
+		menuOfUser();
+		dashboard();
+		divTwitter();
+		createNotification();
+		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
+		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
+	}
+	else
+	{
+		//redirect to login
+		sessionStorage['previouspage'] = document.URL;
+		window.location = 'login.html';
+	}
+
 }
 function menuOfUser(){
 var divInicio=document.getElementById('inicio');

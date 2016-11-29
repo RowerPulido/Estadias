@@ -1,8 +1,8 @@
 <?php 
-header('Access-Control-Allow-Origin:*');
 require_once('MODELS/connection_sql_server.php');
 require_once('MODELS/User.php');
 require_once('MODELS/generate_token.php');
+header('Access-Control-Allow-Origin:*');
 /*
 	STATUS:
 	0 -> SIN ERRORES
@@ -20,7 +20,6 @@ if (isset($user) && isset($pswd))
 	try
 	{
 		$query = sprintf('select todos.matricula,u.constrasenia, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.constrasenia = \''.$pswd."';");
-		
 		$data=$connection->execute_query($query);
 			
 		$matricula=odbc_result($data, 'matricula');
@@ -38,8 +37,8 @@ if (isset($user) && isset($pswd))
 		}
 		$u = new User($matricula,$password);
 		echo '
-			{ "Status" : "0",
-				 "User": 
+			{ "Status" : 0,
+				"User" : 
 				 {
 				 	"userID" : "'.$u->get_id().'",
 				 	"Nombre" : "'.$nombre.'",

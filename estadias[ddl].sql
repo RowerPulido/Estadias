@@ -278,7 +278,7 @@ ALTER TABLE [Usuarios]
 GO
 
 CREATE INDEX [IXFK_Usuarios_typeofuser] 
- ON [Usuarios] ([type] ASC)
+ ON [Usuarios] ([tipo] ASC)
 GO
 
 ALTER TABLE [typesofdocs] 
@@ -402,7 +402,7 @@ GO
 /* Create Foreign Key Constraints */
 
 ALTER TABLE [Usuarios] ADD CONSTRAINT [FK_Usuarios_typeofuser]
-	FOREIGN KEY ([type]) REFERENCES [typeofuser] ([id]) ON DELETE No Action ON UPDATE No Action
+	FOREIGN KEY ([tipo]) REFERENCES [typeofuser] ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
 ALTER TABLE [grupos] ADD CONSTRAINT [FK_grupos_carreras]

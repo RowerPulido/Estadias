@@ -12,7 +12,7 @@ class Usertype
 	public function set_description($value){$this->description=$value;}
 	public function get_description(){return $this->description;}
 
-	function __construct()
+	public function __construct()
 	{
 		if(func_num_args()==0)
 		{
@@ -23,19 +23,20 @@ class Usertype
 		if (func_num_args()==1) 
 		{
 			$args=func_get_args();
+			$id = $args[0];
 			$connection = new SqlServerConnection();
 			try
 			{
-			$query=sprintf('select id , description from typeofuser where id= \''.$args[0]."'");
-			$data=$connection->execute_query($query);
-			$found = odbc_num_rows($data) > 0;
-			if (!$found)
-			{
-				echo 'Error in query : '.$query;
-				die;
-			}
-			$this->id_type = odbc_result($data, 'id');
-			$this->description = odbc_result($data, 'description');
+				$query=sprintf('select id , description from typeofuser where id= \''.$id."'");
+				$data=$connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				$this->id_type = odbc_result($data, 'id');
+				$this->description = odbc_result($data, 'description');
 			}
 			finally
 			{

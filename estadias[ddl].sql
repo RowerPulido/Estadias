@@ -125,7 +125,7 @@ GO
 CREATE TABLE [Usuarios]
 (
 	[id] char(10) NOT NULL,
-	[password] char(32) NULL,
+	[password] char(3) NULL,
 	[type] char(3) NULL
 )
 GO
@@ -201,7 +201,7 @@ GO
 CREATE TABLE [Documentos]
 (
 	[id] bigint NOT NULL IDENTITY,
-	[typeDocs] tinyint NULL,
+	[type] tinyint NULL,
 	[alumno] char(10) NULL,
 	[status] char(10) NULL,
 	[fecha_actualizacion] datetime NULL,
@@ -344,7 +344,7 @@ CREATE INDEX [IXFK_Documentos_Alumno]
 GO
 
 CREATE INDEX [IXFK_Documentos_typesofdocs] 
- ON [Documentos] ([typeDocs] ASC)
+ ON [Documentos] ([type] ASC)
 GO
 
 ALTER TABLE [ContactoAlumno] 

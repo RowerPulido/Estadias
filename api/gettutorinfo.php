@@ -1,16 +1,15 @@
 <?php
 	require_once('MODELS/connection_sql_server.php');
-	require_once('MODELS/User.php');
 	header('Access-Control-Allow-Origin:*');
 
 	$matricula = $_GET['matricula'];
 	if (isset($matricula)) 
 	{
 		$connection = new SqlServerConnection();
-		$query = sprintf('select email,telefono from contactoAlumno ca, alumnos a where ca.idAlumno =\''.$matricula."';");
+		$query = sprintf(' select email,tel from tutores where id = \''.$matricula."';");
 		$data = $connection->execute_query($query);
 		$email = odbc_result($data, 'email');
-		$telefono = odbc_result($data, 'telefono');
+		$telefono = odbc_result($data, 'tel');
 
 		if($email=='' && $telefono=='' )
 		{
@@ -28,5 +27,4 @@
 		echo $result='{"status" : 3 , "Descrition" : "Invalid parameters" }';
 				die;
 	}
-
 ?>

@@ -151,7 +151,9 @@ CREATE TABLE [Tutores]
 	[numbres] varchar(50) NULL,
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
-	[imagen] varchar(50) NULL
+	[imagen] varchar(50) NULL,
+	[email] varchar(20) NULL,
+	[tel] char(10) NULL
 )
 GO
 

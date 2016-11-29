@@ -306,14 +306,15 @@ function configuracion()
 	body.innerHTML = "";
 	span.innerHTML = "Cambiar Contraseña";
 	//method createP(parent,htmlTitle,cssClass)
-	//method createInput(parent,htmlPlaceHolder,type,cssClass,value)
+	//method createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 	createP(division,'Configuración','labelConfiguracion');
 	createP(forma,'Correo Electronico:','label');
-	createInput(forma,'Correo Electrónico','email','campo','','');
+	createInput(forma,'Correo Electrónico','email','campo','','email');
 	createP(forma,'Teléfono:','label');
-	createInput(forma,'Teléfono','','campo','','');
+	createInput(forma,'Teléfono','','campo','','tel');
 	createP(forma,'Constraseña:','label');
 	createInput(forma,'Ingresa tu contraseña','password','campo','','');
+
 
 	division.appendChild(forma);
 
@@ -324,6 +325,27 @@ function configuracion()
 	body.appendChild(division);
 	var btnPassword = document.getElementById('btnPassword');
 	btnPassword.setAttribute('onClick','cambiarContrasenia()');
+	var email,tel;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function() {//Call a function when the state changes.
+    if(x.readyState == 4 && x.status == 200) {
+       var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				email=JSONdata.email;
+				tel = JSONdata.telefono;
+				console.log(email);
+				document.getElementById('email').setAttribute('value',email);
+				document.getElementById('tel').setAttribute('value',tel);
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+    	}
+	}
+	x.send();
 }
 function cambiarContrasenia()
 {

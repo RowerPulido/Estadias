@@ -452,3 +452,10 @@ GO
 ALTER TABLE [Actividades] ADD CONSTRAINT [FK_Actividades_proyectos]
 	FOREIGN KEY ([proyecto]) REFERENCES [proyectos] ([id]) ON DELETE No Action ON UPDATE No Action
 GO
+---tabla mensajes
+create table mensajes(
+id int  primary key,
+texto varchar(200),
+destinatario char(10) foreign key references Usuarios(id),
+remitente char(10) foreign key references Usuarios(id)
+)

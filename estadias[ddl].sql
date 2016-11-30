@@ -133,7 +133,7 @@ GO
 CREATE TABLE [Usuarios]
 (
 	[id] char(10) NOT NULL,
-	[password] char(32) not NULL,
+	[password] char(34) not NULL,
 	[tipo] char(3) not NULL
 )
 GO
@@ -216,6 +216,7 @@ CREATE TABLE [Documentos]
 	[alumno] char(10) NULL,
 	[status] char(10) NULL,
 	[fecha_actualizacion] datetime NULL,
+	[fecha_limite] date NULL,
 	[ubicacion] varchar(50) NULL
 )
 GO
@@ -465,8 +466,9 @@ GO
 
 ---tabla mensajes
 create table mensajes(
-id int  primary key,
+id int  primary key identity(1,1),
 texto varchar(200),
 destinatario char(10) foreign key references Usuarios(id),
-remitente char(10) foreign key references Usuarios(id)
+remitente char(10) foreign key references Usuarios(id),
+fecha_limite date null
 )

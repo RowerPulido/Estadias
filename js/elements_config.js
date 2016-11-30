@@ -26,16 +26,7 @@ function createDatalist(id,cssClass){
 	var dl=document.createElement('datalist');
 	dl.setAttribute('id',id);
 	dl.setAttribute('class',cssClass);
-
 	return dl;
-}
-function createDiv(id,cssClass){
-
-	var div=document.createElement('div');
-	div.setAttribute('id',id);
-	div.setAttribute('class',cssClass);
-
-	return div;
 }
 function insertImg(parent,direccion,id,cssClass){
 	var img=document.createElement('img');
@@ -52,6 +43,14 @@ function createSelect(id,cssClass){
 	s.setAttribute('class',cssClass);
 
 	return s;
+}
+function createDiv(id,cssClass){
+
+	var div=document.createElement('div');
+	div.setAttribute('id',id);
+	div.setAttribute('class',cssClass);
+
+	return div;
 }
 
 //create options

@@ -19,11 +19,11 @@ if (isset($user) && isset($pswd))
 	$connection = new SqlServerConnection();
 	try
 	{
-		$query = sprintf('select todos.matricula,u.constrasenia, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.constrasenia = \''.$pswd."';");
+		$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = \''.$pswd."';");
 		$data=$connection->execute_query($query);
 			
 		$matricula=odbc_result($data, 'matricula');
-		$password=odbc_result($data, 'constrasenia');
+		$password=odbc_result($data, 'password');
 		$nombre=odbc_result($data, 'nombres');
 	 	$paterno=odbc_result($data, 'paterno');
 	 	$imagen=odbc_result($data, 'imagen');

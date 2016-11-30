@@ -393,12 +393,33 @@ tr.rowtable-docs {
 	top:50px;
 }
 
+#tabla-califs{
+	text-align: left;
+	position: relative;
+	left: 10%;
+	top:50px;
+}
+
 table#table-docs td{
 	border: 5px solid gray;
 }
+
+table#table-califs td{
+	border: 5px solid gray;
+}
+
 #cuerpo  p{
 	position: relative;
-	left: 75%;
+	left: 70%;
+	top: 30px;
+	font-size: 20pt;
+	font-weight: bolder;
+	color: #00AD47;
+}
+
+#cuerpo  #califs{
+	position: relative;
+	left: 40%;
 	top: 30px;
 	font-size: 20pt;
 	font-weight: bolder;

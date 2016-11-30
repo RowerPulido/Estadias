@@ -22,6 +22,13 @@ function createInput(parent,htmlPlaceHolder,type,cssClass,value,id,name)
 	return input;
 }
 
+function createDatalist(id,cssClass){
+	var dl=document.createElement('datalist');
+	dl.setAttribute('id',id);
+	dl.setAttribute('class',cssClass);
+
+	return dl;
+}
 function createDiv(id,cssClass){
 
 	var div=document.createElement('div');
@@ -66,10 +73,12 @@ function createForm(name,id,method){
 
 }
 
-function createLabel(forE,textHtml){
+function createLabel(forE,textHtml,id){
 	var label=document.createElement('label');
 	label.setAttribute('for',forE);
 	label.innerHTML=textHtml;
+	label.setAttribute('id',id);
 
 	return label;
 }
+

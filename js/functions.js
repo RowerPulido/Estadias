@@ -62,10 +62,12 @@ function registrarEstadia(){
 	for(var i= 0; i<alums.length;i++){
 		sAlums.appendChild(createOption(alums[i],alums[i]));
 	}
-	var pNombre=createP(divAlumDatos,'Nombre del Alumno:','pAlumDatos');
-	var inNombre=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
+	var lblNombreAlum=createLabel('inAlumName','Nombre del Alumno','lblNombreAlum');
+	divAlumDatos.appendChild(lblNombreAlum);
+	var inNombreAlum=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
 	inNombre.disabled=true;
-	var pGrupo=createP(divAlumDatos,'Grupo del Alumno:','pAlumDatos');
+	var lblGrupoAlum=createLabel('inAlumGrupo','Grupo del Alumno','lblGrupoAlum');
+	divAlumDatos.appendChild(lblGrupoAlum);
 	var inGrupo=createInput(divAlumDatos,'Grupo','text','inAlumDatos','','inAlumGrupo');
 	inGrupo.disabled=true;
 	divAlumDatos.appendChild(sAlums);

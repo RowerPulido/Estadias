@@ -6,7 +6,18 @@
 
 /* Drop Foreign Key Constraints */
 
+use master;
+if exists(select * from sys.databases where name='Estadias')
+	begin
+		drop database Estadias;
+		create database Estadias;
+	end
+else
+	create database Estadias
+go
 
+use Estadias;
+go
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[FK_Usuarios_typeofuser]') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1) 
 ALTER TABLE [Usuarios] DROP CONSTRAINT [FK_Usuarios_typeofuser]
 GO

@@ -44,6 +44,7 @@ if (isset($user) && isset($pswd))
 				 	"Nombre" : "'.$nombre.'",
 				 	"Paterno" : "'.$paterno.'",
 				 	"Imagen" : "'.$imagen.'",
+				 	"password" :"'.$password.'",
 				 	"UserType" : 
 				 					{
 				 						"IDtype" : "'.$u->get_user_type()->get_id_type().'",

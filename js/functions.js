@@ -309,22 +309,23 @@ function configuracion()
 	//method createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 	createP(division,'Configuración','labelConfiguracion');
 	createP(forma,'Correo Electronico:','label');
-	createInput(forma,'Correo Electrónico','email','campo','','email');
+	createInput(forma,'Correo Electrónico','email','campo','','email','email');
 	createP(forma,'Teléfono:','label');
-	createInput(forma,'Teléfono','','campo','','tel');
+	createInput(forma,'Teléfono','','campo','','tel','tel');
 	createP(forma,'Constraseña:','label');
-	createInput(forma,'Ingresa tu contraseña','password','campo','','');
+	createInput(forma,'Ingresa tu contraseña','password','campo','','passwordInput','pass');
 
 
 	division.appendChild(forma);
 
-	createInput(division,'','submit','button','Cancelar','');
-	createInput(division,'','submit','button','Aceptar','');
+	createInput(division,'','submit','button','Cancelar','btncancel');
+	createInput(division,'','submit','button','Aceptar','btnok');
 	createInput(division,'','submit','btnPassword','Cambiar Contraseña','btnPassword');
 
 	body.appendChild(division);
-	var btnPassword = document.getElementById('btnPassword');
-	btnPassword.setAttribute('onClick','cambiarContrasenia()');
+	document.getElementById('btnok').setAttribute('onClick','realizarCambios()');
+	document.getElementById('btnPassword').setAttribute('onClick','cambiarContrasenia()');
+	//traer los datos 
 	var email,tel;
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
@@ -335,7 +336,6 @@ function configuracion()
 			{
 				email=JSONdata.email;
 				tel = JSONdata.telefono;
-				console.log(email);
 				document.getElementById('email').setAttribute('value',email);
 				document.getElementById('tel').setAttribute('value',tel);
 			}
@@ -346,6 +346,36 @@ function configuracion()
     	}
 	}
 	x.send();
+}
+function validarContra(val,btn)
+{
+	if (val==null || val=="") {document.getElementById(btn).disabled=true}
+	else
+	if (val!=null || val!="") {document.getElementById(btn).disabled=false}
+}
+function realizarCambios()
+{
+	var email = document.getElementById('email').value;
+	var tel = document.getElementById('tel').value;
+	var contrasenia = document.getElementById('passwordInput').value;
+	var matricula = JSON.parse(sessionStorage['user']).User.userID;
+	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
+
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/setConfig.php',true);
+	x.send(new FormData(document.getElementById('formaConfig')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+				alert(JSONdata.descripccion);
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
+	console.log(x);
 }
 function cambiarContrasenia()
 {

@@ -195,6 +195,21 @@ div#menu-lateral footer{
 	outline: none;
 	border-bottom: solid 5px #03A9F4;
 }
+#datosConfig .buttonDisabled
+{
+	
+	position: relative;
+	left: 250px;
+	padding: 10px;
+	margin: 40px;
+	background-color: #2E7D32;
+	color: #E0E0E0;
+	font-size: 20pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	cursor: pointer;
+}
 #datosConfig .button
 {
 	position: relative;

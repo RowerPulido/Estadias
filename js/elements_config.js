@@ -8,7 +8,7 @@ function createP(parent,htmlTitle,cssClass)
 	parent.appendChild(parrafo);
 	return parrafo;
 }
-function createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
+function createInput(parent,htmlPlaceHolder,type,cssClass,value,id,name)
 {
 	var input = document.createElement('input');
 	input.setAttribute('type',type);
@@ -16,6 +16,7 @@ function createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 	input.setAttribute('class',cssClass);
 	input.setAttribute('value',value);
 	input.setAttribute('id',id);
+	input.setAttribute('name',name);
 
 	parent.appendChild(input);
 	return input;

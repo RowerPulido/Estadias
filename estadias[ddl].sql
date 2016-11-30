@@ -157,7 +157,10 @@ CREATE TABLE [Tutores]
 	[id] char(10) NOT NULL,
 	[numbres] varchar(50) NULL,
 	[paterno] varchar(50) NULL,
-	[materno] varchar(50) NULL
+	[materno] varchar(50) NULL,
+	[imagen] varchar(50) NULL,
+	[email] varchar(50) NULL,
+	[tel] char(10) NULL
 )
 GO
 
@@ -202,7 +205,7 @@ CREATE TABLE [empresas]
 	[giro] varchar(50) NULL,
 	[telefono] char(10) NULL,
 	[direccion] varchar(50) NULL,
-	[email] varchar(20) NULL
+	[email] varchar(50) NULL
 )
 GO
 
@@ -221,7 +224,7 @@ CREATE TABLE [ContactoAlumno]
 (
 	[direccion] varchar(50) NULL,
 	[telefono] char(10) NULL,
-	[email] varchar(20) NULL,
+	[email] varchar(50) NULL,
 	[idAlumno] char(10) NOT NULL
 )
 GO
@@ -239,7 +242,7 @@ CREATE TABLE [calificaciones]
 	[p1] tinyint NULL,
 	[p2] tinyint NULL,
 	[p3] tinyint NULL,
-	p4 tinyint null,
+	[p4] tinyint null,
 	[final] tinyint NULL
 )
 GO
@@ -251,7 +254,8 @@ CREATE TABLE [asesor_empresarial]
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
 	[empresa] int NULL,
-	[correo] varchar(20) NULL
+	[correo] varchar(50) NULL,
+	[imagen] varchar(50)NULL
 )
 GO
 

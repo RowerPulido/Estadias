@@ -125,8 +125,13 @@ GO
 CREATE TABLE [Usuarios]
 (
 	[id] char(10) NOT NULL,
+<<<<<<< HEAD
 	[constrasenia] char(3) NULL,
 	[tipo] char(3) NULL
+=======
+	[password] char(32) not NULL,
+	[tipo] char(3) not NULL
+>>>>>>> parent of 0c2a74b... BD con detalles arreglados
 )
 GO
 
@@ -458,4 +463,8 @@ id int  primary key,
 texto varchar(200),
 destinatario char(10) foreign key references Usuarios(id),
 remitente char(10) foreign key references Usuarios(id)
+<<<<<<< HEAD
 )
+=======
+)
+>>>>>>> parent of 0c2a74b... BD con detalles arreglados

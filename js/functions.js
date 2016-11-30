@@ -289,7 +289,7 @@ function misCalis()
 				document.getElementById('bar4').setAttribute('width',p4+'%');
 
 				if(JSONdata.parcial_1 < 6)document.getElementById('bar1').setAttribute('class','barRed');
-        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_ <=7)document.getElementById('bar1').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_1 <=7)document.getElementById('bar1').setAttribute('class','barYellow');
         		else if(JSONdata.parcial_1 >=8 && JSONdata.parcial_1 <=10)document.getElementById('bar1').setAttribute('class','barGreen');
         		
         		if(JSONdata.parcial_2 < 6)document.getElementById('bar2').setAttribute('class','barRed');

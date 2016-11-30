@@ -219,7 +219,7 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.type = t.id');
+				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.typeDocs = t.id');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

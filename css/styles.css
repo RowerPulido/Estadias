@@ -189,11 +189,13 @@ div#menu-lateral footer{
 	transition: border 0.1s;
 	outline: none;
 	background: transparent;
+	color:#fff;
 }
 #divPassword .campo:focus
 {
 	outline: none;
 	border-bottom: solid 5px #03A9F4;
+	color:#fff;
 }
 #datosConfig .buttonDisabled
 {
@@ -264,6 +266,9 @@ div#menu-lateral footer{
  	transition: 1s;
  	text-align: center;
  	cursor: pointer;
+ 	position: relative;
+ 	top: 80px;
+ 	left: 40px;
 }
 #divPassword .button:hover
 {
@@ -366,7 +371,7 @@ div#menu-lateral footer{
 /*	CSS calificaciones*/
 
 #svg, #chart {position: relative; float: left;}
-.cuerpoCalificaciones {position: relative; left: 260px; top:25px; width: 1200px; height: 800px;}
+.cuerpoCalificaciones {position: relative; left: 260px; width: 1200px; height: 800px;}
 #svg {  width:80%; height:100%; }
 #chart { width: 80%; height: 100%; background: transparent;}
 .textHeader{text-anchor:middle; font-size: 34pt; font-weight: bold; fill:#00AD47;}
@@ -376,6 +381,9 @@ div#menu-lateral footer{
 .num {text-anchor:middle; font-size: 13pt; font-weight: bold; fill: #777}
 .parcialName {text-anchor:end; font-size: 18pt; fill:#000;}
 .bar {fill: #999; stroke:#666; stroke-width: 1px;}
+.barGreen {fill:#76FF03; stroke:#64DD17; stroke-width:1px;}
+.barYellow {fill:#FFFF00; stroke:#FFD600; stroke-width:1px;}
+.barRed {fill:#B71C1C; stroke:#D50000; stroke-width:1px;}
 /*termina css Victor*/
 /*Cuerpo*/
 #cuerpo{

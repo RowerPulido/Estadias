@@ -33,7 +33,7 @@ class User
 			try
 			{
 				//query
-				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and constrasenia=\''.$pswd."'");
+				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and password=\''.$pswd."'");
 				
 				//command
 				$data= $connection->execute_query($query);

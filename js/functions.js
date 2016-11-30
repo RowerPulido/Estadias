@@ -25,13 +25,13 @@ var emps=['Sony','Samsung','Elektra'];
 var typeofuser="tutssss";
 
 function initAlum(){
-	/*if(sessionStorage['user'])
-	{*/
+	if(sessionStorage['user'])
+	{
 		menuOfUser();
 		dashboard();
 		divTwitter();
 		createNotification();
-		/*document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
+		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 	}
 	else
@@ -39,7 +39,7 @@ function initAlum(){
 		//redirect to login
 		sessionStorage['previouspage'] = document.URL;
 		window.location = 'login.html';
-	}*/
+	}
 
 }
 function menuOfUser(){
@@ -58,7 +58,6 @@ function registrarEstadia(){
 	var body = document.getElementById('cuerpo');
 	cuerpo.innerHTML='';
 		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
-	/////////////////////////////////////////////////
 		var divAlum= createDiv('divAlum');
 			var lblMatricula=createLabel('inMatricula','Matricula Alumno:','lblMatricula');
 			divAlum.appendChild(lblMatricula);

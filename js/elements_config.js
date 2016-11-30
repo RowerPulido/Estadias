@@ -8,7 +8,7 @@ function createP(parent,htmlTitle,cssClass)
 	parent.appendChild(parrafo);
 	return parrafo;
 }
-function createInput(parent,htmlPlaceHolder,type,cssClass,value,id,name)
+function createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 {
 	var input = document.createElement('input');
 	input.setAttribute('type',type);
@@ -16,17 +16,18 @@ function createInput(parent,htmlPlaceHolder,type,cssClass,value,id,name)
 	input.setAttribute('class',cssClass);
 	input.setAttribute('value',value);
 	input.setAttribute('id',id);
-	input.setAttribute('name',name);
 
 	parent.appendChild(input);
 	return input;
 }
 
-function createDatalist(id,cssClass){
-	var dl=document.createElement('datalist');
-	dl.setAttribute('id',id);
-	dl.setAttribute('class',cssClass);
-	return dl;
+function createDiv(id,cssClass){
+
+	var div=document.createElement('div');
+	div.setAttribute('id',id);
+	div.setAttribute('class',cssClass);
+
+	return div;
 }
 function insertImg(parent,direccion,id,cssClass){
 	var img=document.createElement('img');
@@ -43,14 +44,6 @@ function createSelect(id,cssClass){
 	s.setAttribute('class',cssClass);
 
 	return s;
-}
-function createDiv(id,cssClass){
-
-	var div=document.createElement('div');
-	div.setAttribute('id',id);
-	div.setAttribute('class',cssClass);
-
-	return div;
 }
 
 //create options
@@ -72,12 +65,10 @@ function createForm(name,id,method){
 
 }
 
-function createLabel(forE,textHtml,id){
+function createLabel(forE,textHtml){
 	var label=document.createElement('label');
 	label.setAttribute('for',forE);
 	label.innerHTML=textHtml;
-	label.setAttribute('id',id);
 
 	return label;
 }
-

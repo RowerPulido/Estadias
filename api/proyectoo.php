@@ -72,7 +72,10 @@ require_once('proyectoo.php');
 			//query
 			$query = sprintf('insert into Estadias.Proyecto values(?,?,?,?)');
 			$connection->execute_non_query($query, array($setName,$setNameStudent,$setMatriculaStudent,$setTime));
-			$connection->close();
+			//link parametters
+			$command->bind_param('ssis',$setName, $setNameStudent, $setMatriculaStudent, $setTime);
+			//execute command
+			$command->execute();
 		}
 		
 		public static function get_info_por_alumno($matricula)

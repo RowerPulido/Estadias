@@ -98,7 +98,7 @@
 			//query
 			try
 			{
-				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, typeDocs from documentos d join typesofdocs tod on d.typeDocs = tod.id;');
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, type from documentos d join typesofdocs tod on d.type = tod.id;');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -134,7 +134,7 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from documentos d join typesofdocs tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -167,7 +167,7 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status from documentos d join typesofdocs tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -198,7 +198,7 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from documentos d join typesofdocs tod on d.typeDocs = tod.id where d.alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from documentos d join typesofdocs tod on d.type = tod.id where d.alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

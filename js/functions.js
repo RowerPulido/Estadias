@@ -17,24 +17,33 @@ var docs=
 	['POR-CD','PORTADA DE CD',2,'29/11/2016'],
 	['ETI-CD','ETIQUETA DE CD',2,'29/11/2016']
 	];
-var user=
-[
-	'Jorge Pulido',
-	'0315110132',
-	'4A',
-	'DOMOTICA',
-	'e-House'
-]
+var user = '';
 var alums=[0315110132,0315110133,0315110134,0315110135];
+
 var typeofuser="tutssss";
 
+<<<<<<< HEAD
 var urlAlums = 'http://localhost:8080/Estadias/api/get_all_alumnos.php';
 
+=======
+>>>>>>> origin/master
 function initAlum(){
-	menuOfUser();
-	dashboard();
-	divTwitter();
-	createNotification();
+	if(sessionStorage['user'])
+	{
+		menuOfUser();
+		dashboard();
+		divTwitter();
+		createNotification();
+		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
+		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
+	}
+	else
+	{
+		//redirect to login
+		sessionStorage['previouspage'] = document.URL;
+		window.location = 'login.html';
+	}
+
 }
 
 function menuOfUser(){
@@ -58,10 +67,12 @@ function registrarEstadia(){
 	for(var i= 0; i<alums.length;i++){
 		sAlums.appendChild(createOption(alums[i],alums[i]));
 	}
-	var pNombre=createP(divAlumDatos,'Nombre del Alumno:','pAlumDatos');
-	var inNombre=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
+	var lblNombreAlum=createLabel('inAlumName','Nombre del Alumno','lblNombreAlum');
+	divAlumDatos.appendChild(lblNombreAlum);
+	var inNombreAlum=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
 	inNombre.disabled=true;
-	var pGrupo=createP(divAlumDatos,'Grupo del Alumno:','pAlumDatos');
+	var lblGrupoAlum=createLabel('inAlumGrupo','Grupo del Alumno','lblGrupoAlum');
+	divAlumDatos.appendChild(lblGrupoAlum);
 	var inGrupo=createInput(divAlumDatos,'Grupo','text','inAlumDatos','','inAlumGrupo');
 	inGrupo.disabled=true;
 	divAlumDatos.appendChild(sAlums);
@@ -351,6 +362,8 @@ function misDocs(){
 function misCalis(){
 	var body = document.getElementById('cuerpo');
 	var svgParent = document.createElementNS("http://www.w3.org/2000/svg","svg");
+	var divPromedio = document.createElement('div');
+	divPromedio.setAttribute('id','divPromedio');
 	body.setAttribute('class','cuerpoCalificaciones');
 	svgParent.setAttribute('id','svg');
 	body.innerHTML = "";
@@ -363,18 +376,65 @@ function misCalis(){
     drawLine(svgParent,'90%','700px','30%','700px','axis');
     for(var x =0; x<=10;x++)
         drawLine(svgParent,(30+(x*6))+'%','705px',(30+(x*6))+'%','695px','axis2')
-    for(var n = 1; n<=3;n++){
-        var x = 500 / 3;
+    for(var n = 1; n<=4;n++){
+        var x = 500 / 4;
         var y =80+(n*x)+(x*0.1);
         writeText(svgParent,'nameParcial','28%',y+'px','Parcial '+n,'parcialName')
     }
-    for (var r = 1; r<=3; r++){
-        var x = 500 / 3;
-        var y= 1+(r*x)+(x*0.1);
+    for (var r = 1; r<=4; r++){
+        var x = 500 / 4;
+        var y= 1+(r*x)+(x*0.25);
         var h= x*0.8;
         drawRectangle(svgParent,'bar'+r,'30%',y+'px','1%',h+'px','bar')
     }
+    body.appendChild(divPromedio);
     body.appendChild(svgParent);
+
+    //traer los datos 
+	var p1,p2,p3,p4;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getCalAlumn.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function() {//Call a function when the state changes.
+    if(x.readyState == 4 && x.status == 200) {
+       var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				p1 = (JSONdata.parcial_1)*6;
+				p2 = (JSONdata.parcial_2)*6;
+				p3 = (JSONdata.parcial_3)*6;
+				p4 = (JSONdata.parcial_4)*6;
+
+				document.getElementById('bar1').setAttribute('width',p1+'%');
+				document.getElementById('bar2').setAttribute('width',p2+'%');
+				document.getElementById('bar3').setAttribute('width',p3+'%');
+				document.getElementById('bar4').setAttribute('width',p4+'%');
+
+				if(JSONdata.parcial_1 < 6)document.getElementById('bar1').setAttribute('class','barRed');
+        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_1 <=7)document.getElementById('bar1').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_1 >=8 && JSONdata.parcial_1 <=10)document.getElementById('bar1').setAttribute('class','barGreen');
+        		
+        		if(JSONdata.parcial_2 < 6)document.getElementById('bar2').setAttribute('class','barRed');
+        		else if(JSONdata.parcial_2 >=6 && JSONdata.parcial_2 <=7)document.getElementById('bar2').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_2 >=8 && JSONdata.parcial_2 <=10)document.getElementById('bar2').setAttribute('class','barGreen');
+
+        		if(JSONdata.parcial_3 < 6)document.getElementById('bar3').setAttribute('class','barRed');
+        		else if(JSONdata.parcial_3 >=6 && JSONdata.parcial_3 <=7)document.getElementById('bar3').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_3 >=8 && JSONdata.parcial_3 <=10)document.getElementById('bar3').setAttribute('class','barGreen');
+
+        		if(JSONdata.parcial_4 < 6)document.getElementById('bar4').setAttribute('class','barRed');
+        		else if(JSONdata.parcial_4 >=6 && JSONdata.parcial_4 <=7)document.getElementById('bar4').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_4 >=8 && JSONdata.parcial_4 <=10)document.getElementById('bar4').setAttribute('class','barGreen');
+
+     			var promedio = (JSONdata.parcial_1+JSONdata.parcial_2+JSONdata.parcial_3+JSONdata.parcial_4)/4;
+     			console.log(promedio);   		
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+    	}
+	}
+	x.send();
 }
 
 function fechas(){
@@ -416,24 +476,105 @@ function configuracion(){
 	body.innerHTML = "";
 	span.innerHTML = "Cambiar Contraseña";
 	//method createP(parent,htmlTitle,cssClass)
-	//method createInput(parent,htmlPlaceHolder,type,cssClass,value)
+	//method createInput(parent,htmlPlaceHolder,type,cssClass,value,id)
 	createP(division,'Configuración','labelConfiguracion');
 	createP(forma,'Correo Electronico:','label');
-	createInput(forma,'Correo Electrónico','email','campo','','');
+	createInput(forma,'Correo Electrónico','email','campo','','email','email');
 	createP(forma,'Teléfono:','label');
-	createInput(forma,'Teléfono','','campo','','');
+	createInput(forma,'Teléfono','','campo','','tel','tel');
 	createP(forma,'Constraseña:','label');
-	createInput(forma,'Ingresa tu contraseña','password','campo','','');
+	createInput(forma,'Ingresa tu contraseña','password','campo','','passwordInput','pass');
+
+	createInput(forma,'','hidden','campo','','matricula','matricula');
+	createInput(forma,'','hidden','campo','','passSess','passSess');
+	
 
 	division.appendChild(forma);
 
-	createInput(division,'','submit','button','Cancelar','');
-	createInput(division,'','submit','button','Aceptar','');
+	createInput(division,'','submit','button','Cancelar','btncancel');
+	createInput(division,'','submit','button','Aceptar','btnok');
 	createInput(division,'','submit','btnPassword','Cambiar Contraseña','btnPassword');
 
 	body.appendChild(division);
-	var btnPassword = document.getElementById('btnPassword');
-	btnPassword.setAttribute('onClick','cambiarContrasenia()');
+	document.getElementById('btnok').setAttribute('onClick','realizarCambios()');
+	document.getElementById('btnPassword').setAttribute('onClick','cambiarContrasenia()');
+	//traer los datos 
+	var email,tel,matri,pass;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function() {//Call a function when the state changes.
+    if(x.readyState == 4 && x.status == 200) {
+       var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				email=JSONdata.email;
+				tel = JSONdata.telefono;
+				matri = JSON.parse(sessionStorage['user']).User.userID;
+				pass = JSON.parse(sessionStorage['user']).User.password;
+				document.getElementById('email').setAttribute('value',email);
+				document.getElementById('tel').setAttribute('value',tel);
+				document.getElementById('matricula').setAttribute('value',matri);
+				document.getElementById('passSess').setAttribute('value',pass);
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+    	}
+	}
+	x.send();
+}
+function validarContra(val,btn)
+{
+	if (val==null || val=="") {document.getElementById(btn).disabled=true}
+	else
+	if (val!=null || val!="") {document.getElementById(btn).disabled=false}
+}
+function realizarCambios()
+{
+	var email = document.getElementById('email').value;
+	var tel = document.getElementById('tel').value;
+	var contrasenia = document.getElementById('passwordInput').value;
+	var matricula = JSON.parse(sessionStorage['user']).User.userID;
+	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
+
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/setConfig.php',true);
+	x.send(new FormData(document.getElementById('formaConfig')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+				alert(JSONdata.descripccion);
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
+}
+function realizarCambiosPass()
+{
+	var passActual = document.getElementById('passActual').value;
+	var passRep = document.getElementById('passRep').value;
+	var passNueva = document.getElementById('passNueva').value;
+	var matricula = JSON.parse(sessionStorage['user']).User.userID;
+	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
+
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/setConfigPass.php',true);
+	x.send(new FormData(document.getElementById('formPassword')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+				alert(JSONdata.descripccion);
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
 }
 
 function cambiarContrasenia(){
@@ -455,17 +596,41 @@ function cambiarContrasenia(){
 	ima.setAttribute('class','imaExitPassword');
 
 	createP(forma,'Contraseña Actual:','label');
-	createInput(forma,'Contraseña Actual','','campo','','');
+	createInput(forma,'Contraseña Actual','','campo','','passActual','passActual');
 	createP(forma,'Repetir Contraseña:','label');
-	createInput(forma,'Repetir Contraseña','password','campo','','');
+	createInput(forma,'Repetir Contraseña','password','campo','','passRep','passRep');
 	createP(forma,'Contraseña Nueva:','label');
-	createInput(forma,'Contraseña Nueva','password','campo','');
-	createInput(forma,'','','button','Aceptar','idConfigPass');
+	createInput(forma,'Contraseña Nueva','password','campo','','passNueva','passNueva');
+	createInput(forma,'','hidden','campo','','matriculaPASS','matriculaPASS');
+	createInput(forma,'','hidden','campo','','passSessPASS','passSessPASS');
 	divEnsima.appendChild(ima);
 	bodyOpaca.appendChild(divEnsima);
 	divEnsima.appendChild(forma);
-	var btnok= document.getElementById('idConfigPass');
-	btnok.setAttribute('onClick','normal();');
+	createInput(divEnsima,'','','button','Aceptar','idConfigPass');
+	document.getElementById('idConfigPass').setAttribute('onClick','realizarCambiosPass()');
+	
+	var matri,pass;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function() {//Call a function when the state changes.
+    if(x.readyState == 4 && x.status == 200) {
+       var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				
+				matri = JSON.parse(sessionStorage['user']).User.userID;
+				pass = JSON.parse(sessionStorage['user']).User.password;
+				document.getElementById('matriculaPASS').setAttribute('value',matri);
+				document.getElementById('passSessPASS').setAttribute('value',pass);
+
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+    	}
+	}
+	x.send();
 }
 
 function normal(){

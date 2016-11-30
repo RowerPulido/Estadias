@@ -5,9 +5,9 @@
   class SqlServerConnection
   {
     private $connection;
-    private $connection_string = 'DRIVER={SQL Server Native Client 10.0};SERVER=ROWERPULIDO;DATABASE=Estadias';
+    private $connection_string = 'DRIVER={SQL Server};SERVER=VICTOR-PC;DATABASE=Estadias';
     private $user = 'sa';
-    private $password = 'usersql';
+    private $password = '123';
 
     function __construct(){
       $this->connection = odbc_connect($this->connection_string, $this->user, $this->password);

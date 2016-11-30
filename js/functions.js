@@ -18,20 +18,18 @@ var docs=
 	['ETI-CD','ETIQUETA DE CD',2]
 	];
 var user = '';
-var alums=[
-['0315110132','jorge pulido'],['0315110122','juan perez'],['0315110111','victor gtz']];
-var emps=['Sony','Samsung','Elektra'];
+var alums=[0315110132,0315110133,0315110134,0315110135];
 
 var typeofuser="tutssss";
 
 function initAlum(){
-	/*if(sessionStorage['user'])
-	{*/
+	if(sessionStorage['user'])
+	{
 		menuOfUser();
 		dashboard();
 		divTwitter();
 		createNotification();
-		/*document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
+		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 	}
 	else
@@ -39,7 +37,7 @@ function initAlum(){
 		//redirect to login
 		sessionStorage['previouspage'] = document.URL;
 		window.location = 'login.html';
-	}*/
+	}
 
 }
 function menuOfUser(){
@@ -55,79 +53,62 @@ var estadisticas1=document.getElementById('estadisticas1');
 
 
 function registrarEstadia(){
-	var body = document.getElementById('cuerpo');
-	cuerpo.innerHTML='';
-		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
-	/////////////////////////////////////////////////
-		var divAlum= createDiv('divAlum');
-			var lblMatricula=createLabel('inMatricula','Matricula Alumno:','lblMatricula');
-			divAlum.appendChild(lblMatricula);
-			var inMatricula=createInput(divAlum,'Ingrese la matricula aqui...','text','inRegistro','','inMatricula','matricula');
-			var dlAlums=createDatalist('dlAlums');
-			for (var i=0; i<alums.length;i++) {
-				var oAlum=createOption(alums[i][0],alums[i][1]);
-				dlAlums.appendChild(oAlum);
-				console.log(alums[i]);
-			}
-			divAlum.appendChild(dlAlums);
-			inMatricula.setAttribute('list','dlAlums');
+ 	var body=document.getElementById('cuerpo');
+ 	body.setAttribute('class','registrarEstadia');
+ 	cuerpo.innerHTML=" ";	
+	var divAlumDatos=createDiv('divAlumDatos');
+	var sAlums=createSelect('alumSelect','selects');
+		sAlums.setAttribute('onchange','actualizarValoresAlum();');
+	for(var i= 0; i<alums.length;i++){
+		sAlums.appendChild(createOption(alums[i],alums[i]));
+	}
+	var lblNombreAlum=createLabel('inAlumName','Nombre del Alumno','lblNombreAlum');
+	divAlumDatos.appendChild(lblNombreAlum);
+	var inNombreAlum=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
+	inNombre.disabled=true;
+	var lblGrupoAlum=createLabel('inAlumGrupo','Grupo del Alumno','lblGrupoAlum');
+	divAlumDatos.appendChild(lblGrupoAlum);
+	var inGrupo=createInput(divAlumDatos,'Grupo','text','inAlumDatos','','inAlumGrupo');
+	inGrupo.disabled=true;
+	divAlumDatos.appendChild(sAlums);
+	cuerpo.appendChild(divAlumDatos);
+	var divRegistro= createDiv('divFormRegistro');
+	var divRegistroAlum=createDiv('divRegistroAlum');
+	var formDatosRegistro=createForm('formDatosRegistro','formDatosRegistro','POST');
+	
+	/*Empiezo a crear los elemntos del formulario Alumno*/
+	var lblDireccionAlum=createLabel('inDireccionAlum','Direccion:');
+	var divDireccionAlum=createDiv('divDireccionAlum','divsDatosReg');
+		divDireccionAlum.appendChild(lblDireccionAlum);
+		divRegistroAlum.appendChild(divDireccionAlum);
+	var inDireccionAlum=createInput(divRegistroAlum,'Direccion Alumno','text','inAlumDatos','','inDireccionAlum');
 
-			var lblAlumDir=createLabel('inAlumDir','Direccion Alumno:','lblAlumDir');
-			divAlum.appendChild(lblAlumDir);
-			var inAlumDir=createInput(divAlum,'Ingrese direccion Alumno','text','inRegistro','','inAlumDir');
-			//divAlum.appendChild(inAlumDir);
 
-			var lblAlumTel=createLabel('inAlumTel','Telefono Alumno:','lblAlumTel');
-			divAlum.appendChild(lblAlumTel);
-			var inAlumTel=createInput(divAlum,'Ingrese Telefono Alumno','text','inRegistro','','inAlumTel');
-			//divAlum.appendChild(inAlumTel);
+	var lblNumTelAlum=createLabel('inTelAlum','Num. Telefono:')
+	var divNumTelAlum=createDiv('divNumTelAlum','divsDatosReg');
+		divNumTelAlum.appendChild(lblNumTelAlum);
+		divRegistroAlum.appendChild(divNumTelAlum);
+	var inNumTelAlum=createInput(divRegistroAlum,'Numero de Telefono de Alumno','text','inAlumDatos','','inNumTelAlum');
+	
+	var lblEmailAlum=createLabel('inEmailAlum','Correo Electronico:');
+	var divEmailAlum=createDiv('divEmailAlum','divsDatosReg');
+		divEmailAlum.appendChild(lblEmailAlum);
+		divRegistroAlum.appendChild(divEmailAlum);
+	var inEmailAlum=createInput(divRegistroAlum,'Correo Electronico Alumno','email','inAlumDatos','','inEmailAlum');
+	
+	formDatosRegistro.appendChild(divRegistroAlum);
 
-			var lblAlumTel=createLabel('inAlumEmail','e-Mail Alumno:','lblAlumEmail');
-			divAlum.appendChild(lblAlumTel);
-			var inAlumTel=createInput(divAlum,'Ingrese e-Mail Alumno','text','inRegistro','','inAlumEmail');
-			//divAlum.appendChild(inAlumTel);
+	var divRegistroEmp=createDiv('divRegistroEmp');
 
-		frmRegistro.appendChild(divAlum);
+	formDatosRegistro.appendChild(divRegistroEmp);
 
-		var divEmp=createDiv('divEmp');
+	var divRegistroEst=createDiv('divRegistroEst');
+	
+	formDatosRegistro.appendChild(divRegistroEst);
+	
+	divRegistro.appendChild(formDatosRegistro);
+	cuerpo.appendChild(divRegistro);
 
-			var lblEmpNom=createLabel('inEmpNom','Nombre empresa:','lblEmpNom');
-			divEmp.appendChild(lblEmpNom);
-			var inEmpNom=createInput(divEmp,'Nombre ...','text','inRegistro','','inEmpNom','empresa');
-			var dlEmps=createDatalist('dlEmps');
-			for (var i=0; i<emps.length;i++) {
-				var oEmp=createOption(emps[i],emps[i]);
-				dlEmps.appendChild(oEmp);
-				console.log(emps[i]);
-			}
-			divEmp.appendChild(dlEmps);
-			inEmpNom.setAttribute('list','dlEmps');
-		frmRegistro.appendChild(divEmp);
-
-		var divEst=createDiv('divEst');
-			var lblProNom=createLabel('inProNom','Nombre del proyecto:','lblProNom');
-				divEst.appendChild(lblProNom);
-			var inProNom=createInput(divEst,'Nombre Proyecto','text','inRegistro','','inProNom','proNom');
-				divEst.appendChild(inProNom);
-
-			var lblEstArea=createLabel('inEstArea','Area Estadias','lblEstArea');
-				divEst.appendChild(lblEstArea);
-			var inProNom=createInput(divEst,'Area Estadias','text','inRegistro','','inEstArea','estArea');
-			//	divEst.appendChild(inEstArea);
-			
-			var lblAseNom=createLabel('inAseNom','Nombre De Asesor:','lblAseNom');
-				divEst.appendChild(lblAseNom);
-			var inAseNom=createInput(divEst,'Nombre de asesor','text','inRegistro','','inAseNom','AseNom');
-
-			var lblAseNom=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
-				divEst.appendChild(lblAseNom);
-			var inAseNom=createInput(divEst,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
-
-			var lblAseNom=createLabel('inAseMat','Apellido Materno De Aseso:','lblAseNom');
-				divEst.appendChild(lblAseNom);
-			var inAseNom=createInput(divEst,'Apellido materno De Aseso','text','inRegistro','','inAseMat','AseMat');
-		frmRegistro.appendChild(divEst);
-	body.appendChild(frmRegistro);
 }
 
 function actualizarValoresAlum(){

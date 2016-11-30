@@ -1,35 +1,42 @@
 var docs=
 	[
-	['F-VI-001 R05','Formato de evaluación de Estadias',2],//P-VI-01
-	['F-VI-003 R08','Definicion de Proyecto de estadias',1],//F-VI-003
-	['F-VI-002 R02','Relacion Empresas vinculadas',2],//
-	['CARTA-TER','Carta de terminacion de estadias',0],
-	['ACT-01','Antecedentes de la empresa',1],
-	['ACT-02','Descripcion del Área de trabajo',1],
-	['ACT-03','Descripcion del problema y objetivos',1],
-	['ACT-04','Marco de referencia técnico',0],
-	['ACT-05','Desarrollo del proyecto',0],
-	['ACT-06','Resultados Obtenidos',0],
-	['ACT-07','Conclusiones y recomendaciones',0],
-	['ACT-08','Bibliografía, índice e introducción',0],
-	['ACT-09',"2 CD's del trabajo recepcional",0],
-	['ACT-10','Presentacion del trabajo recepcional',0],
-	['POR-CD','PORTADA DE CD',2],
-	['ETI-CD','ETIQUETA DE CD',2]
+	['F-VI-001 R05','Formato de evaluación de Estadias',2,'29/11/2016'],//P-VI-01
+	['F-VI-003 R08','Definicion de Proyecto de estadias',1,'29/11/2016'],//F-VI-003
+	['F-VI-002 R02','Relacion Empresas vinculadas',2,'29/11/2016'],//
+	['CARTA-TER','Carta de terminacion de estadias',0,'29/11/2016'],
+	['ACT-01','Antecedentes de la empresa',1,'29/11/2016'],
+	['ACT-02','Descripcion del Área de trabajo',1,'29/11/2016'],
+	['ACT-03','Descripcion del problema y objetivos',1,'29/11/2016'],
+	['ACT-04','Marco de referencia técnico',0,'29/11/2016'],
+	['ACT-05','Desarrollo del proyecto',0,'29/11/2016'],
+	['ACT-06','Resultados Obtenidos',0,'29/11/2016'],
+	['ACT-07','Conclusiones y recomendaciones',0,'29/11/2016'],
+	['ACT-08','Bibliografía, índice e introducción',0,'29/11/2016'],
+	['ACT-09',"2 CD's del trabajo recepcional",0,'29/11/2016'],
+	['ACT-10','Presentacion del trabajo recepcional',0,'29/11/2016'],
+	['POR-CD','PORTADA DE CD',2,'29/11/2016'],
+	['ETI-CD','ETIQUETA DE CD',2,'29/11/2016']
 	];
 var user = '';
-var alums=[0315110132,0315110133,0315110134,0315110135];
+var alums=[
+['0315110132','jorge pulido'],['0315110122','juan perez'],['0315110111','victor gtz']];
+var emps=['Sony','Samsung','Elektra'];
 
 var typeofuser="tutssss";
 
+<<<<<<< HEAD
+var urlAlums = 'http://localhost:8080/Estadias/api/get_all_alumnos.php';
+
+=======
+>>>>>>> origin/master
 function initAlum(){
-	if(sessionStorage['user'])
-	{
+	/*if(sessionStorage['user'])
+	{*/
 		menuOfUser();
 		dashboard();
 		divTwitter();
 		createNotification();
-		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
+		/*document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 	}
 	else
@@ -37,9 +44,10 @@ function initAlum(){
 		//redirect to login
 		sessionStorage['previouspage'] = document.URL;
 		window.location = 'login.html';
-	}
+	}*/
 
 }
+
 function menuOfUser(){
 var divInicio=document.getElementById('inicio');
 var divDocumentos=document.getElementById('documentos');
@@ -51,64 +59,80 @@ var estadisticas1=document.getElementById('estadisticas1');
 	}
 }
 
-
 function registrarEstadia(){
- 	var body=document.getElementById('cuerpo');
- 	body.setAttribute('class','registrarEstadia');
- 	cuerpo.innerHTML=" ";	
-	var divAlumDatos=createDiv('divAlumDatos');
-	var sAlums=createSelect('alumSelect','selects');
-		sAlums.setAttribute('onchange','actualizarValoresAlum();');
-	for(var i= 0; i<alums.length;i++){
-		sAlums.appendChild(createOption(alums[i],alums[i]));
-	}
-	var lblNombreAlum=createLabel('inAlumName','Nombre del Alumno','lblNombreAlum');
-	divAlumDatos.appendChild(lblNombreAlum);
-	var inNombreAlum=createInput(divAlumDatos,'Nombre Completo','text','inAlumDatos','','inAlumName');
-	inNombre.disabled=true;
-	var lblGrupoAlum=createLabel('inAlumGrupo','Grupo del Alumno','lblGrupoAlum');
-	divAlumDatos.appendChild(lblGrupoAlum);
-	var inGrupo=createInput(divAlumDatos,'Grupo','text','inAlumDatos','','inAlumGrupo');
-	inGrupo.disabled=true;
-	divAlumDatos.appendChild(sAlums);
-	cuerpo.appendChild(divAlumDatos);
-	var divRegistro= createDiv('divFormRegistro');
-	var divRegistroAlum=createDiv('divRegistroAlum');
-	var formDatosRegistro=createForm('formDatosRegistro','formDatosRegistro','POST');
-	
-	/*Empiezo a crear los elemntos del formulario Alumno*/
-	var lblDireccionAlum=createLabel('inDireccionAlum','Direccion:');
-	var divDireccionAlum=createDiv('divDireccionAlum','divsDatosReg');
-		divDireccionAlum.appendChild(lblDireccionAlum);
-		divRegistroAlum.appendChild(divDireccionAlum);
-	var inDireccionAlum=createInput(divRegistroAlum,'Direccion Alumno','text','inAlumDatos','','inDireccionAlum');
+	var body = document.getElementById('cuerpo');
+	cuerpo.innerHTML='';
+		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
+	/////////////////////////////////////////////////
+		var divAlum= createDiv('divAlum');
+			var lblMatricula=createLabel('inMatricula','Matricula Alumno:','lblMatricula');
+			divAlum.appendChild(lblMatricula);
+			var inMatricula=createInput(divAlum,'Ingrese la matricula aqui...','text','inRegistro','','inMatricula','matricula');
+			var dlAlums=createDatalist('dlAlums');
+			for (var i=0; i<alums.length;i++) {
+				var oAlum=createOption(alums[i][0],alums[i][1]);
+				dlAlums.appendChild(oAlum);
+				console.log(alums[i]);
+			}
+			divAlum.appendChild(dlAlums);
+			inMatricula.setAttribute('list','dlAlums');
 
+			var lblAlumDir=createLabel('inAlumDir','Direccion Alumno:','lblAlumDir');
+			divAlum.appendChild(lblAlumDir);
+			var inAlumDir=createInput(divAlum,'Ingrese direccion Alumno','text','inRegistro','','inAlumDir');
+			//divAlum.appendChild(inAlumDir);
 
-	var lblNumTelAlum=createLabel('inTelAlum','Num. Telefono:')
-	var divNumTelAlum=createDiv('divNumTelAlum','divsDatosReg');
-		divNumTelAlum.appendChild(lblNumTelAlum);
-		divRegistroAlum.appendChild(divNumTelAlum);
-	var inNumTelAlum=createInput(divRegistroAlum,'Numero de Telefono de Alumno','text','inAlumDatos','','inNumTelAlum');
-	
-	var lblEmailAlum=createLabel('inEmailAlum','Correo Electronico:');
-	var divEmailAlum=createDiv('divEmailAlum','divsDatosReg');
-		divEmailAlum.appendChild(lblEmailAlum);
-		divRegistroAlum.appendChild(divEmailAlum);
-	var inEmailAlum=createInput(divRegistroAlum,'Correo Electronico Alumno','email','inAlumDatos','','inEmailAlum');
-	
-	formDatosRegistro.appendChild(divRegistroAlum);
+			var lblAlumTel=createLabel('inAlumTel','Telefono Alumno:','lblAlumTel');
+			divAlum.appendChild(lblAlumTel);
+			var inAlumTel=createInput(divAlum,'Ingrese Telefono Alumno','text','inRegistro','','inAlumTel');
+			//divAlum.appendChild(inAlumTel);
 
-	var divRegistroEmp=createDiv('divRegistroEmp');
+			var lblAlumTel=createLabel('inAlumEmail','e-Mail Alumno:','lblAlumEmail');
+			divAlum.appendChild(lblAlumTel);
+			var inAlumTel=createInput(divAlum,'Ingrese e-Mail Alumno','text','inRegistro','','inAlumEmail');
+			//divAlum.appendChild(inAlumTel);
 
-	formDatosRegistro.appendChild(divRegistroEmp);
+		frmRegistro.appendChild(divAlum);
 
-	var divRegistroEst=createDiv('divRegistroEst');
-	
-	formDatosRegistro.appendChild(divRegistroEst);
-	
-	divRegistro.appendChild(formDatosRegistro);
-	cuerpo.appendChild(divRegistro);
+		var divEmp=createDiv('divEmp');
 
+			var lblEmpNom=createLabel('inEmpNom','Nombre empresa:','lblEmpNom');
+			divEmp.appendChild(lblEmpNom);
+			var inEmpNom=createInput(divEmp,'Nombre ...','text','inRegistro','','inEmpNom','empresa');
+			var dlEmps=createDatalist('dlEmps');
+			for (var i=0; i<emps.length;i++) {
+				var oEmp=createOption(emps[i],emps[i]);
+				dlEmps.appendChild(oEmp);
+				console.log(emps[i]);
+			}
+			divEmp.appendChild(dlEmps);
+			inEmpNom.setAttribute('list','dlEmps');
+		frmRegistro.appendChild(divEmp);
+
+		var divEst=createDiv('divEst');
+			var lblProNom=createLabel('inProNom','Nombre del proyecto:','lblProNom');
+				divEst.appendChild(lblProNom);
+			var inProNom=createInput(divEst,'Nombre Proyecto','text','inRegistro','','inProNom','proNom');
+				divEst.appendChild(inProNom);
+
+			var lblEstArea=createLabel('inEstArea','Area Estadias','lblEstArea');
+				divEst.appendChild(lblEstArea);
+			var inProNom=createInput(divEst,'Area Estadias','text','inRegistro','','inEstArea','estArea');
+			//	divEst.appendChild(inEstArea);
+			
+			var lblAseNom=createLabel('inAseNom','Nombre De Asesor:','lblAseNom');
+				divEst.appendChild(lblAseNom);
+			var inAseNom=createInput(divEst,'Nombre de asesor','text','inRegistro','','inAseNom','AseNom');
+
+			var lblAseNom=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
+				divEst.appendChild(lblAseNom);
+			var inAseNom=createInput(divEst,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
+
+			var lblAseNom=createLabel('inAseMat','Apellido Materno De Aseso:','lblAseNom');
+				divEst.appendChild(lblAseNom);
+			var inAseNom=createInput(divEst,'Apellido materno De Aseso','text','inRegistro','','inAseMat','AseMat');
+		frmRegistro.appendChild(divEst);
+	body.appendChild(frmRegistro);
 }
 
 function actualizarValoresAlum(){
@@ -116,12 +140,57 @@ function actualizarValoresAlum(){
 	var selectedOption=alumSelect.selectedIndex;
 	console.log(alumSelect[selectedOption].value);
 }
+
+function actualizarAlumns(){
+    
+    var x = new XMLHttpRequest();
+
+	x.open('GET', urlAlums, true);
+	x.send();
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+            console.log(JSONdata);
+	
+	        if(JSONdata.status == 0)
+            {
+                var alumns = JSONdata.alumnos;
+                console.log(alumns);
+
+                var ini = 0;
+                var sAlum=createSelect('alumSelect','selects');
+		        sAlum.setAttribute('onchange','actualizarValoresAlum();');
+                
+                for(var i = 0; i < alumns.length; i++)
+                {
+                    var a = alumns[i];
+			         
+                   for(var i= 0; i<alums.length;i++){
+                       var nom = a.apellidoPaterno + ' ' + a.apellidoMaterno + ' ' + a.nombre;
+		              sAlums.appendChild(createOption(a.nombre,a.matricula));
+	               }
+		      }		
+	       }
+		}
+        
+        califAlumnos();
+	}
+    
+    var sAlums=createSelect('alumSelect','selects');
+		sAlums.setAttribute('onchange','actualizarValoresAlum();');
+	
+}
+
 function divTwitter(){
 	var cuerpo=document.getElementById('cuerpo');
 	var divTwitter=createDiv('divTwitter');
 	divTwitter.innerHTML='<a class="twitter-timeline" href="https://twitter.com/UTTIJ">Tweets by UTTIJ</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 	cuerpo.appendChild(divTwitter);
 }
+
 function createNotification(){
 	var body=document.getElementById('body');
 	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm'];
@@ -154,6 +223,7 @@ function openNotificaciones(){
 
 
 }
+
 function verDocs(){
 	
 
@@ -174,6 +244,10 @@ function verDocs(){
 	td.setAttribute('class','rowheader');
 	td.innerHTML="Nombre DOC";
 	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Fecha Limite";
+	tr.appendChild(td);
 	table.appendChild(tr);
 	for (var i = 0; i < docs.length; i++) {
 		var tr=document.createElement('tr');
@@ -183,6 +257,72 @@ function verDocs(){
 		tr.appendChild(td);	
 		var td = document.createElement('td');
 		td.innerHTML=docs[i][1];
+		td.setAttribute('class','rownormal');
+		tr.appendChild(td);
+		var td = document.createElement('td');
+		td.innerHTML=docs[i][3];
+		td.setAttribute('class','rownormal');
+		tr.appendChild(td);
+		tr.setAttribute('class','rowtable-docs');
+		table.appendChild(tr);
+	}
+	
+	body.appendChild(table);
+}
+
+function califAlumnos(){
+	
+	var body=document.getElementById('cuerpo');
+	body.innerHTML="";
+	body.setAttribute('class','');
+	var p= document.createElement('p');
+    p.setAttribute('id','califs');
+	p.innerHTML="Calificaciones de Alumnos";
+	body.appendChild(p);
+	var table=document.createElement('table');
+	table.setAttribute('id','tabla-califs');
+	var tr =document.createElement('tr');
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Matricula";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Nombre del Alumno";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 1";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 2";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 3";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 4";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Promedio";
+	tr.appendChild(td);
+	table.appendChild(tr);
+	for (var i = 0; i < docs.length; i++) {
+		var tr=document.createElement('tr');
+		var td = document.createElement('td');
+		td.innerHTML=docs[i][0];
+		td.setAttribute('class','rownormal');
+		tr.appendChild(td);	
+		var td = document.createElement('td');
+		td.innerHTML=docs[i][1];
+		td.setAttribute('class','rownormal');
+		tr.appendChild(td);
+		var td = document.createElement('td');
+		td.innerHTML=docs[i][3];
 		td.setAttribute('class','rownormal');
 		tr.appendChild(td);
 		tr.setAttribute('class','rowtable-docs');
@@ -237,8 +377,8 @@ function misDocs(){
 	
 	body.appendChild(table);
 }
-function misCalis()
-{
+
+function misCalis(){
 	var body = document.getElementById('cuerpo');
 	var svgParent = document.createElementNS("http://www.w3.org/2000/svg","svg");
 	var divPromedio = document.createElement('div');
@@ -289,7 +429,7 @@ function misCalis()
 				document.getElementById('bar4').setAttribute('width',p4+'%');
 
 				if(JSONdata.parcial_1 < 6)document.getElementById('bar1').setAttribute('class','barRed');
-        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_ <=7)document.getElementById('bar1').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_1 <=7)document.getElementById('bar1').setAttribute('class','barYellow');
         		else if(JSONdata.parcial_1 >=8 && JSONdata.parcial_1 <=10)document.getElementById('bar1').setAttribute('class','barGreen');
         		
         		if(JSONdata.parcial_2 < 6)document.getElementById('bar2').setAttribute('class','barRed');
@@ -316,7 +456,6 @@ function misCalis()
 	x.send();
 }
 
-
 function fechas(){
 	var body=document.getElementById('cuerpo');
 }
@@ -333,8 +472,7 @@ function tablero(){
 	td.setAttribute('rowspan',2);
 }
 
-function configuracion()
-{
+function configuracion(){
 	var body = document.getElementById('cuerpo');
 	var division = document.createElement('div');
 	var divisionIma = document.createElement('div');
@@ -457,8 +595,8 @@ function realizarCambiosPass()
 		}
 	}
 }
-function cambiarContrasenia()
-{
+
+function cambiarContrasenia(){
 	//method createP(parent,htmlTitle,cssClass)
 	//method createInput(parent,htmlPlaceHolder,type,cssClass,value)
 	var cuerpo = document.getElementById('cuerpo');
@@ -514,8 +652,7 @@ function cambiarContrasenia()
 	x.send();
 }
 
-function normal()
-{
+function normal(){
 	var cuerpo = document.getElementById('cuerpo');
 	cuerpo.setAttribute('class','normal');
 	var divLateralNormal = document.getElementById('menu-lateral');

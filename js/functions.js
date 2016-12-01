@@ -18,10 +18,9 @@ var docs=
 	['ETI-CD','ETIQUETA DE CD',2]
 	];
 var user = '';
-var alums=[
-['0315110132','jorge pulido'],['0315110122','juan perez'],['0315110111','victor gtz']];
-var emps=['Sony','Samsung','Elektra'];
-
+var alums;
+var emps=[];
+	loadEmpresas();loadAlumnos();
 var typeofuser="tutssss";
 
 function initAlum(){
@@ -33,6 +32,7 @@ function initAlum(){
 		createNotification();
 		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
+		console.log(sessionStorage['user']);
 	}
 	else
 	{
@@ -56,6 +56,7 @@ var estadisticas1=document.getElementById('estadisticas1');
 
 function registrarEstadia(){
 	var body = document.getElementById('cuerpo');
+
 	cuerpo.innerHTML='';
 		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
 		var divAlum= createDiv('divAlum');
@@ -118,15 +119,130 @@ function registrarEstadia(){
 				divEst.appendChild(lblAseNom);
 			var inAseNom=createInput(divEst,'Nombre de asesor','text','inRegistro','','inAseNom','AseNom');
 
-			var lblAseNom=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
+			var lblAsePat=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
 				divEst.appendChild(lblAseNom);
-			var inAseNom=createInput(divEst,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
+			var inAsePat=createInput(divEst,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
 
 			var lblAseNom=createLabel('inAseMat','Apellido Materno De Aseso:','lblAseNom');
 				divEst.appendChild(lblAseNom);
 			var inAseNom=createInput(divEst,'Apellido materno De Aseso','text','inRegistro','','inAseMat','AseMat');
-		frmRegistro.appendChild(divEst);
+			
+			var lblAseCar=createLabel('inAseCar','Puesto del asesor:','lblAseCar');
+				divEst.appendChild(lblAseCar);
+			var inAseCar=createInput(divEst,'Puesto del asesor','text','inRegistro','','inAseCar','AseCar');
+			
+			var lblEstVis=createLabel('inEstVis','Dias de visita a su estadia:','lblEstVis');
+				divEst.appendChild(lblEstVis);
+			var inEstVis=createInput(divEst,'Dias de visita a su estadia:','text','inRegistro','','inEstVis','EstVis');
+			
+			var lblEstHr1=createLabel('inEstHr1','Hora de entrada:','lblEstHr1');
+				divEst.appendChild(lblEstHr1);
+			var inEstHr1=createInput(divEst,'Hora de entrada::','time','inRegistro','','inEstHr1','EstHr1');
+				inEstHr1.value='07:00';
+			var lblEstHr2=createLabel('inEstHr2','Hora de salida:','lblEstHr2');
+				divEst.appendChild(lblEstHr2);
+			var inEstHr2=createInput(divEst,'Hora de salida:','time','inRegistro','','inEstHr2','EstHr2');
+			inEstHr2.value='16:00';
+			inEstHr2.setAttribute('onfocusout','check9Hours()');
+		
+			var lblEstEco=createLabel('inEstEco','Apoyo Economico via UTT:','lblEstEco');
+				divEst.appendChild(lblEstEco);
+			var inEstEco=createInput(divEst,'Cantidad apoyo','number','inRegistro','','inEstEco','EstEco');
+				inEstEco.setAttribute('min',0);
+			frmRegistro.appendChild(divEst);
+
+			var divProObj=createDiv('divProObj');
+			
+			var lblProObj=createLabel('inProObj','Objetivos del proyecto','lblProObj');
+			divProObj.appendChild(lblProObj);
+			var inProObj=createInput(divProObj,'Ingrese los objetivos del proyecto','text','inRegistro','','inProObj','ProObj');
+			
+			frmRegistro.appendChild(divProObj);
+		
+			var divProAct=createDiv('divProAct');
+				var thoras=0;
+				//var horasS=horasSem();
+
+				var lblInicio=createLabel('inInicio','Inicio de Estadias:','lblInicio');
+					divProAct.appendChild(lblInicio);
+				var inInicio=createInput(divProAct,'Fecha inicio Estadias','date','inRegistro','dd-mm-yyyy','inInicio','Inicio');
+
+				var lblAct1=createLabel('inAct1','Nombre de Actividad 1:','lblAct1');
+					divProAct.appendChild(lblAct1);
+				var inAct1=createInput(divProAct,'Nombre actividad 1','text','inRegistro','','inAct1','Act1');
+
+				var lblAct1Dur=createLabel('inAct1Dur','Duracion Actividad 1 :','lblAct1Dur');
+					divProAct.appendChild(lblAct1Dur);
+				var inAct1Dur=createInput(divProAct,'Duracion Actividad 1','number','inRegistro','','inAct1Dur','Act1Dur');
+					inAct1Dur.setAttribute('min',0);
+
+
+				var lblAct2=createLabel('inAct2','Nombre de Actividad 2:','lblAct2');
+					divProAct.appendChild(lblAct2);
+				var inAct2=createInput(divProAct,'Nombre actividad 2','text','inRegistro','','inAct2','Act2');
+				
+				var lblAct2Dur=createLabel('inAct2Dur','Duracion Actividad 2 :','lblAct2Dur');
+					divProAct.appendChild(lblAct2Dur);
+				var inAct2Dur=createInput(divProAct,'Duracion Actividad 2','number','inRegistro','','inAct1Dur','Act2Dur');
+					inAct2Dur.setAttribute('min',0);
+
+
+				var lblAct3=createLabel('inAct3','Nombre de Actividad 3:','lblAct3');
+					divProAct.appendChild(lblAct3);
+				var inAct3=createInput(divProAct,'Nombre actividad 3','text','inRegistro','','inAct3','Act3');
+				
+				var lblAct3Dur=createLabel('inAct3Dur','Duracion Actividad 3 :','lblAct3Dur');
+					divProAct.appendChild(lblAct3Dur);
+				var inAct3Dur=createInput(divProAct,'Duracion Actividad 3','number','inRegistro','','inAct3Dur','Act3Dur');
+					inAct3Dur.setAttribute('min',0);
+
+
+				var lblAct4=createLabel('inAct4','Nombre de Actividad 4:','lblAct4');
+					divProAct.appendChild(lblAct4);
+				var inAct4=createInput(divProAct,'Nombre actividad 4','text','inRegistro','','inAct4','Act4');
+				
+				var lblAct4Dur=createLabel('inAct4Dur','Duracion Actividad 4 :','lblAct4Dur');
+					divProAct.appendChild(lblAct4Dur);
+				var inAct4Dur=createInput(divProAct,'Duracion Actividad 4','number','inRegistro','','inAct4Dur','Act4Dur');
+				inAct4Dur.setAttribute('min',0);
+
+
+				var lblAct5=createLabel('inAct5','Nombre de Actividad 5:','lblAct5');
+					divProAct.appendChild(lblAct5);
+				var inAct5=createInput(divProAct,'Nombre actividad 5','text','inRegistro','','inAct5','Act5');
+				
+				var lblAct5Dur=createLabel('inAct5Dur','Duracion Actividad 5 :','lblAct5Dur');
+					divProAct.appendChild(lblAct5Dur);
+				var inAct5Dur=createInput(divProAct,'Duracion Actividad 5','number','inRegistro','','inAct5Dur','Act5Dur');
+				inAct5Dur.setAttribute('min',0);
+
+
+			frmRegistro.appendChild(divProAct);
 	body.appendChild(frmRegistro);
+}
+function check9Hours(){
+	var hora1=document.getElementById('inEstHr1').value;
+	var hora2=document.getElementById('inEstHr2').value;
+
+	hora1=parseInt(hora1.charAt(0)+hora1.charAt(1));
+	hora2=parseInt(hora2.charAt(0)+hora2.charAt(1));
+
+	if ((hora2-hora1)<9) {window.alert("Horas invalidas, deben ser minimo 9 horas diarias");}
+
+	var horaB=document.getElementById('inEstHr2').value;
+	var shora=(hora1+9)+':00';
+	document.getElementById('inEstHr2').value=shora;
+}
+
+function horasSem(){
+	var hora1=document.getElementById('inEstHr1').value;
+	var hora2=document.getElementById('inEstHr2').value;
+	hora1=parseInt(hora1.charAt(0)+hora1.charAt(1));
+	hora2=parseInt(hora2.charAt(0)+hora2.charAt(1));
+
+	var thoras=hora2-hora1;
+
+	return thoras;
 }
 
 function actualizarValoresAlum(){
@@ -327,7 +443,7 @@ function misCalis()
 			}
 			else
 			{
-				alert(JSONdata.errorMessage);
+				console.log(JSONdata.errorMessage);
 			}
     	}
 	}
@@ -581,5 +697,56 @@ function dashboard(){
 		tr.appendChild(td);
 		table.appendChild(tr);
 		cuerpo.appendChild(table);
+}
+function loadEmpresas(){
+
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getEmpresa.php',true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0){
+				for(var i=0; i<JSONdata.Empresas.length;i++)
+					{
+						emps[i]=JSONdata.Empresas[i].name;
+						console.log(emps[i]);
+					}
+				}
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
+}
+
+function loadAlumnos(){
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/get_all_alumnos.php',true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0){
+				var matriz=new Array();
+				for(var i=0; i<JSONdata.alumnos.length;i++)
+					{
+						matriz[i]=new Array(2);
+						var fullname=JSONdata.alumnos[i].apellidoPaterno+" "+JSONdata.alumnos[i].nombre;
+
+						matriz[i][1]=fullname;
+						matriz[i][0]=JSONdata.alumnos[i].matricula;
+
+						console.log(i+" "+matriz[i][0]+" - "+matriz[i][1]);
+					}
+				}
+			else
+				alert(JSONdata.descripccion);
+			alums=matriz;
+		}
+	}
 }
 /*ALTA - FIN*/

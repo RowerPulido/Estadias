@@ -452,8 +452,8 @@ ALTER TABLE [asesor_empresarial] ADD CONSTRAINT [FK_asesor_empresarial_empresas]
 	FOREIGN KEY ([empresa]) REFERENCES [empresas] ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Alumnos] ADD CONSTRAINT [FK_Alumnos_ContactoAlumno]
-	FOREIGN KEY ([matricula]) REFERENCES [ContactoAlumno] ([idAlumno]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE [ContactoAlumno] ADD CONSTRAINT [FK_Alumnos_ContactoAlumno]
+	FOREIGN KEY ([idAlumno]) REFERENCES [Alumnos] ([matricula]) ON DELETE No Action ON UPDATE No Action
 GO
 
 ALTER TABLE [Alumnos] ADD CONSTRAINT [FK_Alumnos_grupos]

@@ -17,11 +17,14 @@ var docs=
 	['POR-CD','PORTADA DE CD',2],
 	['ETI-CD','ETIQUETA DE CD',2]
 	];
+
+var alum='';
+var tut='';
 var user = '';
 var alums;
 var emps=[];
 	loadEmpresas();loadAlumnos();
-var typeofuser="tutssss";
+var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 
 function initAlum(){
 	if(sessionStorage['user'])
@@ -48,12 +51,35 @@ var divDocumentos=document.getElementById('documentos');
 var divEstadisticas=document.getElementById('estadisticas');
 var divConfiguracion=document.getElementById('configuracion');
 var estadisticas1=document.getElementById('estadisticas1');
-	if (typeofuser=="tut") {
+	if (typeofuser=="ALUs") {
+		alumDatos();
 		estadisticas1.style.display='none';
 	}
 }
 
+function alumDatos(matricula){
 
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getlogin.php?matricula='+matricula,true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{	
+
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.Status == 0) 
+			{
+				return JSONdata.alumno;
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+		}
+
+	}
+}
 function registrarEstadia(){
 	var body = document.getElementById('cuerpo');
 
@@ -84,7 +110,7 @@ function registrarEstadia(){
 
 			var lblAlumTel=createLabel('inAlumEmail','e-Mail Alumno:','lblAlumEmail');
 			divAlum.appendChild(lblAlumTel);
-			var inAlumTel=createInput(divAlum,'Ingrese e-Mail Alumno','text','inRegistro','','inAlumEmail');
+			var inAlumTel=createInput(divAlum,'Ingrese e-Mail Alumno','email','inRegistro','','inAlumEmail');
 			//divAlum.appendChild(inAlumTel);
 
 		frmRegistro.appendChild(divAlum);
@@ -120,7 +146,7 @@ function registrarEstadia(){
 			var inAseNom=createInput(divEst,'Nombre de asesor','text','inRegistro','','inAseNom','AseNom');
 
 			var lblAsePat=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
-				divEst.appendChild(lblAseNom);
+				divEst.appendChild(lblAsePat);
 			var inAsePat=createInput(divEst,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
 
 			var lblAseNom=createLabel('inAseMat','Apellido Materno De Aseso:','lblAseNom');

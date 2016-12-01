@@ -425,6 +425,10 @@ function verDocs(){
 	var td=document.createElement('td');
 	td.setAttribute('class','rowheader');
 	td.innerHTML="Nombre DOC";
+	tr.appendChild(td);    
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Fecha Limite";
 	tr.appendChild(td);
 	table.appendChild(tr);
 	for (var i = 0; i < docs.length; i++) {
@@ -568,6 +572,187 @@ function misCalis()
 	x.send();
 }
 
+function calis(){
+    
+    var body=document.getElementById('cuerpo');
+	body.innerHTML="";
+	body.setAttribute('class','');
+	var p= document.createElement('p');
+	p.innerHTML="Calificaciones de los alumnos";
+	body.appendChild(p);
+	
+    var x = new XMLHttpRequest();
+    var fGrupos = document.createElement('form');
+    fGrupos.setAttribute('id','fGrupos');
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_all_grupos.php?group=', true);
+	x.send();
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+            console.log(JSONdata);
+	
+	        if(JSONdata.status == 0)
+            {
+                var grupos = JSONdata.grupos;
+                console.log(grupos);
+
+                var ini = 0;
+                var sGrupos = document.createElement('select');
+                sGrupos.setAttribute('id','group');
+                sGrupos.setAttribute('class','selects');
+		        sGrupos.setAttribute('onchange','actGrupos(this.value);');
+                
+                body.appendChild(fGrupos);
+                fGrupos.appendChild(sGrupos);
+                
+                for(var i = 0; i < grupos.length; i++)
+                {
+                    var g = grupos[i];
+                    
+                    var nom = g.id + ' ' + g.carrera + ' ' + g.tutor;
+                    console.log(nom);
+		            sGrupos.appendChild(createOption(g.id,g.id));
+			         
+		      }	
+	       }
+		}        
+	}	
+    
+    var table=document.createElement('table');
+	table.setAttribute('id','tabla-alums');
+	var tr =document.createElement('tr');
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Matricula";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Nombre";
+	tr.appendChild(td);    
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 1";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 2";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 3";
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.setAttribute('class','rowheader');
+	td.innerHTML="Parcial 4";
+	tr.appendChild(td);
+	table.appendChild(tr);	
+	
+	body.appendChild(table);
+}
+
+function actGrupos(grupo){
+    var x = new XMLHttpRequest();
+
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_by_group.php?group='+grupo,'true');
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+            console.log(JSONdata);
+	
+	        if(JSONdata.status == 0)
+            {
+                var alumns = JSONdata.alumnos;
+                console.log(alumns);
+                
+                var ini = 0;
+                
+                for(var i = 0; i < alumns.length; i++)
+                {
+                    var a = alumns[i];
+			         
+                    var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
+                    console.log(nom);
+                    var table = document.getElementById('tabla-alums');
+                    for (var i = 0; i < alumns.length; i++) {
+                        var tr=document.createElement('tr');
+                        var td = document.createElement('td');
+                        td.innerHTML=a.matricula;
+                        td.setAttribute('class','rownormal');
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML=nom;
+                        td.setAttribute('class','rownormal');
+                        tr.appendChild(td);
+                        tr.setAttribute('class','rowtable-docs');
+                        table.appendChild(tr);
+                    }
+		      }	
+	       }
+		}
+        console.log(x);
+	}
+    x.send();
+}
+
+function calificar(){
+    var cuerpo = document.getElementById('cuerpo');
+	var bodyOpaca = document.getElementById('body');
+	var divLateralOpaca = document.getElementById('menu-lateral');
+	var divEnsima = document.createElement('div');
+	var ima = document.createElement('img');
+	var forma = document.createElement('form');
+
+	cuerpo.setAttribute('class','opaca');
+	divEnsima.setAttribute('id','divPassword');
+	forma.setAttribute('id','formPassword');
+	forma.setAttribute('method','POST');
+	ima.setAttribute('src','images/exit_password.png')
+	ima.setAttribute('onClick','normal();');
+	ima.setAttribute('class','imaExitPassword');
+
+	createP(forma,'Primer Parcial:','label');
+	createInput(forma,'Primer Parcial','','campo','','fstParcial','fstParcial');
+	createP(forma,'Segundo Parcial:','label');
+	createInput(forma,'Segundo Parcial','','campo','','scndParcial','scndParcial');
+	createP(forma,'Tercer Parcial:','label');
+	createInput(forma,'Tercer Parcial','','campo','','thrdParcial','thrdParcial');
+	createP(forma,'Cuarto Parcial:','label');
+	createInput(forma,'Cuarto Parcial','','campo','','frthParcial','frthParcial');
+	divEnsima.appendChild(ima);
+	bodyOpaca.appendChild(divEnsima);
+	divEnsima.appendChild(forma);
+	createInput(divEnsima,'','','button','Aceptar','acceptCalif');
+	document.getElementById('idConfigPass').setAttribute('onClick','cambioCalif()');
+	
+	var matri,pass;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function() {//Call a function when the state changes.
+    if(x.readyState == 4 && x.status == 200) {
+       var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				
+				matri = JSON.parse(sessionStorage['user']).User.userID;
+				pass = JSON.parse(sessionStorage['user']).User.password;
+				document.getElementById('matriculaPASS').setAttribute('value',matri);
+				document.getElementById('passSessPASS').setAttribute('value',pass);
+
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+    	}
+	}
+	x.send();
+}
 
 function fechas(){
 	var body=document.getElementById('cuerpo');

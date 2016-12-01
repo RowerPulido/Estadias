@@ -33,7 +33,7 @@ class User
 			try
 			{
 				//query
-				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and password=\''.$pswd."'");
+				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and password=HashBytes('."'SHA1'".",".'\''.$pswd."');");
 				
 				//command
 				$data= $connection->execute_query($query);
@@ -50,7 +50,26 @@ class User
 			{
 				$connection->close();
 			}
-		} 
-}
+		}
+		if (func_num_args()==3) 
+		{
+			$args=func_get_args();
+			$id=$args[0];
+			$pswd=$args[1];
+			$user_type=$args[2];
+			$connection= new SqlServerConnection();
+			try
+			{
+				//query
+				$query=sprintf('insert into usuarios values (?,?,?);');
+				$connection->execute_non_query($query,array($id,$pswd,$user_type));
+				$connection->close();
+			}
+			finally
+			{
+				$connection->close();
+			}
+		}
+	}
 }
  ?>

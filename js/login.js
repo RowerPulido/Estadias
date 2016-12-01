@@ -21,5 +21,6 @@ function login()
 				alert(JSONdata.errorMessage);
 			}
 		}
+		console.log(x);
 	}
 }

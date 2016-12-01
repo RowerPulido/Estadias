@@ -19,7 +19,8 @@ if (isset($user) && isset($pswd))
 	$connection = new SqlServerConnection();
 	try
 	{
-		$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = \''.$pswd."';");
+		$query = sprintf('select todos.matricula,HashBytes('."'SHA1'".',u.password) as password, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = HashBytes('."'SHA1'".",".'\''.$pswd."');");
+		
 		$data=$connection->execute_query($query);
 			
 		$matricula=odbc_result($data, 'matricula');
@@ -35,7 +36,7 @@ if (isset($user) && isset($pswd))
 				echo $result='{"Status" : 1 , "Description" : "User Not Found" }';
 						die;
 		}
-		$u = new User($matricula,$password);
+		$u = new User($matricula,$pswd);
 		echo '
 			{ "Status" : 0,
 				"User" : 
@@ -44,7 +45,7 @@ if (isset($user) && isset($pswd))
 				 	"Nombre" : "'.$nombre.'",
 				 	"Paterno" : "'.$paterno.'",
 				 	"Imagen" : "'.$imagen.'",
-				 	"password" :"'.$password.'",
+				 	"password" :"'.$pswd.'",
 				 	"UserType" : 
 				 					{
 				 						"IDtype" : "'.$u->get_user_type()->get_id_type().'",

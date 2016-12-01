@@ -307,7 +307,7 @@ function misCalis()
 				document.getElementById('bar4').setAttribute('width',p4+'%');
 
 				if(JSONdata.parcial_1 < 6)document.getElementById('bar1').setAttribute('class','barRed');
-        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_ <=7)document.getElementById('bar1').setAttribute('class','barYellow');
+        		else if(JSONdata.parcial_1 >=6 && JSONdata.parcial_1 <=7)document.getElementById('bar1').setAttribute('class','barYellow');
         		else if(JSONdata.parcial_1 >=8 && JSONdata.parcial_1 <=10)document.getElementById('bar1').setAttribute('class','barGreen');
         		
         		if(JSONdata.parcial_2 < 6)document.getElementById('bar2').setAttribute('class','barRed');
@@ -386,6 +386,7 @@ function configuracion()
 
 	createInput(forma,'','hidden','campo','','matricula','matricula');
 	createInput(forma,'','hidden','campo','','passSess','passSess');
+	createInput(forma,'','hidden','campo','','tipouser','tipouser');
 	
 
 	division.appendChild(forma);
@@ -398,7 +399,7 @@ function configuracion()
 	document.getElementById('btnok').setAttribute('onClick','realizarCambios()');
 	document.getElementById('btnPassword').setAttribute('onClick','cambiarContrasenia()');
 	//traer los datos 
-	var email,tel,matri,pass;
+	var email,tel,matri,pass,tipouser;
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/getalumnoinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
 	x.onreadystatechange = function() {//Call a function when the state changes.
@@ -410,10 +411,13 @@ function configuracion()
 				tel = JSONdata.telefono;
 				matri = JSON.parse(sessionStorage['user']).User.userID;
 				pass = JSON.parse(sessionStorage['user']).User.password;
+				tipouser = JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 				document.getElementById('email').setAttribute('value',email);
 				document.getElementById('tel').setAttribute('value',tel);
 				document.getElementById('matricula').setAttribute('value',matri);
 				document.getElementById('passSess').setAttribute('value',pass);
+				document.getElementById('tipouser').setAttribute('value',tipouser);
+				
 			}
 			else
 			{
@@ -436,7 +440,7 @@ function realizarCambios()
 	var contrasenia = document.getElementById('passwordInput').value;
 	var matricula = JSON.parse(sessionStorage['user']).User.userID;
 	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
-
+	var tipouser = JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setConfig.php',true);
 	x.send(new FormData(document.getElementById('formaConfig')));
@@ -451,6 +455,7 @@ function realizarCambios()
 				alert(JSONdata.descripccion);
 		}
 	}
+	console.log(x);
 }
 function realizarCambiosPass()
 {

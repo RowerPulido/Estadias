@@ -7,20 +7,32 @@
 	$contra = $_POST['pass'];
 	$contraSes = $_POST['passSess'];
 	$matricula = $_POST['matricula'];
-	if(isset($correo) && isset($tel) && isset($contra) && isset($contraSes) && isset($matricula) ) 
+	$tipouser = $_POST['tipouser'];
+	if(isset($correo) && isset($tel) && isset($contra) && isset($contraSes) && isset($matricula) && isset($tipouser) ) 
 	{
-		if ($correo == '' && $tel =='' && $contra=='' && $contraSes =='' && $matricula =='') 
+		if ($correo == '' && $tel =='' && $contra=='' && $contraSes =='' && $matricula =='' && $tipouser == '') 
 		{
 			echo $result='{"status" : 3 , "descripccion" : "Invalid parameters" }';
 			die;
 		}
 		if ($contra == $contraSes) 
 		{
-			$connection = new SqlServerConnection();
-			echo $result='{"status": 0, "descripccion" : "Datos Guardados"}';
-			$query=sprintf('update contactoAlumno set email= ?, telefono= ? where idAlumno= ?;');
-			$connection->execute_non_query($query,array($correo,$tel,$matricula));
-			$connection->close();
+			if ($tipouser == '002')
+			{
+				$connection = new SqlServerConnection();
+				echo $result='{"status": 0, "descripccion" : "Datos Guardados Alumnos"}';
+				$query=sprintf('update contactoAlumno set email= ?, telefono= ? where idAlumno= ?;');
+				$connection->execute_non_query($query,array($correo,$tel,$matricula));
+				$connection->close();
+			}
+				if ($tipouser == '001') 
+				{
+					$connection = new SqlServerConnection();
+					echo $result='{"status": 1, "descripccion" : "Datos Guardados Tutores"}';
+					$query=sprintf('update tutores set email= ?, tel= ? where id= ?;');
+					$connection->execute_non_query($query,array($correo,$tel,$matricula));
+					$connection->close();
+				}
 		}
 		else
 		{

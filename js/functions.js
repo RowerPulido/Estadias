@@ -82,12 +82,18 @@ function menuOfUser(){
 var divInicio=document.getElementById('inicio');
 var divDocumentos=document.getElementById('documentos');
 var divEstadisticas=document.getElementById('estadisticas');
-var navEstadisticas = document.getElementById('calisalums');
 var divConfiguracion=document.getElementById('configuracion');
-var estadisticas1=document.getElementById('estadisticas1');
-	if (typeofuser=="ALUs") {
-		alumDatos(JSON.parse(sessionStorage['user']).User.userID);
-		estadisticas1.style.display='none';
+var registrar=document.getElementById('registrar');
+var calisalums=document.getElementById('calisalums');
+	if (typeofuser=="ALU") {
+		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
+		registrar.style.display='none';
+		calisalums.style.display='none';
+	}
+	if (typeofuser=='TUT') {
+		divDocumentos.style.display='none';
+		document.getElementById('vercalis').style.display='none';
+		document.getElementById('verponderaciones').style.display='none';
 	}
 }
 
@@ -957,7 +963,10 @@ function cambiarContrasenia()
 	}
 	x.send();
 }
-
+function logout(){
+	sessionStorage['user']='';
+	window.location='login.html';
+}
 function normal()
 {
 	var cuerpo = document.getElementById('cuerpo');

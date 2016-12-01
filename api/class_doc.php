@@ -31,8 +31,8 @@
 		public function get_mat() { return $this->matricula; }
 		public function set_mat($valor) { $this->matricula = $valor; }
 		
-		public function get_fecha_limit() { return $this->fecha_upd; }
-		public function set_fecha_limit($valor) { $this->fecha_upd = $valor; }		
+		public function get_fecha_limit() { return $this->fecha_limit; }
+		public function set_fecha_limit($valor) { $this->fecha_limit = $valor; }		
 		
 		public function __construct()
 		{
@@ -50,32 +50,28 @@
 				$this->estado=$args[2];
 			
 			}
-			
-			if(func_num_args()==6)
-			{                			
-                require_once('MODELS/connection_sql_server.php');
-	
-                $connection= new SqlServerConnection();
-	            $query = sprintf('insert into documentos values (?,?,?,?,?,?);');
+			if(func_num_args()==7)
+			{
+				require_once('MODELS/connection_sql_server.php');
+				$arguments = func_get_args();			
+				
+				$this->id=$arguments[0];
+				$this->tipo=$arguments[1];
+				$this->matricula=$arguments[2];
+				$this->estado=$arguments[3];
+				$this->fecha_upd=$arguments[4];
+				$this->fecha_limit=$arguments[5];
+				$this->ruta=$arguments[6];
+				$connection= new SqlServerConnection();
+	            $query = sprintf('insert into [Documento.documentos] values (?,?,?,?,?,?);');
 	                
 	            $connection->execute_non_query($query, array($this->id,
 	            											 $this->tipo,
 	            											 $this->matricula,
 	            											 $this->estado,
 	            											 $this->fecha_upd,
+	            											 $this->fecha_limit,
 	            											 $this->ruta));
-			}
-			if(func_num_args()==7)
-			{
-				$arguments = func_get_args();			
-				
-				$this->id=$arguments[0];
-				$this->nombre=$arguments[1];
-				$this->tipo=$arguments[6];
-				$this->ruta=$arguments[2];
-				$this->estado=$arguments[3];
-				$this->fecha_upd=$arguments[4];
-				$this->matricula=$arguments[5];
 			}
 			if(func_num_args()==5)
 			{
@@ -98,7 +94,7 @@
 			//query
 			try
 			{
-				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, type from documentos d join typesofdocs tod on d.type = tod.id;');
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, typeDocs from [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id;');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -134,7 +130,8 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from
+				 [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -167,7 +164,8 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status from documentos d join typesofdocs tod on d.type = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status from [Documento.documentos] d join 
+				[Documento.typesofdocs] tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -198,7 +196,7 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from documentos d join typesofdocs tod on d.type = tod.id where d.alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id where d.alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

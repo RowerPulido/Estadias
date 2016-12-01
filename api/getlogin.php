@@ -19,7 +19,9 @@ if (isset($user) && isset($pswd))
 	$connection = new SqlServerConnection();
 	try
 	{
-		$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from usuarios u join typeofuser t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from Alumnos union select id as id, numbres, paterno,imagen from tutores union select id as id, nombre, paterno,imagen from asesor_empresarial) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = HashBytes('."'SHA1'".",".'\''.$pswd."');");
+		$query = sprintf('select todos.matricula,u.password, todos.nombres,todos.paterno,todos.imagen,t.id ,t.description from [Usuario.usuarios] u join 
+			[Usuario.typeofuser] t on u.tipo = t.id join (select matricula,nombres, paterno,imagen from 
+			[Alumno.Alumnos] union select id as id, numbres, paterno,imagen from [Alumno.tutores] union select id as id, nombre, paterno,imagen from [Empresa.asesor_empresarial]) todos on todos.matricula = u.id where u.id = \''.$user.'\' and u.password = HashBytes('."'SHA1'".",".'\''.$pswd."');");
 		
 		$data=$connection->execute_query($query);
 			

@@ -116,7 +116,8 @@ require_once('MODELS/connection_sql_server.php');
 			$connection = new SqlServerConnection();
 			//query
             try{
-                $query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from Alumnos;');
+                $query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from 
+                	[Alumno.Alumnos];');
                 //command
                 $data = $connection->execute_query($query);
                 $found = odbc_num_rows($data) > 0;
@@ -150,7 +151,8 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from Alumnos where matricula=\''.$matricula."'");
+				$query = sprintf('select nombres, paterno, materno, matricula, grupo, imagen from 
+					[Alumno.Alumnos] where matricula=\''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -184,7 +186,8 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('SELECT nombres, paterno, materno, matricula, grupo, imagen from alumnos where grupo = \''.$group."'");
+				$query = sprintf('SELECT nombres, paterno, materno, matricula, grupo, imagen from 
+					[Alumno.Alumnos] where grupo = \''.$group."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -219,7 +222,8 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.type = t.id');
+				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from [Alumno.alumnos] a, [Documento.documentos] d, 
+					[Documento.typesofdocs] t where a.matricula = d.alumno and d.typeDocs = t.id');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -256,7 +260,8 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and d.status =\''.$estado."'");
+				$query = sprintf('select a.nombres, a.paterno, a.materno, a.matricula ,a.grupo, a.imagen, t.name, d.status from [Alumno.alumnos] a, [Documento.documentos] d, 
+					[Documento.typesofdocs] t where a.matricula = d.alumno and d.id = t.id and d.status =\''.$estado."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -291,7 +296,8 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-				$query = sprintf('select a.nombres, a.paterno, a.maternvar, a.matricula ,a.grupo, a.imagen,t.name, d.status from alumnos a, documentos d,typesofdocs t where a.matricula = d.alumno and d.id = t.id and a.grupo=\''.$grupo."'");
+				$query = sprintf('select a.nombres, a.paterno, a.maternvar, a.matricula ,a.grupo, a.imagen,t.name, d.status from [Alumno.alumnos] a, [Documento.documentos] d, 
+					[Documento.typesofdocs] t where a.matricula = d.alumno and d.id = t.id and a.grupo=\''.$grupo."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -317,11 +323,6 @@ require_once('MODELS/connection_sql_server.php');
 				$connection->close();
 			}
 			return $list;		
-		}
-		
-		
+		}	
 	}
-
-
-                      
 ?>

@@ -16,17 +16,17 @@ use Estadias;
 go
 
 /* Create Schemas */
-create schema Estadia;
+create schema Estadia AUTHORIZATION dbo;
 go
-create schema Alumno;
+create schema Alumno AUTHORIZATION dbo;
 go
-create schema Documento;
+create schema Documento AUTHORIZATION dbo;
 go
-create schema Calificacion;
+create schema Calificacion AUTHORIZATION dbo;
 go
-create schema Usuario;
+create schema Usuario AUTHORIZATION dbo;
 go
-CREATE SCHEMA Empresa;
+CREATE SCHEMA Empresa AUTHORIZATION dbo;
 go
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[FK_Usuarios_typeofuser]') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1) 
 ALTER TABLE [Usuarios] DROP CONSTRAINT [FK_Usuarios_typeofuser]
@@ -295,7 +295,16 @@ CREATE TABLE [Estadia.Actividades]
 	[proyecto] int NOT NULL
 )
 GO
-
+---tabla mensajes
+create table [Usuario.mensajes]
+(
+	[id] int  primary key identity(1,1),
+	[texto] varchar(200) NULL,
+	[destinatario] char(10) NULL,
+	[remitente] char(10) NULL,
+	[fecha_limite] date null
+)
+go
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
 ALTER TABLE [Usuario.Usuarios] 
@@ -357,7 +366,7 @@ CREATE INDEX [IXFK_Estadias_proyectos]
  ON [Estadia.Estadias] ([proyecto] ASC)
 GO
 
-ALTER TABLE [Estadia.empresas] 
+ALTER TABLE [Empresa.empresas] 
  ADD CONSTRAINT [PK_empresas]
 	PRIMARY KEY CLUSTERED ([id])
 GO
@@ -478,12 +487,11 @@ GO
 ALTER TABLE [Estadia.Actividades] ADD CONSTRAINT [FK_Actividades_proyectos]
 	FOREIGN KEY ([proyecto]) REFERENCES [Estadia.proyectos] ([id]) ON DELETE No Action ON UPDATE No Action
 GO
+ALTER TABLE [Usuario.mensajes] ADD CONSTRAINT [FK_Destinatario_user]
+	FOREIGN KEY ([destinatario]) REFERENCES [Usuario.Usuarios] ([id]) ON DELETE No Action ON UPDATE No Action
+GO
+ALTER TABLE [Usuario.mensajes] ADD CONSTRAINT [FK_Remitente_user]
+	FOREIGN KEY ([remitente]) REFERENCES [Usuario.Usuarios] ([id]) ON DELETE No Action ON UPDATE No Action
+GO
 
----tabla mensajes
-create table Usuario.mensajes(
-id int  primary key identity(1,1),
-texto varchar(200),
-destinatario char(10) foreign key references Usuario.Usuarios(id),
-remitente char(10) foreign key references Usuario.Usuarios(id),
-fecha_limite date null
-)
+

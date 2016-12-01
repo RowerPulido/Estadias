@@ -16,7 +16,7 @@
 		$found=true;
 		if (!$first) $json .= ','; else $first = false;
 		$json .= '{
-                    "matricu;a" : "'.$e->get_matricula().'",
+                    "matricula" : "'.$e->get_matricula().'",
 					"nombre" : "'.$e->get_nombre().'",
 					"apellidoPaterno" : "'.$e->get_apellidoPaterno().'",
 					"apellidoMaterno" : "'.$e->get_apellidoMaterno().'",

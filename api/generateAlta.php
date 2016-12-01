@@ -2,27 +2,29 @@
  require_once('dompdf/autoload.inc.php');
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
-$matricula='0315110132';
+$matricula=$_POST['matricula'];
 $ing='';
-$tsu='';
-$ip='X';
+$tsu='X';
+$ip='';
 $carreraNom='';
-$alumDir='';
-$alumEmail='yugljhlhb';
+$alumDir=$_POST['alumDir'];
+$alumEmail=$_POST['alumEmail'];
 $alumNom='';
-$alumTel='';
-$proNom='';
-$estArea='';
-$aseEmpNom='';
-$aseEmpCargo='';
-$estVisitas='';
+$alumTel=$_POST['alumTel'];
+$proNom=$_POST['proNom'];
+$estArea=$_POST['estArea'];
+$aseEmpNom=$_POST['AseNom'].' '.$_POST['AsePat'].' '.$_POST['AseMat'];
+$aseEmpCargo=$_POST['AseCar'];
+$estVisitas=$_POST['EstVis'];
 $tutNom='';
-$estHor='mnbjhb';
-$estEco='';
-$proObj='';
-$ACTIVIDAD1='';
-$INICIO1='';
-$FIN1='';
+$estHor='LUNES-VIERNES :'.$_POST['EstHr1'].'-'.$_POST['EstHr2'];
+$hrsdia=$_POST['EstHr2']-$_POST['EstHr1'];
+$estEco='$ '.$_POST['EstEco'];
+$proObj=$_POST['ProObj'];
+$ACTIVIDAD1=$_POST['Act1'];
+$INICIO1=$_POST['Inicio'];
+$dur1=$_POST['Act1Dur'];
+$FIN1=(($dur1-1)*7)+5;
 $NUMHRS1='';
 $ACTIVIDAD2='';
 $INICIO2='';
@@ -214,7 +216,7 @@ $dompdf->loadHtml('<!DOCTYPE html>
           <td class="noborder" id="bottom">Asesor Empresarial</td>
         </tr>
         <tr>
-          <td class="noborder">Director rico xD</td>
+          <td class="noborder">Lic. Rico</td>
           <td class="noborder">'.$alumNom.'</td>
         </tr>
         <tr>

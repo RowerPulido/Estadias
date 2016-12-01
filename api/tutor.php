@@ -1,4 +1,5 @@
 <?php
+	require_once('MODELS/connection_sql_server.php');
 	class Tutor
 	{
 		//atributes
@@ -28,23 +29,14 @@
 				$this->school = '';
 			}
 		}
-		public static function set_tutor($setMatricula, $setName, $setFirstName, $setSchool)
+		public static function set_tutor($setMatricula, $setName, $setFirstName, $setLastName,$image,$email,$tel)
 		{
 			//get connection
-			$connection = get_connection();
+			$connection = new SqlServerConnection();
 			//query
-			$query = 'insert into Estadias.Tutor values(?,?,?,?)';
-			//command
-			$command = $connection->prepare($query);
-			if ($command === false)
-			{
-				echo 'Error in query : '.$query;
-				die;
-			}
-			//link parametters
-			$command->bind_param('isss',$setMatricula, $setName, $setFirstName, $setSchool);
-			//execute command
-			$command->execute();
+			$query = sprintf('insert into [Alumno.Tutor] values(?,?,?,?,?,?,?)');
+			$connection->execute_non_query($query,array($setMatricula,$setName,$setFirstName,$setLastName,$image,$email,$tel));
+			$connection->close();
 		}
 	}
 ?>

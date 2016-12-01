@@ -17,19 +17,19 @@
 		}
 		if ($contra == $contraSes) 
 		{
-			if ($tipouser == '002')
+			if ($tipouser == 'ALU')
 			{
 				$connection = new SqlServerConnection();
 				echo $result='{"status": 0, "descripccion" : "Datos Guardados Alumnos"}';
-				$query=sprintf('update contactoAlumno set email= ?, telefono= ? where idAlumno= ?;');
+				$query=sprintf('update [Alumno.contactoAlumno] set email= ?, telefono= ? where idAlumno= ?;');
 				$connection->execute_non_query($query,array($correo,$tel,$matricula));
 				$connection->close();
 			}
-				if ($tipouser == '001') 
+				if ($tipouser == 'TUT') 
 				{
 					$connection = new SqlServerConnection();
 					echo $result='{"status": 1, "descripccion" : "Datos Guardados Tutores"}';
-					$query=sprintf('update tutores set email= ?, tel= ? where id= ?;');
+					$query=sprintf('update [Alumno.tutores] set email= ?, tel= ? where id= ?;');
 					$connection->execute_non_query($query,array($correo,$tel,$matricula));
 					$connection->close();
 				}

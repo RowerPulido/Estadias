@@ -70,7 +70,7 @@ require_once('proyectoo.php');
 			//get connection
 			$connection = new SqlServerConnection();
 			//query
-			$query = sprintf('insert into Estadias.Proyecto values(?,?,?,?)');
+			$query = sprintf('insert into [Estadia.Proyecto] values(?,?,?,?)');
 			$connection->execute_non_query($query, array($setName,$setNameStudent,$setMatriculaStudent,$setTime));
 			$connection->close();
 		}
@@ -83,7 +83,7 @@ require_once('proyectoo.php');
 			try
 			{
 				//query
-				$query = sprintf('select p.nombre, p.descripcion, e.nombre, ae.nombre from proyectos p , asesor_empresarial ae , empresas e where p.alumno = \''.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial');
+				$query = sprintf('select p.nombre, p.descripcion, e.nombre, ae.nombre from [Estadia.proyectos] p , [Empresa.asesor_empresarial] ae , [Empresa.empresas] e where p.alumno = \''.$matricula.'" and e.id = p.empresa and ae.id = p.asesor_empresarial');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -113,7 +113,7 @@ require_once('proyectoo.php');
 			$connection = get_connection();
 			//query
 			$query = 'select p.nombre, p.descripcion, e.nombre, ae.nombres
-			from proyectos p join asesor_empresarial ae join empresas e on p.grupo = "'.$grupo.'" and e.id = p.empresa and ae.id = p.asesor_empresarial';
+			from [Estadia.proyectos] p join [Empresa.asesor_empresarial] ae join [Empresa.empresas] e on p.grupo = "'.$grupo.'" and e.id = p.empresa and ae.id = p.asesor_empresarial';
 			//command
 			$command = $connection->prepare($query);
 			if ($command === false)

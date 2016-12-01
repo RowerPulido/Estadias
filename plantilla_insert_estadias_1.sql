@@ -24,11 +24,11 @@ insert into [Alumno.Tutores] values ('9','HUGO','VASQUEZ','URBINA','...','HUGO@U
 insert into [Alumno.Tutores] values ('10','MARIA','PLASENCIA','CUEVAS','...','MARIA@CUEVAS.COM','6647896541');
 
 -- id carrera tutor
-insert into [Alumno.grupos] values ('TIC4A20161','TIC','1');
-insert into [Alumno.grupos] values ('TIC4B20161','TIC','2');
-insert into [Alumno.grupos] values ('TIC4C20161','TIC','3');
-insert into [Alumno.grupos] values ('TIC4D20161','TIC','4');
-insert into [Alumno.grupos] values ('TIC4E20161','TIC','5');
+insert into [Alumno.grupos] values ('TIC04A20161','TIC','1');
+insert into [Alumno.grupos] values ('TIC04B20161','TIC','2');
+insert into [Alumno.grupos] values ('TIC04C20161','TIC','3');
+insert into [Alumno.grupos] values ('TIC04D20161','TIC','4');
+insert into [Alumno.grupos] values ('TIC04E20161','TIC','5');
 
 
 -- id nombre giro telefono direccion email
@@ -42,49 +42,49 @@ insert into [Empresa.empresas] values (5,'Steam','Desarrollo','6646899235','Blvd
 insert into [Empresa.asesor_empresarial] values ('A1','JOSE','PEREZ','LOPEZ',1,'JOSEPEREZ@SAMSUNG.COM','...');
 
 -- matricula nombres paterno materno grupo imagen
-insert into [Alumno.Alumnos] values ('0315110132','JORGE ALONSO','PULIDO','TRUJILLO','TIC4A20161','0315110132.JPG');
-insert into [Alumno.Alumnos] values ('0315110133','MIGUEL ANGEL','LOPEZ','PLASENCIA','TIC4A20161','0315110133.JPG');
-insert into [Alumno.Alumnos] values ('0315110134','VICTOR','GUTIERRES','HERNANDES','TIC4A20161','0315110134.JPG');
-insert into [Alumno.Alumnos] values ('0315110135','JAVIER','SOTO','HERRERA','TIC4A20161','0315110135.JPG');
-insert into [Alumno.Alumnos] values ('0315110136','MARIA','CADENA','RAMOS','TIC4A20161','0315110136.JPG');
-insert into [Alumno.Alumnos] values ('0315110137','BRUNO','DIAZ','VELA','TIC4A20161','0315110137.JPG');
-insert into [Alumno.Alumnos] values ('0315110138','IVAN','ACEVES','ZAMORA','TIC4A20161','0315110138.JPG');
-insert into [Alumno.Alumnos] values ('0315110139','FERNANDO','SANCHEZ','JIMENEZ','TIC4A20161','0315110139.JPG');
-insert into [Alumno.Alumnos] values ('0315110140','ISAAC','GUERRA','AVALOS','TIC4A20161','0315110140.JPG');
-insert into [Alumno.Alumnos] values ('0315110141','JESSICA','VERA','CASILLAS','TIC4A20161','0315110141.JPG');
+insert into [Alumno.Alumnos] values ('0315110132','JORGE ALONSO','PULIDO','TRUJILLO','TIC04A20161','0315110132.JPG');
+insert into [Alumno.Alumnos] values ('0315110133','MIGUEL ANGEL','LOPEZ','PLASENCIA','TIC04A20161','0315110133.JPG');
+insert into [Alumno.Alumnos] values ('0315110134','VICTOR','GUTIERRES','HERNANDES','TIC04A20161','0315110134.JPG');
+insert into [Alumno.Alumnos] values ('0315110135','JAVIER','SOTO','HERRERA','TIC04A20161','0315110135.JPG');
+insert into [Alumno.Alumnos] values ('0315110136','MARIA','CADENA','RAMOS','TIC04A20161','0315110136.JPG');
+insert into [Alumno.Alumnos] values ('0315110137','BRUNO','DIAZ','VELA','TIC04A20161','0315110137.JPG');
+insert into [Alumno.Alumnos] values ('0315110138','IVAN','ACEVES','ZAMORA','TIC04A20161','0315110138.JPG');
+insert into [Alumno.Alumnos] values ('0315110139','FERNANDO','SANCHEZ','JIMENEZ','TIC04A20161','0315110139.JPG');
+insert into [Alumno.Alumnos] values ('0315110140','ISAAC','GUERRA','AVALOS','TIC04A20161','0315110140.JPG');
+insert into [Alumno.Alumnos] values ('0315110141','JESSICA','VERA','CASILLAS','TIC04A20161','0315110141.JPG');
 
-insert into [Alumno.Alumnos] values ('0315110142','HECTOR','KINTANA','BECERRA','TIC4B20161','0315110142.JPG');
-insert into [Alumno.Alumnos] values ('0315110143','JUAN','GARCIA','VELAZQUEZ','TIC4B20161','0315110143.JPG');
-insert into [Alumno.Alumnos] values ('0315110144','MICHEL','NATA','SOLIS','TIC4B20161','0315110144.JPG');
-insert into [Alumno.Alumnos] values ('0315110145','OMAR','GONZALEZ','GUZMAN','TIC4B20161','0315110145.JPG');
-insert into [Alumno.Alumnos] values ('0315110146','OSCAR','MERIDA','OLIVARES','TIC4B20161','0315110146.JPG');
-insert into [Alumno.Alumnos] values ('0315110147','ANTONIO','GARNICA','RUBIO','TIC4B20161','0315110147.JPG');
-insert into [Alumno.Alumnos] values ('0315110148','RAYMUNDO','FONSECA','LOPEZ','TIC4B20161','0315110148.JPG');
-insert into [Alumno.Alumnos] values ('0315110149','ANGEL','LOPEZ','GONZALEZ','TIC4B20161','0315110149.JPG');
-insert into [Alumno.Alumnos] values ('0315110150','MARIO','MORA','LOPEZ','TIC4B20161','0315110150.JPG');
-insert into [Alumno.Alumnos] values ('0315110151','MAURICIO','VERDUZCO','VIBRAS','TIC4B20161','0315110151.JPG');
+insert into [Alumno.Alumnos] values ('0315110142','HECTOR','KINTANA','BECERRA','TIC04B20161','0315110142.JPG');
+insert into [Alumno.Alumnos] values ('0315110143','JUAN','GARCIA','VELAZQUEZ','TIC04B20161','0315110143.JPG');
+insert into [Alumno.Alumnos] values ('0315110144','MICHEL','NATA','SOLIS','TIC04B20161','0315110144.JPG');
+insert into [Alumno.Alumnos] values ('0315110145','OMAR','GONZALEZ','GUZMAN','TIC04B20161','0315110145.JPG');
+insert into [Alumno.Alumnos] values ('0315110146','OSCAR','MERIDA','OLIVARES','TIC04B20161','0315110146.JPG');
+insert into [Alumno.Alumnos] values ('0315110147','ANTONIO','GARNICA','RUBIO','TIC04B20161','0315110147.JPG');
+insert into [Alumno.Alumnos] values ('0315110148','RAYMUNDO','FONSECA','LOPEZ','TIC04B20161','0315110148.JPG');
+insert into [Alumno.Alumnos] values ('0315110149','ANGEL','LOPEZ','GONZALEZ','TIC04B20161','0315110149.JPG');
+insert into [Alumno.Alumnos] values ('0315110150','MARIO','MORA','LOPEZ','TIC04B20161','0315110150.JPG');
+insert into [Alumno.Alumnos] values ('0315110151','MAURICIO','VERDUZCO','VIBRAS','TIC04B20161','0315110151.JPG');
 
-insert into [Alumno.Alumnos] values ('0315110152','MALINALI','PLASENCIA','MARTINEZ','TIC4C20161','0315110152.JPG');
-insert into [Alumno.Alumnos] values ('0315110153','JOSE','MARTINEZ','CHAVES','TIC4C20161','0315110153.JPG');
-insert into [Alumno.Alumnos] values ('0315110154','ANGELICA','GARCIA','CHAVEZ','TIC4C20161','0315110154.JPG');
-insert into [Alumno.Alumnos] values ('0315110155','IVONNE','SANTOS','VERA','TIC4C20161','0315110155.JPG');
-insert into [Alumno.Alumnos] values ('0315110156','JULIO','SANDOVAL','ARAUJO','TIC4C20161','0315110156.JPG');
-insert into [Alumno.Alumnos] values ('0315110157','LEONARDO','VERDUZCO','GARCIA','TIC4C20161','0315110157.JPG');
-insert into [Alumno.Alumnos] values ('0315110158','BRANDON','LEAL','RIOS','TIC4C20161','0315110158.JPG');
-insert into [Alumno.Alumnos] values ('0315110159','ANA','CASILLAS','GONZALES','TIC4C20161','0315110159.JPG');
-insert into [Alumno.Alumnos] values ('0315110160','GIOVANNI','ARAGON','FAJARDO','TIC4C20161','0315110160.JPG');
-insert into [Alumno.Alumnos] values ('0315110161','ALONSO','PULIDO','LUCERO','TIC4C20161','0315110161.JPG');
+insert into [Alumno.Alumnos] values ('0315110152','MALINALI','PLASENCIA','MARTINEZ','TIC04C20161','0315110152.JPG');
+insert into [Alumno.Alumnos] values ('0315110153','JOSE','MARTINEZ','CHAVES','TIC04C20161','0315110153.JPG');
+insert into [Alumno.Alumnos] values ('0315110154','ANGELICA','GARCIA','CHAVEZ','TIC04C20161','0315110154.JPG');
+insert into [Alumno.Alumnos] values ('0315110155','IVONNE','SANTOS','VERA','TIC04C20161','0315110155.JPG');
+insert into [Alumno.Alumnos] values ('0315110156','JULIO','SANDOVAL','ARAUJO','TIC04C20161','0315110156.JPG');
+insert into [Alumno.Alumnos] values ('0315110157','LEONARDO','VERDUZCO','GARCIA','TIC04C20161','0315110157.JPG');
+insert into [Alumno.Alumnos] values ('0315110158','BRANDON','LEAL','RIOS','TIC04C20161','0315110158.JPG');
+insert into [Alumno.Alumnos] values ('0315110159','ANA','CASILLAS','GONZALES','TIC04C20161','0315110159.JPG');
+insert into [Alumno.Alumnos] values ('0315110160','GIOVANNI','ARAGON','FAJARDO','TIC04C20161','0315110160.JPG');
+insert into [Alumno.Alumnos] values ('0315110161','ALONSO','PULIDO','LUCERO','TIC04C20161','0315110161.JPG');
 
-insert into [Alumno.Alumnos] values ('0315110162','FRANCO','SOTO','CORRAL','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110163','CHRISTIAN','CAMACHO','LARA','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110164','LUIS','MARTINEZ','PULIDO','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110165','DANIEL','ALVARADO','SOTO','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110166','ANDRES','LIMON','ARROYO','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110167','ROCIO','BERRELLEZA','ROBLES','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110168','ALEJANDO','COLUNGA','RODRIGUEZ','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110169','CHRISTOPHER','ANGULO','VASQUEZ','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110170','GUILLERMO','ZAVALA','ARMENTA','TIC4D20161','0315110162.JPG');
-insert into [Alumno.Alumnos] values ('0315110171','JAMID','HERNANDEZ','MARIN','TIC4D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110162','FRANCO','SOTO','CORRAL','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110163','CHRISTIAN','CAMACHO','LARA','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110164','LUIS','MARTINEZ','PULIDO','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110165','DANIEL','ALVARADO','SOTO','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110166','ANDRES','LIMON','ARROYO','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110167','ROCIO','BERRELLEZA','ROBLES','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110168','ALEJANDO','COLUNGA','RODRIGUEZ','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110169','CHRISTOPHER','ANGULO','VASQUEZ','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110170','GUILLERMO','ZAVALA','ARMENTA','TIC04D20161','0315110162.JPG');
+insert into [Alumno.Alumnos] values ('0315110171','JAMID','HERNANDEZ','MARIN','TIC04D20161','0315110162.JPG');
 
 
 -- direccion telefono email idAlumno

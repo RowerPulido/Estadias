@@ -193,7 +193,7 @@ GO
 
 CREATE TABLE [Alumno.grupos]
 (
-	[id] char(10) NOT NULL,
+	[id] char(11) NOT NULL,
 	[carrera] char(3) NULL,
 	[tutor] char(10) NULL
 )
@@ -281,7 +281,7 @@ CREATE TABLE [Alumno.Alumnos]
 	[nombres] varchar(50) NULL,
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
-	[grupo] char(10) NULL,
+	[grupo] char(11) NULL,
 	[imagen] varchar(50) NULL
 )
 GO

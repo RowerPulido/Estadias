@@ -14,6 +14,20 @@ go
 
 use Estadias;
 go
+
+/* Create Schemas */
+create schema Estadia;
+go
+create schema Alumno;
+go
+create schema Documento;
+go
+create schema Calificacion;
+go
+create schema Usuario;
+go
+CREATE SCHEMA Empresa;
+go
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[FK_Usuarios_typeofuser]') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1) 
 ALTER TABLE [Usuarios] DROP CONSTRAINT [FK_Usuarios_typeofuser]
 GO
@@ -127,14 +141,6 @@ GO
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[Actividades]') AND OBJECTPROPERTY(id, 'IsUserTable') = 1) 
 DROP TABLE [Actividades]
 GO
-
-/* Create Schemas */
-CREATE SCHEMA Estadia;
-CREATE SCHEMA Alumno;
-CREATE SCHEMA Documento;
-CREATE SCHEMA Calificacion;
-CREATE SCHEMA Usuario;
-CREATE SCHEMA Empresa;
 
 /* Create Tables */
 

@@ -17,7 +17,7 @@
 		}
 		if ($contra == $contraSes) 
 		{
-			if ($tipouser == '002')
+			if ($tipouser == 'ALU')
 			{
 				$connection = new SqlServerConnection();
 				echo $result='{"status": 0, "descripccion" : "Datos Guardados Alumnos"}';
@@ -25,7 +25,7 @@
 				$connection->execute_non_query($query,array($correo,$tel,$matricula));
 				$connection->close();
 			}
-				if ($tipouser == '001') 
+				if ($tipouser == 'TUT') 
 				{
 					$connection = new SqlServerConnection();
 					echo $result='{"status": 1, "descripccion" : "Datos Guardados Tutores"}';

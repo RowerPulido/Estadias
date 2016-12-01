@@ -33,7 +33,7 @@ class User
 			try
 			{
 				//query
-				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and password=HashBytes('."'SHA1'".",".'\''.$pswd."');");
+				$query=sprintf('select id,tipo from usuarios where id=\''.$id.'\' and password=HashBytes('."'sha1'".",".'\''.$pswd."');");
 				
 				//command
 				$data= $connection->execute_query($query);
@@ -61,7 +61,7 @@ class User
 			try
 			{
 				//query
-				$query=sprintf('insert into usuarios values (?,?,?);');
+				$query=sprintf('insert into usuarios values (?,HashBytes('."'SHA1'".','.'?'.'),?);');
 				$connection->execute_non_query($query,array($id,$pswd,$user_type));
 				$connection->close();
 			}

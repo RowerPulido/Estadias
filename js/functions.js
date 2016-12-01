@@ -479,6 +479,7 @@ function realizarCambiosPass()
 				alert(JSONdata.descripccion);
 		}
 	}
+	console.log(x);
 }
 function cambiarContrasenia()
 {

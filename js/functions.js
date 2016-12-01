@@ -82,6 +82,7 @@ function menuOfUser(){
 var divInicio=document.getElementById('inicio');
 var divDocumentos=document.getElementById('documentos');
 var divEstadisticas=document.getElementById('estadisticas');
+var navEstadisticas = document.getElementById('calisalums');
 var divConfiguracion=document.getElementById('configuracion');
 var estadisticas1=document.getElementById('estadisticas1');
 	if (typeofuser=="ALUs") {
@@ -679,7 +680,7 @@ function actGrupos(grupo){
                     var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
                     console.log(nom);
                     var table = document.getElementById('tabla-alums');
-                    for (var i = 0; i < alumns.length; i++) {
+                    
                         var tr=document.createElement('tr');
                         var td = document.createElement('td');
                         td.innerHTML=a.matricula;
@@ -691,7 +692,7 @@ function actGrupos(grupo){
                         tr.appendChild(td);
                         tr.setAttribute('class','rowtable-docs');
                         table.appendChild(tr);
-                    }
+                    
 		      }	
 	       }
 		}

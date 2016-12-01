@@ -6,7 +6,7 @@
 	if (isset($matricula)) 
 	{
 		$connection = new SqlServerConnection();
-		$query = sprintf('select p1,p2,p3,p4,final from [Calificaciones.calificaciones] where matricula=\''.$matricula."';");
+		$query = sprintf('select p1,p2,p3,p4,final from [Calificacion.calificaciones] where matricula=\''.$matricula."';");
 		$data = $connection->execute_query($query);
 		$p1 = odbc_result($data, 'p1');
 		$p2 = odbc_result($data, 'p2');

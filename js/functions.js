@@ -82,6 +82,7 @@ function menuOfUser(){
 var divInicio=document.getElementById('inicio');
 var divDocumentos=document.getElementById('documentos');
 var divEstadisticas=document.getElementById('estadisticas');
+var navEstadisticas = document.getElementById('calisalums');
 var divConfiguracion=document.getElementById('configuracion');
 var estadisticas1=document.getElementById('estadisticas1');
 	if (typeofuser=="ALUs") {

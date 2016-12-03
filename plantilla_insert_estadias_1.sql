@@ -145,6 +145,7 @@ insert into [Usuario.Usuarios] values ('0315110134',HashBytes('sha1','ROWER'),'A
 insert into [Usuario.Usuarios] values ('0315110135',HashBytes('sha1','ROWER'),'ALU');
 insert into [Usuario.Usuarios] values ('0315110136',HashBytes('sha1','ROWER'),'ALU');
 insert into [Usuario.Usuarios] values ('0315110152',HashBytes('sha1','MALI'),'ALU');
+insert into [Usuario.Usuarios] values ('1',HashBytes('sha1','DANIEL'),'TUT');
 
 
 -- id name

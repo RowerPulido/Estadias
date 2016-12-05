@@ -21,7 +21,15 @@ function createInput(parent,htmlPlaceHolder,type,cssClass,value,id,name)
 	parent.appendChild(input);
 	return input;
 }
+function createFieldsetAndLegend(id,legend){
+	var f= document.createElement('fieldset');
+	var l= document.createElement('legend');
+	f.setAttribute('id',id);
+	l.innerHTML=legend;
+	f.appendChild(l);
 
+	return f;
+}
 function createDatalist(id,cssClass){
 	var dl=document.createElement('datalist');
 	dl.setAttribute('id',id);

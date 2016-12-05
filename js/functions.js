@@ -833,6 +833,7 @@ function configuracion()
 
 	body.appendChild(division);
 	document.getElementById('btnok').setAttribute('onClick','realizarCambios()');
+	document.getElementById('btncancel').setAttribute('onClick','initAlum()');
 	document.getElementById('btnPassword').setAttribute('onClick','cambiarContrasenia()');
 	//traer los datos 
 	var email,tel,matri,pass,tipouser;

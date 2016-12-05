@@ -16,17 +16,17 @@ use Estadias;
 go
 
 /* Create Schemas */
-create schema Estadia AUTHORIZATION dbo;
+create schema Estadia;
 go
-create schema Alumno AUTHORIZATION dbo;
+create schema Alumno;
 go
-create schema Documento AUTHORIZATION dbo;
+create schema Documento;
 go
-create schema Calificacion AUTHORIZATION dbo;
+create schema Calificacion;
 go
-create schema Usuario AUTHORIZATION dbo;
+create schema Usuario;
 go
-CREATE SCHEMA Empresa AUTHORIZATION dbo;
+CREATE SCHEMA Empresa;
 go
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('[FK_Usuarios_typeofuser]') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1) 
 ALTER TABLE [Usuarios] DROP CONSTRAINT [FK_Usuarios_typeofuser]
@@ -144,7 +144,7 @@ GO
 
 /* Create Tables */
 
-CREATE TABLE [Usuario.Usuarios]
+CREATE TABLE Usuario.Usuarios
 (
 	[id] char(10) NOT NULL,
 	[password] char(34) not NULL,
@@ -152,21 +152,21 @@ CREATE TABLE [Usuario.Usuarios]
 )
 GO
 
-CREATE TABLE [Documento.typesofdocs]
+CREATE TABLE Documento.typesofdocs
 (
 	[id] tinyint NOT NULL,
 	[name] varchar(50) NULL
 )
 GO
 
-CREATE TABLE [Usuario.typeofuser]
+CREATE TABLE Usuario.typeofuser
 (
 	[id] char(3) NOT NULL,
 	[description] varchar(50) NULL
 )
 GO
 
-CREATE TABLE [Alumno.Tutores]
+CREATE TABLE Alumno.Tutores
 (
 	[id] char(10) NOT NULL,
 	[numbres] varchar(50) NULL,
@@ -178,7 +178,7 @@ CREATE TABLE [Alumno.Tutores]
 )
 GO
 
-CREATE TABLE [Estadia.proyectos]
+CREATE TABLE Estadia.proyectos
 (
 	[nombre] varchar(20) NULL,
 	[descripcion] varchar(50) NULL,
@@ -191,7 +191,7 @@ CREATE TABLE [Estadia.proyectos]
 )
 GO
 
-CREATE TABLE [Alumno.grupos]
+CREATE TABLE Alumno.grupos
 (
 	[id] char(11) NOT NULL,
 	[carrera] char(3) NULL,
@@ -199,7 +199,7 @@ CREATE TABLE [Alumno.grupos]
 )
 GO
 
-CREATE TABLE [Estadia.Estadias]
+CREATE TABLE Estadia.Estadias
 (
 	[idEstadias] char(10) NOT NULL,
 	[idAlumno] char(10) NOT NULL,
@@ -213,7 +213,7 @@ CREATE TABLE [Estadia.Estadias]
 )
 GO
 
-CREATE TABLE [Empresa.empresas]
+CREATE TABLE Empresa.empresas
 (
 	[id] int NOT NULL,
 	[nombre] varchar(50) NULL,
@@ -224,7 +224,7 @@ CREATE TABLE [Empresa.empresas]
 )
 GO
 
-CREATE TABLE [Documento.Documentos]
+CREATE TABLE Documento.Documentos
 (
 	[id] bigint NOT NULL IDENTITY,
 	[typeDocs] tinyint NULL,
@@ -236,7 +236,7 @@ CREATE TABLE [Documento.Documentos]
 )
 GO
 
-CREATE TABLE [Alumno.ContactoAlumno]
+CREATE TABLE Alumno.ContactoAlumno
 (
 	[direccion] varchar(50) NULL,
 	[telefono] char(10) NULL,
@@ -245,7 +245,7 @@ CREATE TABLE [Alumno.ContactoAlumno]
 )
 GO
 
-CREATE TABLE [Alumno.carreras]
+CREATE TABLE Alumno.carreras
 (
 	[id] char(3) NOT NULL,
 	[name] varchar(30) NULL,
@@ -253,7 +253,7 @@ CREATE TABLE [Alumno.carreras]
 )
 GO
 
-CREATE TABLE [Calificacion.calificaciones]
+CREATE TABLE Calificacion.calificaciones
 (
 	[matricula] char(10) NOT NULL,
 	[p1] tinyint NULL,
@@ -264,7 +264,7 @@ CREATE TABLE [Calificacion.calificaciones]
 )
 GO
 
-CREATE TABLE [Empresa.asesor_empresarial]
+CREATE TABLE Empresa.asesor_empresarial
 (
 	[id] char(10) NOT NULL,
 	[nombre] varchar(50) NULL,
@@ -277,7 +277,7 @@ CREATE TABLE [Empresa.asesor_empresarial]
 )
 GO
 
-CREATE TABLE [Alumno.Alumnos]
+CREATE TABLE Alumno.Alumnos
 (
 	[matricula] char(10) NOT NULL,
 	[nombres] varchar(50) NULL,
@@ -288,7 +288,7 @@ CREATE TABLE [Alumno.Alumnos]
 )
 GO
 
-CREATE TABLE [Estadia.Actividades]
+CREATE TABLE Estadia.Actividades
 (
 	[idActividad] int identity(1,1) not null,
 	[nombre] varchar(50) NULL,
@@ -298,7 +298,7 @@ CREATE TABLE [Estadia.Actividades]
 )
 GO
 ---tabla mensajes
-create table [Usuario.mensajes]
+create table Usuario.mensajes
 (
 	[id] int  primary key identity(1,1),
 	[texto] varchar(200) NULL,
@@ -309,191 +309,191 @@ create table [Usuario.mensajes]
 go
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE [Usuario.Usuarios] 
+ALTER TABLE Usuario.Usuarios 
  ADD CONSTRAINT [PK_Usuarios]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-CREATE INDEX [IXFK_Usuarios_typeofuser] 
- ON [Usuario.Usuarios] ([tipo] ASC)
+CREATE INDEX IXFK_Usuarios_typeofuser 
+ ON Usuario.Usuarios ([tipo] ASC)
 GO
 
-ALTER TABLE [Documento.typesofdocs] 
+ALTER TABLE Documento.typesofdocs 
  ADD CONSTRAINT [PK_typesofdocs]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Usuario.typeofuser] 
+ALTER TABLE Usuario.typeofuser
  ADD CONSTRAINT [PK_typeofuser]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Alumno.Tutores] 
+ALTER TABLE Alumno.Tutores 
  ADD CONSTRAINT [PK_Tutores]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Estadia.proyectos] 
+ALTER TABLE Estadia.proyectos 
  ADD CONSTRAINT [PK_proyectos]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Alumno.grupos] 
+ALTER TABLE Alumno.grupos
  ADD CONSTRAINT [PK_grupos]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-CREATE INDEX [IXFK_grupos_carreras] 
- ON [Alumno.grupos] ([carrera] ASC)
+CREATE INDEX IXFK_grupos_carreras
+ ON Alumno.grupos ([carrera] ASC)
 GO
 
 CREATE INDEX [IXFK_grupos_Tutores] 
- ON [Alumno.grupos] ([tutor] ASC)
+ ON Alumno.grupos ([tutor] ASC)
 GO
 
-ALTER TABLE [Estadia.Estadias] 
+ALTER TABLE Estadia.Estadias 
  ADD CONSTRAINT [PK_Estadias]
 	PRIMARY KEY CLUSTERED ([idEstadias])
 GO
 
 CREATE INDEX [IXFK_Estadias_Estadias] 
- ON [Estadia.Estadias] ([idEstadias] ASC)
+ ON Estadia.Estadias ([idEstadias] ASC)
 GO
 
 CREATE INDEX [IXFK_Estadias_asesor_empresarial] 
- ON [Estadia.Estadias] ([asesorEmp] ASC)
+ ON Estadia.Estadias ([asesorEmp] ASC)
 GO
 
 CREATE INDEX [IXFK_Estadias_proyectos] 
- ON [Estadia.Estadias] ([proyecto] ASC)
+ ON Estadia.Estadias ([proyecto] ASC)
 GO
 
-ALTER TABLE [Empresa.empresas] 
+ALTER TABLE Empresa.empresas 
  ADD CONSTRAINT [PK_empresas]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Documento.Documentos] 
+ALTER TABLE Documento.Documentos 
  ADD CONSTRAINT [PK_Documentos]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
 CREATE INDEX [IXFK_Documentos_Alumno] 
- ON [Documento.Documentos] ([alumno] ASC)
+ ON Documento.Documentos ([alumno] ASC)
 GO
 
 CREATE INDEX [IXFK_Documentos_typesofdocs] 
- ON [Documento.Documentos] ([typeDocs] ASC)
+ ON Documento.Documentos ([typeDocs] ASC)
 GO
 
-ALTER TABLE [Alumno.ContactoAlumno] 
+ALTER TABLE Alumno.ContactoAlumno 
  ADD CONSTRAINT [PK_ContactoAlumno]
 	PRIMARY KEY CLUSTERED ([idAlumno])
 GO
 
-ALTER TABLE [Alumno.carreras] 
+ALTER TABLE Alumno.carreras 
  ADD CONSTRAINT [PK_carreras]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [Calificacion.calificaciones] 
+ALTER TABLE Calificacion.calificaciones 
  ADD CONSTRAINT [PK_calificaciones]
 	PRIMARY KEY CLUSTERED ([matricula])
 GO
 
 CREATE INDEX [IXFK_calificaciones_Alumnos] 
- ON [Calificacion.calificaciones] ([matricula] ASC)
+ ON Calificacion.calificaciones ([matricula] ASC)
 GO
 
-ALTER TABLE [Empresa.asesor_empresarial] 
+ALTER TABLE Empresa.asesor_empresarial 
  ADD CONSTRAINT [PK_asesor_empresarial]
 	PRIMARY KEY CLUSTERED ([id])
 GO
 
 CREATE INDEX [IXFK_asesor_empresarial_empresas] 
- ON [Empresa.asesor_empresarial] ([empresa] ASC)
+ ON Empresa.asesor_empresarial ([empresa] ASC)
 GO
 
-ALTER TABLE [Alumno.Alumnos] 
+ALTER TABLE Alumno.Alumnos 
  ADD CONSTRAINT [PK_Alumno]
 	PRIMARY KEY CLUSTERED ([matricula])
 GO
 
 CREATE INDEX [IXFK_Alumnos_ContactoAlumno] 
- ON [Alumno.Alumnos] ([matricula] ASC)
+ ON Alumno.Alumnos ([matricula] ASC)
 GO
 
 CREATE INDEX [IXFK_Alumnos_grupos] 
- ON [Alumno.Alumnos] ([grupo] ASC)
+ ON Alumno.Alumnos ([grupo] ASC)
 GO
 
-ALTER TABLE [Estadia.Actividades] 
+ALTER TABLE Estadia.Actividades 
  ADD CONSTRAINT [PK_Actividades]
 	PRIMARY KEY CLUSTERED ([idActividad])
 GO
 
 CREATE INDEX [IXFK_Actividades_proyectos] 
- ON [Estadia.Actividades] ([idActividad] ASC)
+ ON Estadia.Actividades ([idActividad] ASC)
 GO
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE [Usuario.Usuarios] ADD CONSTRAINT [FK_Usuarios_typeofuser]
-	FOREIGN KEY ([tipo]) REFERENCES [Usuario.typeofuser] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Usuario.Usuarios ADD CONSTRAINT [FK_Usuarios_typeofuser]
+	FOREIGN KEY ([tipo]) REFERENCES Usuario.typeofuser ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Alumno.grupos] ADD CONSTRAINT [FK_grupos_carreras]
-	FOREIGN KEY ([carrera]) REFERENCES [Alumno.carreras] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Alumno.grupos ADD CONSTRAINT [FK_grupos_carreras]
+	FOREIGN KEY ([carrera]) REFERENCES Alumno.carreras ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Alumno.grupos] ADD CONSTRAINT [FK_grupos_Tutores]
-	FOREIGN KEY ([tutor]) REFERENCES [Alumno.Tutores] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Alumno.grupos ADD CONSTRAINT [FK_grupos_Tutores]
+	FOREIGN KEY ([tutor]) REFERENCES Alumno.Tutores ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Estadia.Estadias] ADD CONSTRAINT [FK_Estadias_Alumnos]
-	FOREIGN KEY ([idAlumno]) REFERENCES [Alumno.Alumnos] ([matricula]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Estadia.Estadias ADD CONSTRAINT [FK_Estadias_Alumnos]
+	FOREIGN KEY ([idAlumno]) REFERENCES Alumno.Alumnos ([matricula]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Estadia.Estadias] ADD CONSTRAINT [FK_Estadias_asesor_empresarial]
-	FOREIGN KEY ([asesorEmp]) REFERENCES [Empresa.asesor_empresarial] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Estadia.Estadias ADD CONSTRAINT [FK_Estadias_asesor_empresarial]
+	FOREIGN KEY ([asesorEmp]) REFERENCES Empresa.asesor_empresarial ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Estadia.Estadias] ADD CONSTRAINT [FK_Estadias_proyectos_02]
-	FOREIGN KEY ([proyecto]) REFERENCES [Estadia.proyectos] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Estadia.Estadias ADD CONSTRAINT [FK_Estadias_proyectos_02]
+	FOREIGN KEY ([proyecto]) REFERENCES Estadia.proyectos ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Documento.Documentos] ADD CONSTRAINT [FK_Documentos_Alumno]
-	FOREIGN KEY ([alumno]) REFERENCES [Alumno.Alumnos] ([matricula]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Documento.Documentos ADD CONSTRAINT [FK_Documentos_Alumno]
+	FOREIGN KEY ([alumno]) REFERENCES Alumno.Alumnos ([matricula]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Documento.Documentos] ADD CONSTRAINT [FK_Documentos_typesofdocs]
-	FOREIGN KEY ([typeDocs]) REFERENCES [Documento.typesofdocs] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Documento.Documentos ADD CONSTRAINT [FK_Documentos_typesofdocs]
+	FOREIGN KEY ([typeDocs]) REFERENCES Documento.typesofdocs ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Calificacion.calificaciones] ADD CONSTRAINT [FK_calificaciones_Alumnos]
-	FOREIGN KEY ([matricula]) REFERENCES [Alumno.Alumnos] ([matricula]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Calificacion.calificaciones ADD CONSTRAINT [FK_calificaciones_Alumnos]
+	FOREIGN KEY ([matricula]) REFERENCES Alumno.Alumnos ([matricula]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Empresa.asesor_empresarial] ADD CONSTRAINT [FK_asesor_empresarial_empresas]
-	FOREIGN KEY ([empresa]) REFERENCES [Empresa.empresas] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Empresa.asesor_empresarial ADD CONSTRAINT [FK_asesor_empresarial_empresas]
+	FOREIGN KEY ([empresa]) REFERENCES Empresa.empresas ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Alumno.ContactoAlumno] ADD CONSTRAINT [FK_Alumnos_ContactoAlumno]
-	FOREIGN KEY ([idAlumno]) REFERENCES [Alumno.Alumnos] ([matricula]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Alumno.ContactoAlumno ADD CONSTRAINT [FK_Alumnos_ContactoAlumno]
+	FOREIGN KEY ([idAlumno]) REFERENCES Alumno.Alumnos ([matricula]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Alumno.Alumnos] ADD CONSTRAINT [FK_Alumnos_grupos]
-	FOREIGN KEY ([grupo]) REFERENCES [Alumno.grupos] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Alumno.Alumnos ADD CONSTRAINT [FK_Alumnos_grupos]
+	FOREIGN KEY ([grupo]) REFERENCES Alumno.grupos ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
-ALTER TABLE [Estadia.Actividades] ADD CONSTRAINT [FK_Actividades_proyectos]
-	FOREIGN KEY ([proyecto]) REFERENCES [Estadia.proyectos] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Estadia.Actividades ADD CONSTRAINT [FK_Actividades_proyectos]
+	FOREIGN KEY ([proyecto]) REFERENCES Estadia.proyectos ([id]) ON DELETE No Action ON UPDATE No Action
 GO
-ALTER TABLE [Usuario.mensajes] ADD CONSTRAINT [FK_Destinatario_user]
-	FOREIGN KEY ([destinatario]) REFERENCES [Usuario.Usuarios] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Usuario.mensajes ADD CONSTRAINT [FK_Destinatario_user]
+	FOREIGN KEY ([destinatario]) REFERENCES Usuario.Usuarios ([id]) ON DELETE No Action ON UPDATE No Action
 GO
-ALTER TABLE [Usuario.mensajes] ADD CONSTRAINT [FK_Remitente_user]
-	FOREIGN KEY ([remitente]) REFERENCES [Usuario.Usuarios] ([id]) ON DELETE No Action ON UPDATE No Action
+ALTER TABLE Usuario.mensajes ADD CONSTRAINT [FK_Remitente_user]
+	FOREIGN KEY ([remitente]) REFERENCES Usuario.Usuarios ([id]) ON DELETE No Action ON UPDATE No Action
 GO
 
 

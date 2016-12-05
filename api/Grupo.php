@@ -47,7 +47,7 @@ require_once('MODELS/connection_sql_server.php');
 			$connection = new SqlServerConnection();
 			//query
             try{
-                $query = sprintf('select id, carrera, tutor from [Alumno.grupos];');
+                $query = sprintf('select id, carrera, tutor from Alumno.grupos;');
                 //command
                 $data = $connection->execute_query($query);
                 $found = odbc_num_rows($data) > 0;
@@ -78,7 +78,7 @@ require_once('MODELS/connection_sql_server.php');
 			try
 			{
 				//query
-                $query = sprintf('select id, carrera, tutor from [Alumno.grupos] where id = '.$id);
+                $query = sprintf('select id, carrera, tutor from Alumno.grupos where id = '.$id);
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

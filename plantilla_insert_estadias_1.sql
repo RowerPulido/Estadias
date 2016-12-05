@@ -39,7 +39,7 @@ insert into [Empresa.empresas] values (4,'Gameloft','Desarrollo Multimedia','664
 insert into [Empresa.empresas] values (5,'Steam','Desarrollo','6646899235','Blvd. Los Olivos 21014','gabe@steam.com');
 
 -- id nombre paterno materno empresa correo imagen
-insert into [Empresa.asesor_empresarial] values ('A1','JOSE','PEREZ','LOPEZ',1,'JOSEPEREZ@SAMSUNG.COM','...');
+insert into [Empresa.asesor_empresarial] values ('7000000000','JOSE','PEREZ','LOPEZ',1,'Gerente','JOSEPEREZ@SAMSUNG.COM','...');
 
 -- matricula nombres paterno materno grupo imagen
 insert into [Alumno.Alumnos] values ('0315110132','JORGE ALONSO','PULIDO','TRUJILLO','TIC04A20161','0315110132.JPG');

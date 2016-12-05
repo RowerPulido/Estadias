@@ -206,7 +206,8 @@ CREATE TABLE [Estadia.Estadias]
 	[deptoEmp] varchar(20) NULL,
 	[asesorEmp] char(10) NULL,
 	[fechasVisita] varchar(50) NULL,
-	[horario] varchar(50) NULL,
+	[horaEntrada] time null,
+	[horaSalida] time null,
 	[apoyoEconomico] money NULL,
 	[proyecto] int NULL
 )
@@ -270,6 +271,7 @@ CREATE TABLE [Empresa.asesor_empresarial]
 	[paterno] varchar(50) NULL,
 	[materno] varchar(50) NULL,
 	[empresa] int NULL,
+	[cargo] varchar(50)null,
 	[correo] varchar(50) NULL,
 	[imagen] varchar(50)NULL
 )

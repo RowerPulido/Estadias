@@ -595,7 +595,8 @@ function calis(){
 	body.innerHTML="";
 	body.setAttribute('class','');
 	var p= document.createElement('p');
-	p.innerHTML="Calificaciones de los alumnos";
+	p.innerHTML="Calificaciones de los Alumnos";
+	p.setAttribute('class','parrafoCali');
 	body.appendChild(p);
 	
     var x = new XMLHttpRequest();
@@ -624,13 +625,12 @@ function calis(){
                 
                 body.appendChild(fGrupos);
                 fGrupos.appendChild(sGrupos);
-                
+                sGrupos.appendChild(createOption('Gurpos:','Grupos:'));
                 for(var i = 0; i < grupos.length; i++)
                 {
                     var g = grupos[i];
                     
                     var nom = g.id + ' ' + g.carrera + ' ' + g.tutor;
-                    console.log(nom);
 		            sGrupos.appendChild(createOption(g.id,g.id));
 			         
 		      }	
@@ -691,6 +691,7 @@ function actGrupos(grupo){
                 
                 for(var i = 0; i < alumns.length; i++)
                 {
+
                     var a = alumns[i];
 			         
                     var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;

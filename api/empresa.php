@@ -61,7 +61,7 @@
 			{
 				//query
 				$query = sprintf('select id, nombre, giro, telefono, direccion, email from 
-					[Empresa.empresas];');
+					Empresa.empresas;');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

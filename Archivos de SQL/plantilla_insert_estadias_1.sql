@@ -147,6 +147,7 @@ insert into Usuario.Usuarios values ('0315110136',HashBytes('sha1','ROWER'),'ALU
 insert into Usuario.Usuarios values ('0315110152',HashBytes('sha1','MALI'),'ALU');
 insert into Usuario.Usuarios values ('1',HashBytes('sha1','DANIEL'),'TUT');
 
-
+-- matricula p1 p2 p3 p4 final
+INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
 -- id name
 insert into Documento.typesofdocs values ('','');

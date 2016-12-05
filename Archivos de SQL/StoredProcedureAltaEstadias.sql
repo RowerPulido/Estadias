@@ -35,50 +35,50 @@ set @finAct5=DATEADD(DAY,((@durAct5-1)*7)+5,@iniAct5);
 declare @lastAseEmp char;
 declare @empID int;
 
-set @empID=(select id from [Empresa.empresas] where nombre=@empresa);
+set @empID=(select id from Empresa.empresas where nombre=@empresa);
 
-	if((select COUNT(*) from [Empresa.asesor_empresarial] where nombre=@nomAse and paterno=@patAse and materno=@matAse)=1)
+	if((select COUNT(*) from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse)=1)
 		set @lastAseEmp= (select id from [Empresa.asesor_empresarial] where nombre=@nomAse and paterno=@patAse and materno=@matAse);
 	else
 	begin
-		if((select COUNT(*) from [Empresa.asesor_empresarial])>0)
+		if((select COUNT(*) from Empresa.asesor_empresarial)>0)
 			begin
-				set @lastAseEmp= convert(char,(convert(bigint,(select top 1 id from [Empresa.asesor_empresarial] order by id desc))+1));
-				insert into [Empresa.asesor_empresarial](id,nombre,paterno,materno,empresa,cargo)  values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
+				set @lastAseEmp= convert(char,(convert(bigint,(select top 1 id from Empresa.asesor_empresarial order by id desc))+1));
+				insert into Empresa.asesor_empresarial(id,nombre,paterno,materno,empresa,cargo)  values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
 			end
 		else
 			begin
 				set @lastAseEmp='7000000001';
-				insert into [Empresa.asesor_empresarial](id,nombre,paterno,materno,empresa,cargo) values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
+				insert into Empresa.asesor_empresarial(id,nombre,paterno,materno,empresa,cargo) values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
 			end
 	end		
 declare @lastPro int;
-	if((select count(*) from [Estadia.proyectos])>0)
-		set @lastPro=(select top 1 id from [Estadia.proyectos] order by id desc )+1; 
+	if((select count(*) from Estadia.proyectos)>0)
+		set @lastPro=(select top 1 id from Estadia.proyectos order by id desc )+1; 
 	else
 		set
 			@lastPro=1;
-	insert into [Estadia.proyectos](nombre,alumno,empresa,asesor_empresarial,id,objetivos,totalHoras) values (@proNom,@matricula,@empID,@lastAseEmp,@lastPro,@proObj,@horasTot);
+	insert into Estadia.proyectos(nombre,alumno,empresa,asesor_empresarial,id,objetivos,totalHoras) values (@proNom,@matricula,@empID,@lastAseEmp,@lastPro,@proObj,@horasTot);
 
 declare @lastEstadia char;
-	if((select COUNT(*) from [Estadia.Estadias])>0)
-		set @lastEstadia=convert(char,(convert(bigint,(select top 1 idEstadias from [Estadia.Estadias] order by idEstadias desc))+1));
+	if((select COUNT(*) from Estadia.Estadias)>0)
+		set @lastEstadia=convert(char,(convert(bigint,(select top 1 idEstadias from Estadia.Estadias order by idEstadias desc))+1));
 	else
 		set @lastEstadia='0000000001';
 	
-	insert into [Estadia.Estadias] values (@lastEstadia,@matricula,@area,@lastAseEmp,@visita,@hora1,@hora2,@apoyo,@lastPro);
+	insert into Estadia.Estadias values (@lastEstadia,@matricula,@area,@lastAseEmp,@visita,@hora1,@hora2,@apoyo,@lastPro);
 
 
-	insert into [Estadia.Actividades] values(@act1,@inicioEst,@finAct1,@lastPro);	
+	insert into Estadia.Actividades values(@act1,@inicioEst,@finAct1,@lastPro);	
 	
-	insert into [Estadia.Actividades] values(@act2,@iniAct2,@finAct2,@lastPro);
+	insert into Estadia.Actividades values(@act2,@iniAct2,@finAct2,@lastPro);
 	
-	insert into [Estadia.Actividades] values(@act3,@iniAct3,@finAct3,@lastPro);
+	insert into Estadia.Actividades values(@act3,@iniAct3,@finAct3,@lastPro);
 	
-	insert into [Estadia.Actividades] values(@act4,@iniAct4,@finAct4,@lastPro);
+	insert into Estadia.Actividades values(@act4,@iniAct4,@finAct4,@lastPro);
 	
-	insert into [Estadia.Actividades] values(@act5,@iniAct5,@finAct5,@lastPro);
-	if((select COUNT(*) from [Alumno.ContactoAlumno] where idAlumno=@matricula)=0)		
+	insert into Estadia.Actividades values(@act5,@iniAct5,@finAct5,@lastPro);
+	if((select COUNT(*) from Alumno.ContactoAlumno where idAlumno=@matricula)=0)		
 		insert into [Alumno.ContactoAlumno] values (@direccion,@telefono,@email,@matricula);
 end 
 

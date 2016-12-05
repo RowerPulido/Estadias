@@ -127,6 +127,8 @@ function registrarEstadia(){
 
 	cuerpo.innerHTML='';
 		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
+		var fsAlumno=createFieldsetAndLegend('fsAlumno','Datos Alumno');
+
 		var divAlum= createDiv('divAlum');
 		var divAlumMat=createDiv('divAlumMat');
 			var lblMatricula=createLabel('inMatricula','Matricula Alumno:','lblMatricula');
@@ -158,9 +160,11 @@ function registrarEstadia(){
 			divAlumEmail.appendChild(lblAlumTel);
 			var inAlumTel=createInput(divAlumEmail,'Ingrese e-Mail Alumno','email','inRegistro','','inAlumEmail','AlumEmail');
 			divAlum.appendChild(divAlumEmail);
+					frmRegistro.appendChild(fsAlumno);
+			fsAlumno.appendChild(divAlum);
 
-		frmRegistro.appendChild(divAlum);
 		inMatricula.setAttribute('oninput','alumDatos();');
+		var fsEstadias=createFieldsetAndLegend('fsEstadias','Datos Empresa y Estadia'); 
 
 		var divEmp=createDiv('divEmp');
 
@@ -174,38 +178,36 @@ function registrarEstadia(){
 			}
 			divEmp.appendChild(dlEmps);
 			inEmpNom.setAttribute('list','dlEmps');
-		frmRegistro.appendChild(divEmp);
+		fsEstadias.appendChild(divEmp);
 
 		var divEst=createDiv('divEst');
-			var divProNom=createDiv('divProNom');
-			var lblProNom=createLabel('inProNom','Nombre del proyecto:','lblProNom');
-				divProNom.appendChild(lblProNom);
-			var inProNom=createInput(divProNom,'Nombre Proyecto','text','inRegistro','','inProNom','proNom');
-				divEst.appendChild(divProNom);
-
-				var divEstArea=createDiv('divEstArea');
+		
+			var divEstArea=createDiv('divEstArea');
 			var lblEstArea=createLabel('inEstArea','Area Estadias','lblEstArea');
 				divEstArea.appendChild(lblEstArea);
 			var inProNom=createInput(divEstArea,'Area Estadias','text','inRegistro','','inEstArea','estArea');
 			divEst.appendChild(divEstArea);
-			
+			var divDatoAsesor=createDiv('divDatoAsesor');
+			var lblDatoAsesor=createLabel('','Datos del Asesor','lblDatoAsesor');
+			divDatoAsesor.appendChild(lblDatoAsesor);
+			divEst.appendChild(divDatoAsesor);
 			var divAse=createDiv('divAse');
-			var lblAseNom=createLabel('inAseNom','Nombre De Asesor:','lblAseNom');
+			var lblAseNom=createLabel('inAseNom','Nombre(s):','lblAseNom');
 				divAse.appendChild(lblAseNom);
 			var inAseNom=createInput(divAse,'Nombre de asesor','text','inRegistro','','inAseNom','AseNom');
 				divEst.appendChild(divAse);
 				
-			var lblAsePat=createLabel('inAsePat','Apellido Paterno De Aseso:','lblAsePat');
+			var lblAsePat=createLabel('inAsePat','Apellido Paterno:','lblAsePat');
 				divAse.appendChild(lblAsePat);
 			var inAsePat=createInput(divAse,'Apellido Paterno De Aseso','text','inRegistro','','inAsePat','AsePat');
 			//	divEst.appendChild(inEstArea);
 
-			var lblAseMat=createLabel('inAseMat','Apellido Materno De Aseso:','lblAseNom');
+			var lblAseMat=createLabel('inAseMat','Apellido Materno:','lblAseNom');
 				divAse.appendChild(lblAseMat);
 			var inAseNom=createInput(divAse,'Apellido materno De Aseso','text','inRegistro','','inAseMat','AseMat');
 			//	divEst.appendChild(inEstArea);
 
-			var lblAseCar=createLabel('inAseCar','Puesto del asesor:','lblAseCar');
+			var lblAseCar=createLabel('inAseCar','Puesto:','lblAseCar');
 				divAse.appendChild(lblAseCar);
 			var inAseCar=createInput(divAse,'Puesto del asesor','text','inRegistro','','inAseCar','AseCar');
 			//	divEst.appendChild(inEstArea);
@@ -234,15 +236,22 @@ function registrarEstadia(){
 			var inEstEco=createInput(divEstEco,'Cantidad apoyo','number','inRegistro','','inEstEco','EstEco');
 				inEstEco.setAttribute('min',0);
 				divEst.appendChild(divEstEco);
-			frmRegistro.appendChild(divEst);
-
+			fsEstadias.appendChild(divEst);
+			frmRegistro.appendChild(fsEstadias);
+		///agregar aqui el fs
+			var fsProyecto=createFieldsetAndLegend('fsProyecto','Datos del Proyecto');
+			var divProNom=createDiv('divProNom');
+			var lblProNom=createLabel('inProNom','Nombre del proyecto:','lblProNom');
+				divProNom.appendChild(lblProNom);
+			var inProNom=createInput(divProNom,'Nombre Proyecto','text','inRegistro','','inProNom','proNom');
+				fsProyecto.appendChild(divProNom);
 			var divProObj=createDiv('divProObj');
 			
 			var lblProObj=createLabel('inProObj','Objetivos del proyecto','lblProObj');
 			divProObj.appendChild(lblProObj);
 			var inProObj=createInput(divProObj,'Ingrese los objetivos del proyecto','text','inRegistro','','inProObj','ProObj');
 			
-			frmRegistro.appendChild(divProObj);
+			fsProyecto.appendChild(divProObj);
 		
 			var divProAct=createDiv('divProAct');
 				var thoras=0;
@@ -310,7 +319,8 @@ function registrarEstadia(){
 				inAct5Dur.setAttribute('min',0);
 				divProAct.appendChild(divAct5)
 
-			frmRegistro.appendChild(divProAct);
+			fsProyecto.appendChild(divProAct);
+			frmRegistro.appendChild(fsProyecto)
 	body.appendChild(frmRegistro);
 	var btnRegistrar=createInput(body,'Registrar','button','btn','Registrar','btnRegistrar','btnRegistrar');
 	btnRegistrar.setAttribute('onclick','checkRegistro();');

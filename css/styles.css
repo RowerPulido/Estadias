@@ -518,6 +518,43 @@ overflow: auto;
 	border-bottom: 3px solid white;
 	padding: 5px 2px 5px 10px;
 }
+
+/**registro estadia*/
+#frmRegistro div{
+	padding: 10px;
+}
+#frmRegistro input{
+	width: 20%;
+	margin: 0 10px 0 10px;
+	font-size: 12pt;
+	outline: none;
+	border: 0px;
+	border-bottom: 2px solid #03A9F4;
+	color: #00AD47;
+}
+#frmRegistro label{
+	font-size: 18pt;
+	color: gray;
+}
+
+legend{
+	color: #03A9F4;
+	font-size: 18pt;
+}
+.btn{
+	padding: 10px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 16pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	text-align: center;
+ 	cursor: pointer;
+ 	position:relative;
+ 	left: 90%;
+ 	margin-top:15px;
+}
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

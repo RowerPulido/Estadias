@@ -381,6 +381,15 @@ select {
      padding: 5px;
      width: 140px;
   }
+#tabla-alums
+{
+	width: 900px;
+}
+#tab
+{
+    padding-top: 40px;
+    top: 230px;
+}
 /*	CSS calificaciones*/
 
 #svg, #chart {position: relative; float: left;}

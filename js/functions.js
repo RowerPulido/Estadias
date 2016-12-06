@@ -22,7 +22,7 @@ var alum='';
 var tut='';
 var user = '';
 var alums;
-var nots[];
+var nots=[];
 var emps=[];
 	loadEmpresas();loadAlumnos();
 var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
@@ -30,11 +30,11 @@ var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 function initAlum(){
 	if(sessionStorage['user'])
 	{
-		var myTimer= setInterval(myMessages,3000);
+		var myTimer= setInterval(myMessages,10000);
 		menuOfUser();
 		dashboard();
 		divTwitter();
-		createNotification();
+		
 		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 		console.log(sessionStorage['user']);
@@ -58,7 +58,7 @@ function myMessages(){
 		if (x.readyState == 4 && x.status == 200) 
 		{
 			var JSONdata = JSON.parse(x.responseText);
-			if (JSONdata.Status == 0) 
+			if (JSONdata.status == 0) 
 			{
 				var sms=JSONdata.mensajes;
 				for(var i=0; i<sms.length;i++)
@@ -66,11 +66,12 @@ function myMessages(){
 					var from=sms[i].remitente;
 					var text=sms[i].texto;
 					nots[i]='<b>'+from+':</b><br>'+text;
+					createNotification();
 				}
 			}
 			else
 			{
-				alert(JSONdata.errorMessage);
+				
 			}
 		}
 		console.log(x);

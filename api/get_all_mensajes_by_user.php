@@ -15,7 +15,7 @@
 		if (!$first) $json.=','; else $first=false;
 		$json.='{
 					"texto" : "'.$m->get_text().'",
-					"remitente" : "'$m->get_remitente().'"
+					"remitente" : "'.$m->get_remitente().'"
 		}';
 	}
 	$json.='] }';

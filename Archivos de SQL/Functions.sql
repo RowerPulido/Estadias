@@ -24,6 +24,9 @@ end
 select * from getInfoEst('0315110133');
 select * from Estadia.Actividades
 
+select * from usuario.mensajes
+
+insert into usuario.mensajes values('hola mundo','0315110132','0315110133','2016-12-8');
 --MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110133');--drop function getInfoEst
 ----------------------------------
 create function getInfoEst(@matricula char(10))
@@ -103,3 +106,23 @@ create function getInfoEst(@matricula char(10))
 		where a.matricula=@matricula;
 		RETURN;
 	END
+--------------------------------
+--consulta de mensajes
+create function myMessages(@matricula char(10))
+returns @tabla table(
+texto varchar(250),
+destinatario char(10),
+remitente char(10)
+)
+as
+begin
+	insert @tabla
+	select texto,destinatario,remitente
+	from usuario.mensajes
+	where fecha_limite>=getdate();
+	
+	return;
+end
+
+select * from usuario.mensajes
+insert into usuario.mensajes values('que pedo cachorros','0315110132','1','2016-12-10')

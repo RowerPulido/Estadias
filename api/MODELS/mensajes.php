@@ -50,10 +50,11 @@
 		public static function getAllMyMessages($idUser){
 
 			$connection=new SqlServerConnection();
-			$query=sprintf("select texto,remitente from Usuario.mensajes where destinatario='".$idUser."' and fecha_limite <GETDATE();");
+			$fecha=date("Y")."-".date("m")."-".date("d");
+			$query=sprintf("select * from myMessages('.$idUser.')");
 			$data=$connection->execute_query($query);
 			$list=array();
-			$found=odbc_num_rows($data);
+			$found=odbc_num_rows($data)>0;
 			if (!$found) {
 				# code...
 				echo "Error in query: ".$query;die;
@@ -61,7 +62,7 @@
 			while (odbc_fetch_array($data))
 			 {
 				array_push($list, new Mensajes(odbc_result($data,'texto'),
-												odbc_result($data,'texto')))
+												odbc_result($data,'remitente')));
 			}
 
 			$connection->close();

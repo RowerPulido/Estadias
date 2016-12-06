@@ -146,8 +146,22 @@ insert into Usuario.Usuarios values ('0315110136',HashBytes('sha1','ROWER'),'ALU
 insert into Usuario.Usuarios values ('0315110152',HashBytes('sha1','MALI'),'ALU');
 insert into Usuario.Usuarios values ('1',HashBytes('sha1','DANIEL'),'TUT');
 
+----
+insert into Documento.typesofdocs values(1, 'Antecedentes de la empresa'); 
+insert into Documento.typesofdocs values(2, 'Descripcion del area de trabajo'); 
+insert into Documento.typesofdocs values(3, 'Descripcion del problema y objetivos'); 
+insert into Documento.typesofdocs values(4, 'Marco de referencia tecnico'); 
+insert into Documento.typesofdocs values(5, 'Propuesta de solucion(Desarrollo del proyecto)'); 
+insert into Documento.typesofdocs values(6, 'Resultados obtenidos'); 
+insert into Documento.typesofdocs values(7, 'Conclusiones y recomencadiones'); 
+insert into Documento.typesofdocs values(8, 'Bibliografia, indice e introduccion'); 
+insert into Documento.typesofdocs values(9, 'Alta de estadia'); 
+insert into Documento.typesofdocs values(10, 'Finalizacion de estadia'); 
+
+
+----
 select id,nombre from alluser
 -- matricula p1 p2 p3 p4 final
-INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
+--INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
 -- id name
 insert into Documento.typesofdocs values ('','');

@@ -276,16 +276,19 @@ $matricula=$_POST['matricula'];
     </body>
   </html>');
 
-//(Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4');
+  //(Optional) Setup the paper size and orientation
+  $dompdf->setPaper('A4');
 
-// Render the HTML as PDF
-$dompdf->render();
-$dir='../docs/'.$matricula;
-mkdir($dir,0777);
-$pdf= $dompdf->output();
-file_put_contents($dir.'/'.$matricula.'.pdf', $pdf);
-// Output the generated PDF to Browser
-$dompdf->stream($matricula);
+  // Render the HTML as PDF
+  $dompdf->render();
+  $dir='../docs/'.$matricula;
+  mkdir($dir,0777);
+  $pdf= $dompdf->output();
+  file_put_contents($dir.'/'.$matricula.'.pdf', $pdf);
+  // Output the generated PDF to Browser
+  $dompdf->stream($matricula);
+  }
+   else{
+      echo "no se pudo ejecutar";
  }
   ?>

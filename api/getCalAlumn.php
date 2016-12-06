@@ -13,7 +13,7 @@
 		$p3 = odbc_result($data, 'p3');
 		$p4 = odbc_result($data, 'p4');
 		$final = odbc_result($data, 'final');
-		if($p1=='' && $p2 == '' && $p3=='' && $final=='' )
+		if($p1=='' && $p2 == '' && $p3=='' && $p4=='' && $final=='' )
 		{
 			echo $result='{"status" : 1 , "Description" : "Data Not Found" }';
 			die;

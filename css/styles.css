@@ -392,6 +392,12 @@ div#menu-lateral footer{
 	padding-top: 20px;
 }
 
+#cuerpo #tab{
+	position: absolute;
+	left: 0px;
+	padding-top: 10px;
+}
+
 .rowheader{
 background-color: #03A9F4;
 text-align: center;

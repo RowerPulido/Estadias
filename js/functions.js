@@ -638,36 +638,10 @@ function calis(){
 		}        
 	}	
     
-    var table=document.createElement('table');
-	table.setAttribute('id','tabla-alums');
-	var tr =document.createElement('tr');
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Matricula";
-	tr.appendChild(td);
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Nombre";
-	tr.appendChild(td);    
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Parcial 1";
-	tr.appendChild(td);
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Parcial 2";
-	tr.appendChild(td);
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Parcial 3";
-	tr.appendChild(td);
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Parcial 4";
-	tr.appendChild(td);
-	table.appendChild(tr);	
-	
-	body.appendChild(table);
+    var divTabla=document.createElement('div');
+    divTabla.setAttribute('id','tab');
+    
+    body.appendChild(divTabla);
 }
 
 function actGrupos(grupo){
@@ -687,15 +661,48 @@ function actGrupos(grupo){
                 var alumns = JSONdata.alumnos;
                 console.log(alumns);
                 
-                var ini = 0;
+                var ini = 0;                
+                
+                var tab = document.getElementById('tab');
+                tab.innerHTML='';
+                var table=document.createElement('table');
+                table.setAttribute('id','tabla-alums');
+                var tr =document.createElement('tr');
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Matricula";
+                tr.appendChild(td);
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Nombre";
+                tr.appendChild(td);    
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Parcial 1";
+                tr.appendChild(td);
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Parcial 2";
+                tr.appendChild(td);
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Parcial 3";
+                tr.appendChild(td);
+                var td=document.createElement('td');
+                td.setAttribute('class','rowheader');
+                td.innerHTML="Parcial 4";
+                tr.appendChild(td);
+                table.appendChild(tr);	
                 
                 for(var i = 0; i < alumns.length; i++)
                 {
                     var a = alumns[i];
-			         
-                    var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
-                    console.log(nom);
-                    var table = document.getElementById('tabla-alums');
+                    var pars = [];
+                    pars = getCalis(a.matricula);
+                    
+                    var tds = [];
+                    
+                    console.log(pars);
                     
                         var tr=document.createElement('tr');
                         var td = document.createElement('td');
@@ -703,13 +710,71 @@ function actGrupos(grupo){
                         td.setAttribute('class','rownormal');
                         tr.appendChild(td);	
                         var td = document.createElement('td');
-                        td.innerHTML=nom;
+                        td.innerHTML=a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
                         td.setAttribute('class','rownormal');
-                        tr.appendChild(td);
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML='';
+                        td.setAttribute('id','camp1'+i);
+                        td.setAttribute('class','rownormal');
+                        tds[0]=td;
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML='';
+                        td.setAttribute('id','camp2'+i);
+                        td.setAttribute('class','rownormal');
+                        tds[1]=td;
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML='';
+                        td.setAttribute('id','camp3'+i);
+                        td.setAttribute('class','rownormal');
+                        tds[2]=td;
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML='';
+                        td.setAttribute('id','camp4'+i);
+                        td.setAttribute('class','rownormal');
+                        tds[3]=td;
                         tr.setAttribute('class','rowtable-docs');
+                        tr.appendChild(td);	
                         table.appendChild(tr);
                     
+                        getCalis(a.matricula,tds);
 		      }	
+                tab.appendChild(table);
+	       }
+		}
+        console.log(x);
+	}
+    x.send();
+}
+
+function getCalis(mat,tds){
+    var x = new XMLHttpRequest();
+
+	x.open('GET', 'http://localhost:8080/Estadias/api/getCalAlumn.php?matricula='+mat,'true');
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+            console.log(JSONdata);
+	
+	        if(JSONdata.status == 0)
+            {
+                var par1 = JSONdata.parcial_1;                
+                var par2 = JSONdata.parcial_2;
+                var par3 = JSONdata.parcial_3;
+                var par4 = JSONdata.parcial_4;
+                
+                tds[0].innerHTML = par1;
+                tds[1].innerHTML = par2;
+                tds[2].innerHTML = par3;
+                tds[3].innerHTML = par4;
+                                
+                var ini = 0;
 	       }
 		}
         console.log(x);

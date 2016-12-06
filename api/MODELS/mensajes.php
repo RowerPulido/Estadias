@@ -29,9 +29,12 @@
 				$this->remitente = '';
 				$this->fecha_limite = '';
 			}
-			if (func_num_args() == 1) 
+			if (func_num_args() == 2) 
 			{
-				
+				$args=func_get_args();
+
+				$this->texto=$args[0];
+				$this->remitente=$args[1];
 			}
 		}
 		public static function getMensaje($idUser)
@@ -42,6 +45,28 @@
 			odbc_result($data, 'text');
 			odbc_result($data, 'remitente');
 			
+		}
+
+		public static function getAllMyMessages($idUser){
+
+			$connection=new SqlServerConnection();
+			$fecha=date("Y")."-".date("m")."-".date("d");
+			$query=sprintf("select * from myMessages('.$idUser.')");
+			$data=$connection->execute_query($query);
+			$list=array();
+			$found=odbc_num_rows($data)>0;
+			if (!$found) {
+				# code...
+				echo "Error in query: ".$query;die;
+			}
+			while (odbc_fetch_array($data))
+			 {
+				array_push($list, new Mensajes(odbc_result($data,'texto'),
+												odbc_result($data,'remitente')));
+			}
+
+			$connection->close();
+			return $list;
 		}
 	}
 

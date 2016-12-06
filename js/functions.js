@@ -22,6 +22,7 @@ var alum='';
 var tut='';
 var user = '';
 var alums;
+var nots=[];
 var emps=[];
 	loadEmpresas();loadAlumnos();
 var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
@@ -29,10 +30,11 @@ var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 function initAlum(){
 	if(sessionStorage['user'])
 	{
+		var myTimer= setInterval(myMessages,10000);
 		menuOfUser();
 		dashboard();
 		divTwitter();
-		createNotification();
+		
 		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 		console.log(sessionStorage['user']);
@@ -44,6 +46,85 @@ function initAlum(){
 		window.location = 'login.html';
 	}
 
+}
+function createFormMsg(){
+	var uID=JSON.parse(sessionStorage['user']).User.userID;
+	var body=document.getElementById('cuerpo');
+	var frmMsg=createForm('frmMsg','frmMsg','POST');
+	var divMsg=createDiv('divMsg');
+
+	var tableMsg=document.createElement('table');
+	var tr=document.createElement('tr');
+	var td=document.createElement('td');
+	var inUsers=createInput(td,'ID del usuario','text','inUsers','','inUsers','inUsers');
+
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/getlogin.php',true);
+	x.send(new FormData(document.getElementById('frmlogin')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.Status == 0) 
+			{
+
+				sessionStorage['user'] = x.responseText;
+				window.location = sessionStorage['previouspage'];
+
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+		}
+		console.log(x);
+	}
+
+
+	tr.appendChild(td);
+	tableMsg.appendChild(td);
+
+	var inEmpNom=createInput(divEmp,'Nombre ...','text','inRegistro','','inEmpNom','empresa');
+			var dlEmps=createDatalist('dlEmps');
+			for (var i=0; i<emps.length;i++) {
+				var oEmp=createOption(emps[i],emps[i]);
+				dlEmps.appendChild(oEmp);
+			}
+			divEmp.appendChild(dlEmps);
+			inEmpNom.setAttribute('list','dlEmps');
+
+	body.appendChild(frmMsg);
+}
+
+function myMessages(){
+	var uID=JSON.parse(sessionStorage['user']).User.userID;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/get_all_mensajes_by_user.php?userID='+uID,true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				var sms=JSONdata.mensajes;
+				for(var i=0; i<sms.length;i++)
+				{
+					var from=sms[i].remitente;
+					var text=sms[i].texto;
+					nots[i]='<b>'+from+':</b><br>'+text;
+					createNotification();
+				}
+			}
+			else
+			{
+				
+			}
+		}
+		console.log(x);
+	}
 }
 // Función que suma o resta días a la fecha indicada
 sumaFecha = function(d, fecha)
@@ -393,8 +474,7 @@ function divTwitter(){
 }
 function createNotification(){
 	var body=document.getElementById('body');
-	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm'];
-	if (document.getElementById('notificacion')) {
+		if (document.getElementById('notificacion')) {
 		var not=document.getElementById('notificacion');
 		not.innerHTML='';
 	}

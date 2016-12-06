@@ -294,6 +294,7 @@ CREATE TABLE Estadia.Actividades
 	[nombre] varchar(50) NULL,
 	[inicio] date NULL,
 	[fin] date NULL,
+	[horas] int null,
 	[proyecto] int NOT NULL
 )
 GO

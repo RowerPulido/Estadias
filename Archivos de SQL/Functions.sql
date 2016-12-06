@@ -1,18 +1,19 @@
 use Estadias;
 -----------------------
---TRAE LAS ACTIVIDADES --
+--TRAE LAS ACTIVIDADES --drop function actn
 -----------------------
 create function actn(@numAct int,@proyecto int)
 returns @tabla table(
 nombre varchar(50) not null,
 inicio date,
 fin date,
+horas int,
 proyecto int)
 as
 begin
 	insert @tabla
-	select nombre,inicio,fin,proyecto from (select ROW_NUMBER() 
-	over(order by inicio asc)as Row,nombre,inicio ,fin ,proyecto
+	select nombre,inicio,fin,horas,proyecto from (select ROW_NUMBER() 
+	over(order by inicio asc)as Row,nombre,inicio ,fin ,horas,proyecto
 	from Estadia.Actividades
 	where proyecto=@proyecto
 	) as Act
@@ -20,8 +21,10 @@ begin
 	RETURN;
 end
 
-----------------------------------
---MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');--drop function getInfoEst
+select * from getInfoEst('0315110133');
+select * from Estadia.Actividades
+
+--MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110133');--drop function getInfoEst
 ----------------------------------
 create function getInfoEst(@matricula char(10))
 	returns @tabla table(
@@ -43,11 +46,11 @@ create function getInfoEst(@matricula char(10))
 	horario varchar(30),
 	apoyo char(10),
 	objetivos varchar(250),
-	act1Nom varchar(50),act1ini varchar(15),act1fin varchar(15),
-	act2Nom varchar(50),act2ini varchar(15),act2fin varchar(15),
-	act3Nom varchar(50),act3ini varchar(15),act3fin varchar(15),
-	act4Nom varchar(50),act4ini varchar(15),act4fin varchar(15),
-	act5Nom varchar(50),act5ini varchar(15),act5fin varchar(15),
+	act1Nom varchar(50),act1ini varchar(15),act1fin varchar(15),act1horas int,
+	act2Nom varchar(50),act2ini varchar(15),act2fin varchar(15),act2horas int,
+	act3Nom varchar(50),act3ini varchar(15),act3fin varchar(15),act3horas int,
+	act4Nom varchar(50),act4ini varchar(15),act4fin varchar(15),act4horas int,
+	act5Nom varchar(50),act5ini varchar(15),act5fin varchar(15),act5horas int,
 	horasTotales smallint
 	)
 	AS
@@ -64,11 +67,11 @@ create function getInfoEst(@matricula char(10))
 		pro.nombre,es.deptoEmp area,(asemp.nombre+' '+asemp.paterno+' '+asemp.materno+', '+asemp.cargo)aseEmp,
 		es.fechasVisita visita,(tut.numbres+' '+tut.paterno+' '+tut.materno) tutor,(CONVERT(nvarchar(5), es.horaEntrada, 108)+'-'+ CONVERT(nvarchar(5), es.horaSalida, 108))horario,
 		es.apoyoEconomico apoyo,pro.objetivos,
-		act1.nombre act1nom,CONVERT( VARCHAR ,act1.inicio , 103 ) act1ini,CONVERT( VARCHAR ,act1.fin, 103 ) act1fin,
-		act2.nombre act2nom,CONVERT( VARCHAR ,act2.inicio , 103 ) act2ini,CONVERT( VARCHAR ,act2.fin, 103 ) act2fin,
-		act3.nombre act3nom,CONVERT( VARCHAR ,act3.inicio , 103 ) act3ini,CONVERT( VARCHAR ,act3.fin, 103 ) act3fin,
-		act4.nombre act4nom,CONVERT( VARCHAR ,act4.inicio , 103 ) act4ini,CONVERT( VARCHAR ,act4.fin , 103 ) act4fin,
-		act5.nombre act5nom,CONVERT( VARCHAR ,act5.inicio , 103 ) act5ini,CONVERT( VARCHAR ,act5.fin, 103 ) act5fin,
+		act1.nombre act1nom,CONVERT( VARCHAR ,act1.inicio , 103 ) act1ini,CONVERT( VARCHAR ,act1.fin, 103 ) act1fin,act1.horas act1horas,
+		act2.nombre act2nom,CONVERT( VARCHAR ,act2.inicio , 103 ) act2ini,CONVERT( VARCHAR ,act2.fin, 103 ) act2fin,act2.horas act2horas,
+		act3.nombre act3nom,CONVERT( VARCHAR ,act3.inicio , 103 ) act3ini,CONVERT( VARCHAR ,act3.fin, 103 ) act3fin,act3.horas act3horas,
+		act4.nombre act4nom,CONVERT( VARCHAR ,act4.inicio , 103 ) act4ini,CONVERT( VARCHAR ,act4.fin , 103 ) act4fin,act4.horas act4horas,
+		act5.nombre act5nom,CONVERT( VARCHAR ,act5.inicio , 103 ) act5ini,CONVERT( VARCHAR ,act5.fin, 103 ) act5fin,act5.horas act5horas,
 		pro.totalhoras
 		from Estadia.Estadias es
 		join Alumno.Alumnos a

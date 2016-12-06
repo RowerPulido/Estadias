@@ -89,14 +89,20 @@ declare @lastEstadia char;
 	
 	if((select COUNT(*) from Alumno.ContactoAlumno where idAlumno=@matricula)=0)		
 		insert into Alumno.ContactoAlumno values (@direccion,@telefono,@email,@matricula);
+	
+	insert into Usuario.Usuarios values (@matricula,HashBytes('sha1',@matricula),'ALU');
 end 
 --BORRAR STORED PROCEDURE
 --drop procedure ADD_ESTADIA
 
 --PROBAR STORED_PROCEDURE
-exec ADD_ESTADIA '0315110133','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
+exec ADD_ESTADIA '0315110140','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
 
 
 
 select * from Estadia.proyectos
+
+
+use Estadias
+select * from Usuario.usuarios

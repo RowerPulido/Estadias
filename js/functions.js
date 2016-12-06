@@ -596,8 +596,11 @@ function calis(){
 	body.setAttribute('class','');
 	var p= document.createElement('p');
 	p.innerHTML="Calificaciones de los Alumnos";
+	var seleccionar = document.createElement('h4');
+	seleccionar.innerHTML = 'Seleccionar Grupo';
 	p.setAttribute('class','parrafoCali');
 	body.appendChild(p);
+	body.appendChild(seleccionar);
 	
     var x = new XMLHttpRequest();
     var fGrupos = document.createElement('form');

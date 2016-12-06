@@ -394,6 +394,13 @@ select {
 {
 	padding-left: 100px;
 }
+.campo
+{
+	background: transparent;
+	text-align: center;
+	font-size: 14pt;
+	
+}
 /*	CSS calificaciones*/
 
 #svg, #chart {position: relative; float: left;}

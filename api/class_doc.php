@@ -202,8 +202,8 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status from Documento.documentos d join 
-				Documento.typesofdocs tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select td.id, td.name, d.status from Documento.Documentos d join Documento.typesofdocs td on td.id = d.typeDocs join Alumno.alumnos a on a.matricula = d.alumno where a.matricula = \''.$matricula."'");
+				//select td.id, td.name, d.status from Documento.Documentos d join Documento.typesofdocs td on td.id = d.typeDocs join Alumno.alumnos a on a.matricula = d.alumno where a.matricula = ?
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

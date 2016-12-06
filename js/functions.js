@@ -789,57 +789,109 @@ function actGrupos(grupo){
                     console.log(pars);
                     
                         var tr=document.createElement('tr');
+                        var forma = document.createElement('form');
+                        forma.setAttribute('id','forCalif'+i);                       
+                    
                         var td = document.createElement('td');
                         td.innerHTML=a.matricula;
                         td.setAttribute('class','rownormal');
+                        td.setAttribute('id',a.matricula);
                         tr.appendChild(td);	
+                    
                         var td = document.createElement('td');
                         td.innerHTML=a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
                         td.setAttribute('class','rownormal');
-                        tr.appendChild(td);	
+                        tr.appendChild(td);	                        
+                    
+                        var td1 = document.createElement('td');
+                        td1.innerHTML='';
+                        td1.setAttribute('id','camp1'+i);
+                        td1.setAttribute('class','rownormal');                    
+                    
+                        var camp = document.createElement('input');
+                        camp.setAttribute('class','campo');
+                        camp.setAttribute('id','in1'+i);                        
+                        camp.setAttribute('name','in1'+i);
+                    
+                        tds[0]=camp;
+                    
+                        var forma = document.createElement('form');
+                        forma.setAttribute('id','forCalif'+i);
+                        forma.appendChild(camp);
+                        td1.appendChild(forma);
+                    
+                        tr.appendChild(td1);	
+                        var td2 = document.createElement('td');
+                        td2.innerHTML='';
+                        td2.setAttribute('id','camp2'+i);
+                        td2.setAttribute('class','rownormal');
+                    
+                        var camp = document.createElement('input');
+                        camp.setAttribute('class','campo');
+                        camp.setAttribute('id','in2'+i);                      
+                        camp.setAttribute('name','in2'+i);
+                        tds[1]=camp;
+                    
+                        var forma = document.createElement('form');
+                        forma.setAttribute('id','forCalif'+i);
+                        forma.appendChild(camp);
+                        td2.appendChild(forma);
+                    
+                        tr.appendChild(td2);	
+                        var td3 = document.createElement('td');
+                        td3.innerHTML='';
+                        td3.setAttribute('id','camp3'+i);
+                        td3.setAttribute('class','rownormal');
+                    
+                        var camp = document.createElement('input');
+                        camp.setAttribute('class','campo');
+                        camp.setAttribute('id','in3'+i);                      
+                        camp.setAttribute('name','in3'+i);
+                        tds[2]=camp;
+                    
+                        var forma = document.createElement('form');
+                        forma.setAttribute('id','forCalif'+i);
+                        forma.appendChild(camp);
+                        td3.appendChild(forma);
+                    
+                        tr.appendChild(td3);
+                    	
+                        var td4 = document.createElement('td');
+                        td4.innerHTML='';
+                        td4.setAttribute('id','camp4'+i);
+                        td4.setAttribute('class','rownormal');
+                    
+                        var camp = document.createElement('input');
+                        camp.setAttribute('class','campo');
+                        camp.setAttribute('id','in4'+i);                      
+                        camp.setAttribute('name','in4'+i);
+                        tds[3]=camp;
+                    
+                        var forma = document.createElement('form');
+                        forma.setAttribute('id','forCalif'+i);
+                        forma.appendChild(camp);
+                        td4.appendChild(forma);
+                               
+                        tr.appendChild(td4);
+                    
+                        getCalis(a.matricula,tds);
+                        
                         var td = document.createElement('td');
                         td.innerHTML='';
-                        td.setAttribute('id','camp1'+i);
-                        td.setAttribute('class','rownormal');
-                        tds[0]=td;
-                        tr.appendChild(td);	
-                        var td = document.createElement('td');
-                        td.innerHTML='';
-                        td.setAttribute('id','camp2'+i);
-                        td.setAttribute('class','rownormal');
-                        tds[1]=td;
-                        tr.appendChild(td);	
-                        var td = document.createElement('td');
-                        td.innerHTML='';
-                        td.setAttribute('id','camp3'+i);
-                        td.setAttribute('class','rownormal');
-                        tds[2]=td;
-                        tr.appendChild(td);	
-                        var td = document.createElement('td');
-                        td.innerHTML='';
-                        td.setAttribute('id','camp4'+i);
-                        td.setAttribute('class','rownormal');
-                        tds[3]=td;                    
-                        tr.appendChild(td);	
-                        var td = document.createElement('td');
-                        td.innerHTML='';
-                        td.setAttribute('id','camp4'+i);
+                        td.setAttribute('id','camp5'+i);
                         td.setAttribute('class','rownormal');
                         var but = document.createElement('input');
                         but.setAttribute('class','button');
                         but.setAttribute('type','button');
-                        but.setAttribute('onClick','calificar("'+a.matricula+'");');
+                        but.setAttribute('onClick','cambioCalif("'+a.matricula+'",'+i+');');
                         td.appendChild(but);
                         tr.setAttribute('class','rowtable-docs');
                         tr.appendChild(td);	
-                        table.appendChild(tr);
-                    
-                        getCalis(a.matricula,tds);
+                        table.appendChild(tr);                    
 		      }	
                 tab.appendChild(table);
 	       }
 		}
-        console.log(x);
 	}
     x.send();
 }
@@ -854,8 +906,7 @@ function getCalis(mat,tds){
 		if(x.status == 200 && x.readyState == 4)
 		{
             var JSONdata = JSON.parse(x.responseText);
-            console.log(JSONdata);
-	
+            
 	        if(JSONdata.status == 0)
             {
                 var par1 = JSONdata.parcial_1;                
@@ -863,15 +914,14 @@ function getCalis(mat,tds){
                 var par3 = JSONdata.parcial_3;
                 var par4 = JSONdata.parcial_4;
                 
-                tds[0].innerHTML = par1;
-                tds[1].innerHTML = par2;
-                tds[2].innerHTML = par3;
-                tds[3].innerHTML = par4;
+                tds[0].value = par1;
+                tds[1].value = par2;
+                tds[2].value = par3;
+                tds[3].value = par4;
                                 
                 var ini = 0;
 	       }
 		}
-        console.log(x);
 	}
     x.send();
 }
@@ -884,6 +934,7 @@ function calificar(mat){
 	var divEnsima = document.createElement('div');
 	var ima = document.createElement('img');
 	var forma = document.createElement('form');
+        
     console.log(mat);
 	cuerpo.setAttribute('class','opaca');
 	divEnsima.setAttribute('id','divPassword');
@@ -900,6 +951,7 @@ function calificar(mat){
 	createInput(forma,'','hidden','campo','','matriculaPASS','matriculaPASS');
 	createInput(forma,'','hidden','campo','','matriculaAlum','matriculaAlum');
 	createInput(forma,'','hidden','campo','','passSessPASS','passSessPASS');
+	createInput(forma,'','hidden','campo','','cant','cant');
 	divEnsima.appendChild(ima);
 	bodyOpaca.appendChild(divEnsima);
 	divEnsima.appendChild(forma);
@@ -920,6 +972,7 @@ function calificar(mat){
 				document.getElementById('matriculaPASS').setAttribute('value',matri);
                 console.log(mat);
 				document.getElementById('matriculaAlum').setAttribute('value',mat);
+				document.getElementById('cant').setAttribute('value',cont);
 				document.getElementById('passSessPASS').setAttribute('value',pass);
 
 			}
@@ -932,15 +985,28 @@ function calificar(mat){
 	x.send();
 }
 
-function cambioCalif(){
-    var pass = document.getElementById('pass').value;
-	var calif = document.getElementById('calif').value;
-	var matricula = JSON.parse(sessionStorage['user']).User.userID;
-	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
+function cambioCalif(mat, renglon){
+    console.log(mat);
+    console.log(renglon);
+    var forma = document.getElementById('forCalif'+renglon);
+    var matr = document.createElement('input');
+    matr.setAttribute('type', 'hidden');
+    matr.setAttribute('value',mat);
+    matr.setAttribute('id','mat');
+    matr.setAttribute('name','mat');
+    
+    var reng = document.createElement('input');
+    reng.setAttribute('type', 'hidden');
+    reng.setAttribute('value', renglon);
+    reng.setAttribute('id','reng');
+    reng.setAttribute('name','reng');
+    
+    forma.appendChild(matr);
+    forma.appendChild(reng);
    
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setCalif.php',true);
-	x.send(new FormData(document.getElementById('formCalif')));
+	x.send(new FormData(document.getElementById('forCalif'+renglon)));
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 
@@ -953,6 +1019,8 @@ function cambioCalif(){
 		}
 	}
 	console.log(x);
+    
+    actGrupos()
 }
 
 function fechas(){

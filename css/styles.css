@@ -268,7 +268,7 @@ div#menu-lateral footer{
  	cursor: pointer;
  	position: relative;
  	top: 80px;
- 	left: 40px;
+ 	left: 60px;
 }
 #divPassword .button:hover
 {
@@ -389,6 +389,10 @@ select {
 {
     padding-top: 40px;
     top: 230px;
+}
+#formCalif
+{
+	padding-left: 100px;
 }
 /*	CSS calificaciones*/
 

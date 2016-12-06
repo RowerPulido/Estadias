@@ -2,11 +2,11 @@
  require_once('dompdf/autoload.inc.php');
  require_once('MODELS/connection_sql_server.php');
  header('Access-Control-Allow-Origin:*');
+   use Dompdf\Dompdf;
 
 $matricula=$_POST['matricula'];
- if (isset($matricula)) {
   $connection= new SqlServerConnection();
-  $query=sprintf("SELECT * FROM getInfoEst('?');");
+  $query=sprintf("SELECT * FROM getInfoEst('".$matricula."');");
   $data=$connection->execute_query($query);
   
   //variables
@@ -54,7 +54,7 @@ $matricula=$_POST['matricula'];
   $act5fin=odbc_result($data,'act5fin');
   $act5horas=odbc_result($data,'act5horas');
 
-  $horasTotales=$odbc_result($data,'horasTotales');
+  $horasTotales=odbc_result($data,'horasTotales');
 
   $grado=intval($grupo[3]+$grupo[4]);
   switch ($grado) {
@@ -71,6 +71,7 @@ $matricula=$_POST['matricula'];
       $ing='X';
       break;
   }
+
 
   // instantiate and use the dompdf class
   $dompdf = new Dompdf();
@@ -143,15 +144,15 @@ $matricula=$_POST['matricula'];
         </tr>
         <tr>
           <td>NOMBRE:</td>
-          <td>.'$empNom'.</td>
+          <td>'.$empNom.'</td>
         </tr>
         <tr>
           <td>DIRECCION:</td>
-          <td>.'$empDir'.</td>
+          <td>'.$empDir.'</td>
         </tr>
         <tr>
           <td>TELEFONO:/FAX/E-MAIL:</td>
-          <td>.'$empCon'.</td>
+          <td>'.$empCon.'</td>
         </tr>
          <tr>
           <td colspan="2" class="tit">DATOS DE LA ESTADIA</td>
@@ -287,8 +288,4 @@ $matricula=$_POST['matricula'];
   file_put_contents($dir.'/'.$matricula.'.pdf', $pdf);
   // Output the generated PDF to Browser
   $dompdf->stream($matricula);
-  }
-   else{
-      echo "no se pudo ejecutar";
- }
   ?>

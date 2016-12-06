@@ -22,6 +22,7 @@ var alum='';
 var tut='';
 var user = '';
 var alums;
+var nots[];
 var emps=[];
 	loadEmpresas();loadAlumnos();
 var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
@@ -29,6 +30,7 @@ var typeofuser=JSON.parse(sessionStorage['user']).User.UserType.IDtype;
 function initAlum(){
 	if(sessionStorage['user'])
 	{
+		var myTimer= setInterval(myMessages,3000);
 		menuOfUser();
 		dashboard();
 		divTwitter();
@@ -44,6 +46,35 @@ function initAlum(){
 		window.location = 'login.html';
 	}
 
+}
+
+function myMessages(){
+	var uID=JSON.parse(sessionStorage['user']).User.userID;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/get_all_mensajes_by_user.php?userID='+uID,true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.Status == 0) 
+			{
+				var sms=JSONdata.mensajes;
+				for(var i=0; i<sms.length;i++)
+				{
+					var from=sms[i].remitente;
+					var text=sms[i].texto;
+					nots[i]='<b>'+from+':</b><br>'+text;
+				}
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+		}
+		console.log(x);
+	}
 }
 // Función que suma o resta días a la fecha indicada
 sumaFecha = function(d, fecha)
@@ -393,8 +424,7 @@ function divTwitter(){
 }
 function createNotification(){
 	var body=document.getElementById('body');
-	var nots=['se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','nada','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm','se le informa que debe presentarse el dia de hoy conmigo a la hora de las 3:00pm'];
-	if (document.getElementById('notificacion')) {
+		if (document.getElementById('notificacion')) {
 		var not=document.getElementById('notificacion');
 		not.innerHTML='';
 	}

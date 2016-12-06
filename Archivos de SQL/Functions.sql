@@ -21,13 +21,7 @@ begin
 	RETURN;
 end
 
-select * from getInfoEst('0315110133');
-select * from Estadia.Actividades
-
-select * from usuario.mensajes
-
-insert into usuario.mensajes values('hola mundo','0315110132','0315110133','2016-12-8');
---MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110133');--drop function getInfoEst
+--MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');--drop function getInfoEst
 ----------------------------------
 create function getInfoEst(@matricula char(10))
 	returns @tabla table(
@@ -107,7 +101,7 @@ create function getInfoEst(@matricula char(10))
 		RETURN;
 	END
 --------------------------------
---consulta de mensajes
+--consulta de mensajes drop function myMessages
 create function myMessages(@matricula char(10))
 returns @tabla table(
 texto varchar(250),
@@ -119,10 +113,23 @@ begin
 	insert @tabla
 	select texto,destinatario,remitente
 	from usuario.mensajes
-	where fecha_limite>=getdate();
+	where fecha_limite>=getdate() and destinatario=@matricula;
 	
 	return;
 end
 
-select * from usuario.mensajes
-insert into usuario.mensajes values('que pedo cachorros','0315110132','1','2016-12-10')
+----------
+
+create view allusers
+as
+select u.id ,temp.nombre from usuario.usuarios  u
+join
+(
+select matricula as id,(a.nombres+' '+ a.paterno)nombre from alumno.alumnos a
+union
+select id,(t.numbres+' '+ t.paterno)nombre from alumno.tutores t
+union
+select id,(ae.nombre + ' '+ae.paterno) from empresa.asesor_empresarial ae
+) temp
+on
+u.id=temp.id

@@ -51,7 +51,7 @@
 
 			$connection=new SqlServerConnection();
 			$fecha=date("Y")."-".date("m")."-".date("d");
-			$query=sprintf("select * from myMessages('.$idUser.')");
+			$query=sprintf("select * from myMessages('".$idUser."')");
 			$data=$connection->execute_query($query);
 			$list=array();
 			$found=odbc_num_rows($data)>0;

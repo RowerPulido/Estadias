@@ -8,7 +8,7 @@ class User
 	private $id;
 	private $user_type;
 	private $password;
-
+	private $name;
 	
 	//getters & setters
 	public function get_id(){return $this->id;}
@@ -16,7 +16,10 @@ class User
 	public function get_user_type(){return $this->user_type;}
 	public function set_user_type($value){$this->user_type=$value;}
 	public function set_password($value){$this->password=$value;}	
-
+	
+	public function set_name($value){$this->name=$value;}
+	public function get_name(){return $this->name;}
+	
 	public function __construct()
 	{
 		//0 arguments
@@ -70,6 +73,34 @@ class User
 				$connection->close();
 			}
 		}
+	}
+	public function idAndName(){
+		$args=func_get_args();
+		$this->id=$args[0];
+		$this->name=$args[1];
+		
+	}
+	public function get_all_users(){
+		$connection=new SqlServerConnection();
+		$query="select id,nombre from allusers";
+		$list=array();
+		$data = $connection->execute_query($query);
+        $found = odbc_num_rows($data) > 0;
+        if (!$found)
+        {
+           echo 'Error in query : '.$query;
+           die;
+        }
+        while(odbc_fetch_array($data))
+       {
+			$u= new User();
+			$u->idAndName(odbc_result($data,'id'), odbc_result($data,'nombre'));
+           array_push($list,$u);
+      	}
+        
+		$connection->close();
+  
+		return $list;
 	}
 }
  ?>

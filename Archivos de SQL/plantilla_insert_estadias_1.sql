@@ -39,7 +39,7 @@ insert into Empresa.empresas values (4,'Gameloft','Desarrollo Multimedia','66468
 insert into Empresa.empresas values (5,'Steam','Desarrollo','6646899235','Blvd. Los Olivos 21014','gabe@steam.com');
 
 -- id nombre paterno materno empresa correo imagen
-insert into Empresa.asesor_empresarial values ('7000000000','JOSE','PEREZ','LOPEZ',1,'Gerente','JOSEPEREZ@SAMSUNG.COM','...');
+insert into Empresa.asesor_empresarial values ('7000000100','JOSE','PEREZ','LOPEZ',1,'Gerente','JOSEPEREZ@SAMSUNG.COM','...');
 
 -- matricula nombres paterno materno grupo imagen
 insert into Alumno.Alumnos values ('0315110132','JORGE ALONSO','PULIDO','TRUJILLO','TIC04A20161','0315110132.JPG');
@@ -147,6 +147,7 @@ insert into Usuario.Usuarios values ('0315110136',HashBytes('sha1','ROWER'),'ALU
 insert into Usuario.Usuarios values ('0315110152',HashBytes('sha1','MALI'),'ALU');
 insert into Usuario.Usuarios values ('1',HashBytes('sha1','DANIEL'),'TUT');
 
+select id,nombre from alluser
 -- matricula p1 p2 p3 p4 final
 INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
 -- id name

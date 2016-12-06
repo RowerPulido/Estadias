@@ -1,3 +1,6 @@
+
+use estadias
+
 CREATE PROCEDURE ADD_ESTADIA
 (@matricula char(10),@direccion varchar(50),@telefono char(10),@email varchar(50),
 @empresa varchar(50),@area varchar(50),@nomAse varchar(50),@patAse varchar(50), @matAse varchar(50),@cargo varchar(50),@visita varchar(50),
@@ -96,13 +99,5 @@ end
 --drop procedure ADD_ESTADIA
 
 --PROBAR STORED_PROCEDURE
-exec ADD_ESTADIA '0315110140','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
+exec ADD_ESTADIA '0315110132','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
-
-
-
-select * from Estadia.proyectos
-
-
-use Estadias
-select * from Usuario.usuarios

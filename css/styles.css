@@ -583,6 +583,18 @@ legend{
  	left: 90%;
  	margin-top:15px;
 }
+
+#divMsg{
+	background-color: #03A9F4;
+	padding: 10px;
+	width: 400px;
+	color: white;
+	border-radius: 15px;
+	position: absolute;
+	left: 80%;
+	top: 600px;
+}
+
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

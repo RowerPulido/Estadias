@@ -34,7 +34,7 @@ function initAlum(){
 		menuOfUser();
 		dashboard();
 		divTwitter();
-		
+		 createFormMsg();
 		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
 		console.log(sessionStorage['user']);
@@ -52,51 +52,106 @@ function createFormMsg(){
 	var body=document.getElementById('cuerpo');
 	var frmMsg=createForm('frmMsg','frmMsg','POST');
 	var divMsg=createDiv('divMsg');
-
+	
 	var tableMsg=document.createElement('table');
 	var tr=document.createElement('tr');
+	var td=document.createElement('td');
+	tr.appendChild(td);
+	td.innerHTML='Seleccione destinatario...';
 	var td=document.createElement('td');
 	var inUsers=createInput(td,'ID del usuario','text','inUsers','','inUsers','inUsers');
 
 	var x = new XMLHttpRequest();
-	x.open("POST",'http://localhost:8080/Estadias/api/getlogin.php',true);
-	x.send(new FormData(document.getElementById('frmlogin')));
+	x.open("POST",'http://localhost:8080/Estadias/api/get_all_users.php',true);
+	x.send();
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 
 		{
 			var JSONdata = JSON.parse(x.responseText);
-			if (JSONdata.Status == 0) 
+			if (JSONdata.status == 0) 
 			{
+				console.log('si jala');
+				var dlUsu=createDatalist('dlUsers','dlUsers');
+				var u=JSONdata.users;
+				for(var i=0;i<u.length;i++)
+				{
+					var oUsers=createOption(u[i].id,u[i].nombre);
+					dlUsu.appendChild(oUsers);
+				
+				}
+					inUsers.appendChild(dlUsu);
+			}
+		}
+	}
+	inUsers.setAttribute('list','dlUsers');
+	td.appendChild(inUsers);
+	tr.appendChild(td);
+	tableMsg.appendChild(tr);
+	var tr=document.createElement('tr');
+	tr.setAttribute('id','txtMsgtr');
+	var td=document.createElement('td');
+	td.setAttribute('id','txtMsg');
+	td.setAttribute('colspan',2);
 
-				sessionStorage['user'] = x.responseText;
-				window.location = sessionStorage['previouspage'];
+	var txtMsg=document.createElement('textarea');
+	txtMsg.setAttribute('cols',50);
+	txtMsg.setAttribute('rows',4);
+	txtMsg.setAttribute('id','txtMsg');
+	td.appendChild(txtMsg);
+	tr.appendChild(td);
+	tableMsg.appendChild(tr);
+	var tr=document.createElement('tr');
+	var td=document.createElement('td');
+	var inFeLimit=createInput(td,'','date','inFlimit','','inFlimit','inFlimit');
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	td.innerHTML="<- Seleccione fecha limite <br>de visualizacion";
+	tr.appendChild(td);
+	tableMsg.appendChild(tr);
+	var tr=document.createElement('tr');
+	var td=document.createElement('td');
+	//parent,htmlPlaceHolder,type,cssClass,value,id,name
+	var inCancel=createInput(td,'cancelar','button','inFrm','CANCEL','btnCancel','btnCancel');
+	inCancel.setAttribute('onclick',"document.getElementById('frmMsg').reset()");
+	td.appendChild(inCancel);
+	tr.appendChild(td);
+	var td=document.createElement('td');
+	var inOk=createInput(td,'ok','button','inFrm','OK','btnOk','btnOk');
+	inOk.setAttribute('onclick','sendMessage()');
+	td.appendChild(inOk);
+	tr.appendChild(td);
+	tableMsg.appendChild(tr);
+	frmMsg.appendChild(tableMsg);
+	divMsg.appendChild(frmMsg);
+	body.appendChild(divMsg);
+}
 
+function sendMessage(){
+	var flimit=document.getElementById('inFlimit').value;
+	var to=document.getElementById('inUsers').value;
+	var from=JSON.parse(sessionStorage['user']).User.userID;
+	var txt=document.getElementById('txtMsg').value;
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/sendMessage.php?txt='+txt+'&to='+to+'&from='+from+'&flimite='+flimit,true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				console.log(JSONdata.descripcion);
 			}
 			else
 			{
-				alert(JSONdata.errorMessage);
+				console.log(JSONdata.descripcion);
 			}
 		}
 		console.log(x);
 	}
-
-
-	tr.appendChild(td);
-	tableMsg.appendChild(td);
-
-	var inEmpNom=createInput(divEmp,'Nombre ...','text','inRegistro','','inEmpNom','empresa');
-			var dlEmps=createDatalist('dlEmps');
-			for (var i=0; i<emps.length;i++) {
-				var oEmp=createOption(emps[i],emps[i]);
-				dlEmps.appendChild(oEmp);
-			}
-			divEmp.appendChild(dlEmps);
-			inEmpNom.setAttribute('list','dlEmps');
-
-	body.appendChild(frmMsg);
 }
-
 function myMessages(){
 	var uID=JSON.parse(sessionStorage['user']).User.userID;
 	var x = new XMLHttpRequest();

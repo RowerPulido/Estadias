@@ -285,7 +285,8 @@ $matricula=$_POST['matricula'];
   $dir='../docs/'.$matricula;
   mkdir($dir,0777);
   $pdf= $dompdf->output();
-  file_put_contents($dir.'/'.$matricula, $pdf);
+  file_put_contents($dir.'/alta'.$matricula.'.PDF', $pdf);
   // Output the generated PDF to Browser
-  $dompdf->stream($matricula);
+  $dompdf->stream();
+
   ?>

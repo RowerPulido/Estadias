@@ -132,7 +132,6 @@ insert into Alumno.ContactoAlumno values ('C Zumpango #4067, Jibarito,, TIJUANA'
 insert into Alumno.ContactoAlumno values ('C Zumpango #4068, Jibarito,, TIJUANA','6651214284','ALUMN39@GMAIL.COM','0315110170');
 insert into Alumno.ContactoAlumno values ('C Zumpango #4069, Jibarito,, TIJUANA','6651214284','ALUMN40@GMAIL.COM','0315110171');
 
-
 -- id description
 insert into Usuario.typeofuser values ('ALU','ALUMNO');
 insert into Usuario.typeofuser values ('TUT','TUTOR');

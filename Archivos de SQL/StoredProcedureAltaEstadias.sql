@@ -94,10 +94,28 @@ declare @lastEstadia char;
 		insert into Alumno.ContactoAlumno values (@direccion,@telefono,@email,@matricula);
 	
 	insert into Usuario.Usuarios values (@matricula,HashBytes('sha1',@matricula),'ALU');
+	
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (1,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (2,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (3,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (4,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (5,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (6,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (7,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (8,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion,ubicacion) VALUES (9,@matricula,'pendiente',getdate(),@matricula+'/alta'+@matricula+'.pdf')
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (10,@matricula,'pendiente',getdate())
 end 
+
+select * from documento.documentos
 --BORRAR STORED PROCEDURE
 --drop procedure ADD_ESTADIA
 
 --PROBAR STORED_PROCEDURE
 exec ADD_ESTADIA '0315110132','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
+
+
+select * from EMPRESA.ASESOR_EMPRESARIAL
+use estadias
+select * from estadia.estadias

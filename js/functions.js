@@ -229,7 +229,6 @@ var calisalums=document.getElementById('calisalums');
 	if (typeofuser=='TUT') {
 		divDocumentos.style.display='none';
 		document.getElementById('vercalis').style.display='none';
-		document.getElementById('verponderaciones').style.display='none';
 	}
 }
 
@@ -385,10 +384,13 @@ function registrarEstadia(){
 			
 			var lblProObj=createLabel('inProObj','Objetivos del proyecto','lblProObj');
 			divProObj.appendChild(lblProObj);
-			var inProObj=createInput(divProObj,'Ingrese los objetivos del proyecto','text','inRegistro','','inProObj','ProObj');
-			
+			var inProObj=document.createElement('textarea');
+			inProObj.setAttribute('cols',70);
+			inProObj.setAttribute('rows',5);
+	inProObj.setAttribute('style','position:relative;top:25px; left:10px;')
+			inProObj.setAttribute('id','objetivos');
 			fsProyecto.appendChild(divProObj);
-		
+			lblProObj.appendChild(inProObj);
 			var divProAct=createDiv('divProAct');
 				var thoras=0;
 				//var horasS=horasSem();
@@ -465,18 +467,15 @@ function checkRegistro(){
 	check9Hours();
 	checkIsMonday();
 	check13Sem();
+	var inputOBJ=document.createElement('input');
+	inputOBJ.value=document.getElementById('objetivos').value;
+	inputOBJ.setAttribute('hidden','hidden');
+	inputOBJ.setAttribute('name','ProObj');
+	document.getElementById('frmRegistro').appendChild(inputOBJ);
 
 	var x = new XMLHttpRequest();
-	x.open("POST",'http://localhost:8080/Estadias/api/generateAlta.php',true);
+	x.open("POST",'http://localhost:8080/Estadias/api/setEstadia.php',true);
 	x.send(new FormData(document.getElementById('frmRegistro')));
-	x.onreadystatechange = function()
-	{
-		if (x.readyState == 4 && x.status == 200) 
-		{
-			
-		}
-		console.log(x);
-	}
 }
 
 

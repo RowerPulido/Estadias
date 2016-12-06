@@ -47,6 +47,55 @@ function initAlum(){
 	}
 
 }
+function createFormMsg(){
+	var uID=JSON.parse(sessionStorage['user']).User.userID;
+	var body=document.getElementById('cuerpo');
+	var frmMsg=createForm('frmMsg','frmMsg','POST');
+	var divMsg=createDiv('divMsg');
+
+	var tableMsg=document.createElement('table');
+	var tr=document.createElement('tr');
+	var td=document.createElement('td');
+	var inUsers=createInput(td,'ID del usuario','text','inUsers','','inUsers','inUsers');
+
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/getlogin.php',true);
+	x.send(new FormData(document.getElementById('frmlogin')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.Status == 0) 
+			{
+
+				sessionStorage['user'] = x.responseText;
+				window.location = sessionStorage['previouspage'];
+
+			}
+			else
+			{
+				alert(JSONdata.errorMessage);
+			}
+		}
+		console.log(x);
+	}
+
+
+	tr.appendChild(td);
+	tableMsg.appendChild(td);
+
+	var inEmpNom=createInput(divEmp,'Nombre ...','text','inRegistro','','inEmpNom','empresa');
+			var dlEmps=createDatalist('dlEmps');
+			for (var i=0; i<emps.length;i++) {
+				var oEmp=createOption(emps[i],emps[i]);
+				dlEmps.appendChild(oEmp);
+			}
+			divEmp.appendChild(dlEmps);
+			inEmpNom.setAttribute('list','dlEmps');
+
+	body.appendChild(frmMsg);
+}
 
 function myMessages(){
 	var uID=JSON.parse(sessionStorage['user']).User.userID;

@@ -558,49 +558,66 @@ function openNotificaciones(){
 
 
 }
-function verDocs(){
+function verDocs()
+{
+	var x = new XMLHttpRequest();
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_typeDocs.php');
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
 	
+	        if(JSONdata.status == 0)
+            {
 
-	var body=document.getElementById('cuerpo');
-	body.innerHTML="";
-	body.setAttribute('class','');
-	var p= document.createElement('p');
-	p.innerHTML="Lista de Documentos";
-	body.appendChild(p);
-	var table=document.createElement('table');
-	table.setAttribute('id','tabla-docs');
-	var tr =document.createElement('tr');
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="CLAVE DOC";
-	tr.appendChild(td);
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Nombre DOC";
-	tr.appendChild(td);    
-	var td=document.createElement('td');
-	td.setAttribute('class','rowheader');
-	td.innerHTML="Fecha Limite";
-	tr.appendChild(td);
-	table.appendChild(tr);
-	for (var i = 0; i < docs.length; i++) {
-		var tr=document.createElement('tr');
-		var td = document.createElement('td');
-		td.innerHTML=docs[i][0];
-		td.setAttribute('class','rownormal');
-		tr.appendChild(td);	
-		var td = document.createElement('td');
-		td.innerHTML=docs[i][1];
-		td.setAttribute('class','rownormal');
-		tr.appendChild(td);
-		tr.setAttribute('class','rowtable-docs');
-		table.appendChild(tr);
+            	var docs = JSONdata.Doc;
+
+            	var body=document.getElementById('cuerpo');
+				body.innerHTML="";
+				body.setAttribute('class','');
+				var p= document.createElement('p');
+				p.innerHTML="Lista de Documentos";
+				body.appendChild(p);
+				var table=document.createElement('table');
+				table.setAttribute('id','tabla-docs');
+				var tr =document.createElement('tr');
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="CLAVE DOC";
+				tr.appendChild(td);
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Nombre DOC";
+				tr.appendChild(td);    
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				table.appendChild(tr);
+
+				for (var i = 0; i < docs.length; i++) 
+				{
+					var a = docs[i];
+					var tr=document.createElement('tr');
+					var td = document.createElement('td');
+					td.innerHTML=a.id;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);	
+					var td = document.createElement('td');
+					td.innerHTML=a.nombre;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);
+					tr.setAttribute('class','rowtable-docs');
+					table.appendChild(tr);
+				}
+				body.appendChild(table);
+			}
+		}
 	}
-	
-	body.appendChild(table);
+	x.send();
 }
 
-function misDocs(){
+function misDocs()
+{
 	var body=document.getElementById('cuerpo');
 	body.innerHTML="";
 	body.setAttribute('class','');
@@ -724,7 +741,8 @@ function misCalis()
 	x.send();
 }
 
-function calis(){
+function calis()
+{
     
     var body=document.getElementById('cuerpo');
 	body.innerHTML="";

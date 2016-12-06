@@ -42,6 +42,12 @@
 				$this->tipo='';
 				$this->nombre='';
 			}
+			if(func_num_args()==2)
+			{
+				$args=func_get_args();
+				$this->id=$args[0];
+				$this->nombre=$args[1];
+			}
 			if(func_num_args()==3)
 			{				
 				$args = func_get_args();
@@ -83,8 +89,40 @@
 				$this->fecha_upd=$arguments[3];
 				$this->ruta=$arguments[4];
 			}
+
 		}
         
+ 		public function get_typeDocs()
+ 		{
+ 			require_once('MODELS/connection_sql_server.php');
+			$list = array();
+			//get connection
+			$connection = new SqlServerConnection();
+			try
+			{
+				//query
+				$query = sprintf('select id, name from documento.typesofdocs');
+				//command
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0;
+				if (!$found)
+				{
+					echo 'Error in query : '.$query;
+					die;
+				}
+				while(odbc_fetch_array($data))
+				{
+					array_push($list, new Doc(odbc_result($data, 'id'),
+											  odbc_result($data, 'name')));
+				}
+			}
+			finally
+			{
+				$connection->close();
+			}
+			return $list;
+ 		}
+
         public function get_docs()
 		{
             require_once('MODELS/connection_sql_server.php');

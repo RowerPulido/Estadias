@@ -874,7 +874,17 @@ function actGrupos(grupo){
                         td.innerHTML='';
                         td.setAttribute('id','camp4'+i);
                         td.setAttribute('class','rownormal');
-                        tds[3]=td;
+                        tds[3]=td;                    
+                        tr.appendChild(td);	
+                        var td = document.createElement('td');
+                        td.innerHTML='';
+                        td.setAttribute('id','camp4'+i);
+                        td.setAttribute('class','rownormal');
+                        var but = document.createElement('input');
+                        but.setAttribute('class','button');
+                        but.setAttribute('type','button');
+                        but.setAttribute('onClick','calificar("'+a.matricula+'");');
+                        td.appendChild(but);
                         tr.setAttribute('class','rowtable-docs');
                         tr.appendChild(td);	
                         table.appendChild(tr);
@@ -921,35 +931,35 @@ function getCalis(mat,tds){
     x.send();
 }
 
-function calificar(){
+function calificar(mat){
+    
     var cuerpo = document.getElementById('cuerpo');
 	var bodyOpaca = document.getElementById('body');
 	var divLateralOpaca = document.getElementById('menu-lateral');
 	var divEnsima = document.createElement('div');
 	var ima = document.createElement('img');
 	var forma = document.createElement('form');
-
+    console.log(mat);
 	cuerpo.setAttribute('class','opaca');
 	divEnsima.setAttribute('id','divPassword');
-	forma.setAttribute('id','formPassword');
+	forma.setAttribute('id','formCalif');
 	forma.setAttribute('method','POST');
 	ima.setAttribute('src','images/exit_password.png')
 	ima.setAttribute('onClick','normal();');
 	ima.setAttribute('class','imaExitPassword');
-
-	createP(forma,'Primer Parcial:','label');
-	createInput(forma,'Primer Parcial','','campo','','fstParcial','fstParcial');
-	createP(forma,'Segundo Parcial:','label');
-	createInput(forma,'Segundo Parcial','','campo','','scndParcial','scndParcial');
-	createP(forma,'Tercer Parcial:','label');
-	createInput(forma,'Tercer Parcial','','campo','','thrdParcial','thrdParcial');
-	createP(forma,'Cuarto Parcial:','label');
-	createInput(forma,'Cuarto Parcial','','campo','','frthParcial','frthParcial');
+    
+	createP(forma,'Calificacion:','label');
+	createInput(forma,'Calificacion','calif','campo','','calif','calif');
+	createP(forma,'Contraseña:','label');
+	createInput(forma,'Contraseña','','campo','','pass','pass');
+	createInput(forma,'','hidden','campo','','matriculaPASS','matriculaPASS');
+	createInput(forma,'','hidden','campo','','matriculaAlum','matriculaAlum');
+	createInput(forma,'','hidden','campo','','passSessPASS','passSessPASS');
 	divEnsima.appendChild(ima);
 	bodyOpaca.appendChild(divEnsima);
 	divEnsima.appendChild(forma);
-	createInput(divEnsima,'','','button','Aceptar','acceptCalif');
-	document.getElementById('idConfigPass').setAttribute('onClick','cambioCalif()');
+	createInput(divEnsima,'','','button','Aceptar','idCalifAccept');
+	document.getElementById('idCalifAccept').setAttribute('onClick',"cambioCalif();");
 	
 	var matri,pass;
 	var x = new XMLHttpRequest();
@@ -963,6 +973,8 @@ function calificar(){
 				matri = JSON.parse(sessionStorage['user']).User.userID;
 				pass = JSON.parse(sessionStorage['user']).User.password;
 				document.getElementById('matriculaPASS').setAttribute('value',matri);
+                console.log(mat);
+				document.getElementById('matriculaAlum').setAttribute('value',mat);
 				document.getElementById('passSessPASS').setAttribute('value',pass);
 
 			}
@@ -973,6 +985,29 @@ function calificar(){
     	}
 	}
 	x.send();
+}
+
+function cambioCalif(){
+    var pass = document.getElementById('pass').value;
+	var calif = document.getElementById('calif').value;
+	var matricula = JSON.parse(sessionStorage['user']).User.userID;
+	var contraseniaSesion = JSON.parse(sessionStorage['user']).User.password;
+   
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/setCalif.php',true);
+	x.send(new FormData(document.getElementById('formCalif')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+				alert(JSONdata.descripccion);
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
+	console.log(x);
 }
 
 function fechas(){
@@ -991,8 +1026,7 @@ function tablero(){
 	td.setAttribute('rowspan',2);
 }
 
-function configuracion()
-{
+function configuracion(){
 	var body = document.getElementById('cuerpo');
 	var division = document.createElement('div');
 	var divisionIma = document.createElement('div');

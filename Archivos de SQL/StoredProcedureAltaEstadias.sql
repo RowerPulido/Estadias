@@ -38,7 +38,7 @@ declare @empID int;
 set @empID=(select id from Empresa.empresas where nombre=@empresa);
 
 	if((select COUNT(*) from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse)=1)
-		set @lastAseEmp= (select id from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse);
+		set @lastAseEmp= (select id from [Empresa.asesor_empresarial] where nombre=@nomAse and paterno=@patAse and materno=@matAse);
 	else
 	begin
 		if((select COUNT(*) from Empresa.asesor_empresarial)>0)
@@ -79,34 +79,35 @@ declare @lastEstadia char;
 	
 	insert into Estadia.Actividades values(@act5,@iniAct5,@finAct5,@lastPro);
 	if((select COUNT(*) from Alumno.ContactoAlumno where idAlumno=@matricula)=0)		
-		insert into Alumno.ContactoAlumno values (@direccion,@telefono,@email,@matricula);
+		insert into [Alumno.ContactoAlumno] values (@direccion,@telefono,@email,@matricula);
 end 
 
 --BORRAR STORED PROCEDURE
 --drop procedure ADD_ESTADIA
 
-----PROBAR STORED_PROCEDURE
+--PROBAR STORED_PROCEDURE
 --exec ADD_ESTADIA '0315110132','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
 --2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
 
 --select a.matricula,(a.nombres+' '+ a.paterno+' '+a.materno) as nombre,g.carrera,g.id,
 --ca.direccion,ca.telefono,ca.email,emp.nombre as empresa,es.deptoEmp as area,(aseemp.nombre+' '+aseemp.paterno+' '+aseemp.materno+' ,'+aseemp.cargo) as asesorEmp,
 --es.fechasVisita,(tut.numbres+' '+tut.paterno+' '+tut.materno) as tutor,(CONVERT(nvarchar(5), es.horaEntrada, 108)+'-'+ CONVERT(nvarchar(5), es.horaSalida, 108))as horario,
---es.apoyoEconomico,pro.objetivos from Alumno.Alumnos a
---join Alumno.ContactoAlumno ca
+--es.apoyoEconomico,pro.objetivos,
+--from [Alumno.Alumnos] a
+--join [Alumno.ContactoAlumno] ca
 --on a.matricula=ca.idAlumno
---join Alumno.grupos g
+--join [Alumno.grupos] g
 --on a.grupo=g.id
---join Estadia.Estadias es
+--join [Estadia.Estadias] es
 --on a.matricula=es.idAlumno
---join Estadia.proyectos pro
+--join [Estadia.proyectos] pro
 --on	a.matricula=pro.alumno
---join Empresa.empresas emp
+--join [Empresa.empresas] emp
 --on pro.empresa=emp.id
---join Estadia.Actividades act
+--join [Estadia.Actividades] act
 --on act.proyecto=pro.id
---join Empresa.asesor_empresarial aseemp
+--join [Empresa.asesor_empresarial] aseemp
 --on aseemp.id=pro.asesor_empresarial
---join Alumno.Tutores tut
+--join [Alumno.Tutores] tut
 --on g.tutor=tut.id
 --where a.matricula='0315110132'

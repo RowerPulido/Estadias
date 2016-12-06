@@ -6,7 +6,7 @@
 	if (isset($matricula)) 
 	{
 		$connection = new SqlServerConnection();
-		$query = sprintf(' select email,tel from [Alumno.tutores] where id = \''.$matricula."';");
+		$query = sprintf(' select email,tel from Alumno.tutores where id = \''.$matricula."';");
 		$data = $connection->execute_query($query);
 		$email = odbc_result($data, 'email');
 		$telefono = odbc_result($data, 'tel');

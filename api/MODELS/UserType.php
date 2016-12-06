@@ -27,7 +27,7 @@ class Usertype
 			$connection = new SqlServerConnection();
 			try
 			{
-				$query=sprintf('select id , description from [Usuario.typeofuser] where id= \''.$id."'");
+				$query=sprintf('select id , description from Usuario.typeofuser where id= \''.$id."'");
 				$data=$connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
 				if (!$found)

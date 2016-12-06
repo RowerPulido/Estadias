@@ -368,6 +368,19 @@ div#menu-lateral footer{
     padding-left: 80px;
     padding-right: 60px;
 }
+#cuerpo .parrafoCali
+{
+	left: 200px;
+	padding: 15px;
+}
+select {
+     background: transparent;
+     border: none;
+     font-size: 14px;
+     height: 30px;
+     padding: 5px;
+     width: 140px;
+  }
 /*	CSS calificaciones*/
 
 #svg, #chart {position: relative; float: left;}

@@ -34,7 +34,7 @@
 			//get connection
 			$connection = new SqlServerConnection();
 			//query
-			$query = sprintf('insert into [Alumno.Tutor] values(?,?,?,?,?,?,?)');
+			$query = sprintf('insert into Alumno.Tutor values(?,?,?,?,?,?,?)');
 			$connection->execute_non_query($query,array($setMatricula,$setName,$setFirstName,$setLastName,$image,$email,$tel));
 			$connection->close();
 		}

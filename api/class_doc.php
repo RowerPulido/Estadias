@@ -63,7 +63,7 @@
 				$this->fecha_limit=$arguments[5];
 				$this->ruta=$arguments[6];
 				$connection= new SqlServerConnection();
-	            $query = sprintf('insert into [Documento.documentos] values (?,?,?,?,?,?);');
+	            $query = sprintf('insert into Documento.documentos values (?,?,?,?,?,?);');
 	                
 	            $connection->execute_non_query($query, array($this->id,
 	            											 $this->tipo,
@@ -94,7 +94,7 @@
 			//query
 			try
 			{
-				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, typeDocs from [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id;');
+				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion, alumno, typeDocs from Documento.documentos d join Documento.typesofdocs tod on d.typeDocs = tod.id;');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -131,7 +131,7 @@
 			{
 				//query
 				$query = sprintf('select d.id, name, ubicacion, status, fecha_actualizacion from
-				 [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
+				 Documento.documentos d join Documento.typesofdocs tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -164,8 +164,8 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status from [Documento.documentos] d join 
-				[Documento.typesofdocs] tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status from Documento.documentos d join 
+				Documento.typesofdocs tod on d.typeDocs = tod.id where alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -196,7 +196,7 @@
 			try
 			{
 				//query
-				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from [Documento.documentos] d join [Documento.typesofdocs] tod on d.typeDocs = tod.id where d.alumno = \''.$matricula."'");
+				$query = sprintf('select d.id, tod.name, d.status, d.fecha_actualizacion, d.ubicacion from Documento.documentos d join Documento.typesofdocs tod on d.typeDocs = tod.id where d.alumno = \''.$matricula."'");
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;

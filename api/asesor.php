@@ -43,7 +43,7 @@
 			//get connection
 			$connection = new SqlServerConnection();
 			//query
-			$query = sprintf('insert into [Empresa.asesor_empresarial] values(?,?,?,?)');
+			$query = sprintf('insert into Empresa.asesor_empresarial values(?,?,?,?)');
 			$connection->execute_non_query($query, array($this->id,
 														 $this->name,
 														 $this->first_Name,

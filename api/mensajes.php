@@ -37,7 +37,7 @@
 		public static function getMensaje($idUser)
 		{
 			$connection = new SqlServerConnection();
-			$query = sprintf('select texto, remitente from [Usuario.mensajes] where remitente=\''.$idUser."' and fecha_limite < GETDATE();'");
+			$query = sprintf('select texto, remitente from Usuario.mensajes where remitente=\''.$idUser."' and fecha_limite < GETDATE();'");
 			$data = $connection->execute_query($query);
 			odbc_result($data, 'text');
 			odbc_result($data, 'remitente');

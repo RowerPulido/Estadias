@@ -18,7 +18,7 @@
 		{
 			$connection = new SqlServerConnection();
 			echo $result='{"status": 0, "descripccion" : "Contrasena Cambiada.."}';
-			$query = sprintf('update [Alumno.usuarios] set password=HashBytes('."'SHA1'".",".'\''.$pasNueva."') where id= ?;");
+			$query = sprintf('update Alumno.usuarios set password=HashBytes('."'SHA1'".",".'\''.$pasNueva."') where id= ?;");
 			$connection->execute_non_query($query,array($matricula));
 
 			$connection->close();

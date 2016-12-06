@@ -61,7 +61,7 @@
 			{
 				//query
 				$query = sprintf('select id, nombre, giro, telefono, direccion, email from 
-					[Empresa.empresas];');
+					Empresa.empresas;');
 				//command
 				$data = $connection->execute_query($query);
 				$found = odbc_num_rows($data) > 0;
@@ -92,7 +92,7 @@
 			//get connection
 			$connection = new SqlServerConnection();
 			//query
-			$query = sprintf('insert into [Empresa.Empresa] values(?,?,?,?,?,?)');
+			$query = sprintf('insert into Empresa.Empresa values(?,?,?,?,?,?)');
 			$connection->execute_non_query($query, array($this->id,$this->name,$this->position,$this->tel,$this->direccion,$this->email));
 			$connection->close();
 		}

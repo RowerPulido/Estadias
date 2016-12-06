@@ -20,7 +20,14 @@ declare @horasTot int;
 declare @semTot int;
 
 set @semTot=@durAct1 + @durAct2+ @durAct3+ @durAct4+ @durAct5;
-set @horasTot= @semTot*(select DATEDIFF(HH,@hora1,@hora2));
+declare @horasDia int=(select DATEDIFF(HH,@hora1,@hora2));
+declare @durhr1 int=((@durAct1)*5)*@horasDia;
+declare @durhr2 int=((@durAct2)*5)*@horasDia;
+declare @durhr3 int=((@durAct3)*5)*@horasDia;
+declare @durhr4 int=((@durAct4)*5)*@horasDia;
+declare @durhr5 int=((@durAct5)*5)*@horasDia;
+
+set @horasTot= @durAct1+@durAct2+@durAct3+@durAct4+@durAct5;
 
 set @finAct1= DATEADD(day,((@durAct1-1)*7)+4,@inicioEst);
 set @iniAct2=DATEADD(DAY,@durAct1*7,@inicioEst);
@@ -35,20 +42,25 @@ set @finAct5=DATEADD(DAY,((@durAct5-1)*7)+4,@iniAct5);
 declare @lastAseEmp char;
 declare @empID int;
 
+select * from Empresa.asesor_empresarial
 set @empID=(select id from Empresa.empresas where nombre=@empresa);
 
 	if((select COUNT(*) from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse)=1)
-		set @lastAseEmp= (select id from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse);
+		begin
+			set @lastAseEmp= (select id from Empresa.asesor_empresarial where nombre=@nomAse and paterno=@patAse and materno=@matAse);
+		end
 	else
 	begin
 		if((select COUNT(*) from Empresa.asesor_empresarial)>0)
 			begin
-				set @lastAseEmp= convert(char,(convert(bigint,(select top 1 id from Empresa.asesor_empresarial order by id desc))+1));
+				set @lastAseEmp= convert(char,((convert(bigint,(select top 1 id from Empresa.asesor_empresarial order by id desc)))+1));
+				select @lastAseEmp;
 				insert into Empresa.asesor_empresarial(id,nombre,paterno,materno,empresa,cargo)  values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
 			end
 		else
 			begin
 				set @lastAseEmp='7000000001';
+				select @lastAseEmp;
 				insert into Empresa.asesor_empresarial(id,nombre,paterno,materno,empresa,cargo) values(@lastAseEmp,@nomAse,@patAse,@matAse,@empID,@cargo);
 			end
 	end		
@@ -69,22 +81,24 @@ declare @lastEstadia char;
 	insert into Estadia.Estadias values (@lastEstadia,@matricula,@area,@lastAseEmp,@visita,@hora1,@hora2,@apoyo,@lastPro);
 
 
-	insert into Estadia.Actividades values(@act1,@inicioEst,@finAct1,@lastPro);	
+	insert into Estadia.Actividades values(@act1,@inicioEst,@finAct1,@durAct1,@lastPro);	
 	
-	insert into Estadia.Actividades values(@act2,@iniAct2,@finAct2,@lastPro);
+	insert into Estadia.Actividades values(@act2,@iniAct2,@finAct2,@durAct2,@lastPro);
 	
-	insert into Estadia.Actividades values(@act3,@iniAct3,@finAct3,@lastPro);
+	insert into Estadia.Actividades values(@act3,@iniAct3,@finAct3,@durAct3,@lastPro);
 	
-	insert into Estadia.Actividades values(@act4,@iniAct4,@finAct4,@lastPro);
+	insert into Estadia.Actividades values(@act4,@iniAct4,@finAct4,@durAct4,@lastPro);
 	
-	insert into Estadia.Actividades values(@act5,@iniAct5,@finAct5,@lastPro);
+	insert into Estadia.Actividades values(@act5,@iniAct5,@finAct5,@durAct5,@lastPro);
+	
 	if((select COUNT(*) from Alumno.ContactoAlumno where idAlumno=@matricula)=0)		
 		insert into Alumno.ContactoAlumno values (@direccion,@telefono,@email,@matricula);
 end 
 --BORRAR STORED PROCEDURE
 --drop procedure ADD_ESTADIA
 
+select * from Alumno.Alumnos
 --PROBAR STORED_PROCEDURE
---exec ADD_ESTADIA '0315110135','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','jose','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
---2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
+exec ADD_ESTADIA '0315110133','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
+2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
 

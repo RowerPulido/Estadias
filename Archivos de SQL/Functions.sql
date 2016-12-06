@@ -19,12 +19,14 @@ begin
 	where Row=@numAct;
 	RETURN;
 end
+
 ----------------------------------
---MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');
+--MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');--drop function getInfoEst
 ----------------------------------
 create function getInfoEst(@matricula char(10))
 	returns @tabla table(
 	carrera varchar(50),
+	director varchar(50),
 	grupo char(11),
 	alumNom varchar(150),
 	alumDir varchar(50),
@@ -57,7 +59,7 @@ create function getInfoEst(@matricula char(10))
 		where Alumno=@matricula)
 		
 		INSERT @tabla
-		select car.name carrera,a.grupo grupo,(a.nombres +' '+a.paterno+' '+a.materno)nomAlum,
+		select car.name carrera,car.nombreDirecto director,a.grupo grupo,(a.nombres +' '+a.paterno+' '+a.materno)nomAlum,
 		ca.direccion direccion,ca.telefono telefono,ca.email,emp.nombre,emp.direccion,(emp.telefono+', email:'+emp.email),
 		pro.nombre,es.deptoEmp area,(asemp.nombre+' '+asemp.paterno+' '+asemp.materno+', '+asemp.cargo)aseEmp,
 		es.fechasVisita visita,(tut.numbres+' '+tut.paterno+' '+tut.materno) tutor,(CONVERT(nvarchar(5), es.horaEntrada, 108)+'-'+ CONVERT(nvarchar(5), es.horaSalida, 108))horario,

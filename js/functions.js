@@ -38,7 +38,7 @@ function initAlum()
 		 createFormMsg();
 		document.getElementById('user-id').innerHTML = JSON.parse(sessionStorage['user']).User.userID;
 		document.getElementById('user-name').innerHTML = JSON.parse(sessionStorage['user']).User.Nombre;
-		console.log(sessionStorage['user']);
+		
 	}
 	else
 	{
@@ -73,7 +73,6 @@ function createFormMsg()
 			var JSONdata = JSON.parse(x.responseText);
 			if (JSONdata.status == 0) 
 			{
-				console.log('si jala');
 				var dlUsu=createDatalist('dlUsers','dlUsers');
 				var u=JSONdata.users;
 				for(var i=0;i<u.length;i++)
@@ -145,14 +144,13 @@ function sendMessage()
 			var JSONdata = JSON.parse(x.responseText);
 			if (JSONdata.status == 0) 
 			{
-				console.log(JSONdata.descripcion);
+				
 			}
 			else
 			{
-				console.log(JSONdata.descripcion);
+				
 			}
 		}
-		console.log(x);
 	}
 }
 function myMessages(){
@@ -181,7 +179,7 @@ function myMessages(){
 				
 			}
 		}
-		console.log(x);
+		
 	}
 }
 // Función que suma o resta días a la fecha indicada
@@ -391,7 +389,7 @@ function registrarEstadia(){
 			var inProObj=document.createElement('textarea');
 			inProObj.setAttribute('cols',70);
 			inProObj.setAttribute('rows',5);
-	inProObj.setAttribute('style','position:relative;top:25px; left:10px;')
+	inProObj.setAttribute('style','position:relative;top:25px; left:10px;');
 			inProObj.setAttribute('id','objetivos');
 			fsProyecto.appendChild(divProObj);
 			lblProObj.appendChild(inProObj);
@@ -459,10 +457,10 @@ function registrarEstadia(){
 					divAct5.appendChild(lblAct5Dur);
 				var inAct5Dur=createInput(divAct5,'Duracion Actividad 5','number','inRegistro','','inAct5Dur','Act5Dur');
 				inAct5Dur.setAttribute('min',0);
-				divProAct.appendChild(divAct5)
+				divProAct.appendChild(divAct5);
 
 			fsProyecto.appendChild(divProAct);
-			frmRegistro.appendChild(fsProyecto)
+			frmRegistro.appendChild(fsProyecto);
 	body.appendChild(frmRegistro);
 	var btnRegistrar=createInput(body,'Registrar','button','btn','Registrar','btnRegistrar','btnRegistrar');
 	btnRegistrar.setAttribute('onclick','checkRegistro();');
@@ -476,10 +474,12 @@ function checkRegistro(){
 	inputOBJ.setAttribute('hidden','hidden');
 	inputOBJ.setAttribute('name','ProObj');
 	document.getElementById('frmRegistro').appendChild(inputOBJ);
-
+	
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstadia.php',true);
 	x.send(new FormData(document.getElementById('frmRegistro')));
+	
+
 }
 
 
@@ -702,17 +702,17 @@ function misCalis()
     drawLine(svgParent,'30%','160px','30%','700px','axis');
     drawLine(svgParent,'90%','700px','30%','700px','axis');
     for(var x =0; x<=10;x++)
-        drawLine(svgParent,(30+(x*6))+'%','705px',(30+(x*6))+'%','695px','axis2')
+        drawLine(svgParent,(30+(x*6))+'%','705px',(30+(x*6))+'%','695px','axis2');
     for(var n = 1; n<=4;n++){
         var x = 500 / 4;
         var y =80+(n*x)+(x*0.1);
-        writeText(svgParent,'nameParcial','28%',y+'px','Parcial '+n,'parcialName')
+        writeText(svgParent,'nameParcial','28%',y+'px','Parcial '+n,'parcialName');
     }
     for (var r = 1; r<=4; r++){
         var x = 500 / 4;
         var y= 1+(r*x)+(x*0.25);
         var h= x*0.8;
-        drawRectangle(svgParent,'bar'+r,'30%',y+'px','1%',h+'px','bar')
+        drawRectangle(svgParent,'bar'+r,'30%',y+'px','1%',h+'px','bar');
     }
     body.appendChild(divPromedio);
     body.appendChild(svgParent);
@@ -1287,7 +1287,7 @@ function cambiarContrasenia()
 	divEnsima.setAttribute('id','divPassword');
 	forma.setAttribute('id','formPassword');
 	forma.setAttribute('method','POST');
-	ima.setAttribute('src','images/exit_password.png')
+	ima.setAttribute('src','images/exit_password.png');
 	ima.setAttribute('onClick','normal();');
 	ima.setAttribute('class','imaExitPassword');
 

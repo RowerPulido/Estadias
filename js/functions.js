@@ -22,6 +22,7 @@ var alum='';
 var tut='';
 var user = '';
 var alums;
+var aluWE;
 var nots=[];
 var emps=[];
 	loadEmpresas();loadAlumnos();
@@ -32,6 +33,7 @@ function initAlum()
 	if(sessionStorage['user'])
 	{
 		var myTimer= setInterval(myMessages,10000);
+		var tim=setInterval(alumwe,1000);
 		menuOfUser();
 		dashboard();
 		divTwitter();
@@ -507,21 +509,19 @@ function pdfAlta(){
 			divAlumMat.appendChild(lblMatricula);
 			var inMatricula=createInput(divAlumMat,'Ingrese la matricula aqui...','text','inRegistro','','inMatricula','matricula');
 			var dlAlums=createDatalist('dlAlums');
-			for (var i=0; i<alums.length;i++) {
-				var oAlum=createOption(alums[i][0],alums[i][1]);
+			for (var i=0; i<aluWE.length;i++) {
+				var oAlum=createOption(aluWE[i][0],aluWE[i][1]);
 				dlAlums.appendChild(oAlum);
 			}
 			divAlumMat.appendChild(dlAlums);
 			divAlum.appendChild(divAlumMat);
 			inMatricula.setAttribute('list','dlAlums');
 			frmAl.appendChild(divAlum);
-		var inOK=createInput(body,'ok','button','inOk','','inOK','inOk');
+		var inOK=createInput(body,'ok','button','inOk','GENERAR ALTA PDF','inOK','inOk');
 			inOK.setAttribute('onclick','generarAlta()');
 	body.appendChild(frmAl);
 }
 function generarAlta(){
-			
-		
 			var y=new XMLHttpRequest();
 			y.open("POST",'http://localhost:8080/Estadias/api/generateAlta.php',true);
 			y.send(new FormData(document.getElementById('frmAl')));
@@ -1447,6 +1447,32 @@ function loadEmpresas(){
 				}
 			else
 				alert(JSONdata.descripccion);
+		}
+	}
+}
+
+function alumwe(){
+	var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/get_all_users_we.php',true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0){
+				var matriz=new Array();
+				for(var i=0; i<JSONdata.users.length;i++)
+					{
+						matriz[i]=new Array(2);
+						
+						matriz[i][1]=JSONdata.users[i].nombre;
+						matriz[i][0]=JSONdata.users[i].id;
+					}
+				}
+			else
+				alert(JSONdata.descripccion);
+			aluWE=matriz;
 		}
 	}
 }

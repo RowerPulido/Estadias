@@ -102,5 +102,25 @@ class User
   
 		return $list;
 	}
+	public function get_users_est(){
+		$connection= new SqlServerConnection();
+		$query="select matricula ,nombre from alusWithEst";
+		$list=array();
+		$data=$connection->execute_query($query);
+		$found=odbc_num_rows($data)>0;
+		if(!$found)
+		{
+			echo 'Error in query : '.$query;
+			die;
+		}
+		while(odbc_fetch_array($data)){
+			$u=new User();
+			$u->idAndName(odbc_result($data,'matricula'),odbc_result($data,'nombre'));
+			array_push($list,$u);
+		}
+		$connection->close();
+		
+		return $list;
+	}
 }
  ?>

@@ -21,6 +21,8 @@ begin
 	RETURN;
 end
 
+SELECT * FROM getInfoEst('0315110132')
+
 --MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');--drop function getInfoEst
 ----------------------------------
 create function getInfoEst(@matricula char(10))
@@ -133,3 +135,12 @@ select id,(ae.nombre + ' '+ae.paterno) from empresa.asesor_empresarial ae
 ) temp
 on
 u.id=temp.id
+---------
+create view alusWithEst
+as
+select matricula,(nombres+' '+paterno+' '+materno)nombre
+from estadia.estadias es
+join alumno.alumnos al
+on es.idAlumno=al.matricula
+
+select * from alusWithEst

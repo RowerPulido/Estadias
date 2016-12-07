@@ -3,8 +3,8 @@
  require_once('MODELS/connection_sql_server.php');
  header('Access-Control-Allow-Origin:*');
    use Dompdf\Dompdf;
-
-$matricula=$_POST['matricula'];
+try{
+	$matricula=$_POST['matricula'];
   $connection= new SqlServerConnection();
   $query=sprintf("SELECT * FROM getInfoEst('".$matricula."');");
   $data=$connection->execute_query($query);
@@ -288,5 +288,9 @@ $matricula=$_POST['matricula'];
   file_put_contents($dir.'/alta'.$matricula.'.PDF', $pdf);
   // Output the generated PDF to Browser
   $dompdf->stream();
-
+	echo '{"status" : 0 , "descripcion" : "succesful" }';
+}
+catch(Exception $ex){
+	echo '{"status" : 1 , "descripcion" : "error:'.$ex.'" }';
+}
   ?>

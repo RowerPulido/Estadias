@@ -478,11 +478,63 @@ function checkRegistro(){
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstadia.php',true);
 	x.send(new FormData(document.getElementById('frmRegistro')));
-	
+	x.onreadystatechange= function(){
+	if (x.readyState == 4 && x.status == 200) 
+	{
+		var JSONdata = JSON.parse(x.responseText);
+		if (JSONdata.status == 0) 
+		{
+			var mat= JSONdata.matricula;
+			
+			
+		}
+		else
+		{
+			console.log('error');
+		}
+	}
 
+	}
 }
 
-
+function pdfAlta(){
+	var body=document.getElementById('cuerpo');
+	body.innerHTML='';
+	var divAlum= createDiv('divAlum');
+	var frmAl=createForm('frmAl','frmAl','POST');
+		var divAlumMat=createDiv('divAlumMat');
+			var lblMatricula=createLabel('inMatricula','Matricula Alumno:','lblMatricula');
+			divAlumMat.appendChild(lblMatricula);
+			var inMatricula=createInput(divAlumMat,'Ingrese la matricula aqui...','text','inRegistro','','inMatricula','matricula');
+			var dlAlums=createDatalist('dlAlums');
+			for (var i=0; i<alums.length;i++) {
+				var oAlum=createOption(alums[i][0],alums[i][1]);
+				dlAlums.appendChild(oAlum);
+			}
+			divAlumMat.appendChild(dlAlums);
+			divAlum.appendChild(divAlumMat);
+			inMatricula.setAttribute('list','dlAlums');
+			frmAl.appendChild(divAlum);
+		var inOK=createInput(body,'ok','button','inOk','','inOK','inOk');
+			inOK.setAttribute('onclick','generarAlta()');
+	body.appendChild(frmAl);
+}
+function generarAlta(){
+			
+		
+			var y=new XMLHttpRequest();
+			y.open("POST",'http://localhost:8080/Estadias/api/generateAlta.php',true);
+			y.send(new FormData(document.getElementById('frmAl')));
+			y.onreadystatechange= function(){
+				if(y.readyState == 4 && y.status==200)
+					{
+						var jsonDATA=JSON.parse(y.responseText);
+						if(jsonDATA.status==0){
+							console.log('doc generado');
+						}
+					}
+			}
+}
 function check13Sem(){
 	var act1=parseInt(document.getElementById('inAct1Dur').value);
 	var act2=parseInt(document.getElementById('inAct2Dur').value);

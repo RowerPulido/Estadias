@@ -6,7 +6,7 @@
 try{
 	$matricula=$_POST['matricula'];
   $connection= new SqlServerConnection();
-  $query=sprintf("SELECT * FROM getInfoEst('".$matricula."');");
+  $query=sprintf("SELECT * FROM Alumno.getInfoEst('".$matricula."');");
   $data=$connection->execute_query($query);
   
   //variables

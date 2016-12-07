@@ -77,8 +77,7 @@ declare @lastEstadia char;
 	else
 		set @lastEstadia='0000000001';
 	
-	insert into Estadia.Estadias(idEstadias,idAlumno,deptoEmp,asesorEmp,fechasVisita,horaEntrada,horaSalida,) values (@lastEstadia,@matricula,@area,@lastAseEmp,@visita,@hora1,@hora2,@apoyo,@lastPro);
-
+	insert into Estadia.Estadias(idEstadias,idAlumno,deptoEmp,asesorEmp,fechasVisita,horaEntrada,horaSalida,apoyoEconomico,proyecto) values (@lastEstadia,@matricula,@area,@lastAseEmp,@visita,@hora1,@hora2,@apoyo,@lastPro);
 
 	insert into Estadia.Actividades values(@act1,@inicioEst,@finAct1,@durhr1,@lastPro);	
 	
@@ -95,16 +94,16 @@ declare @lastEstadia char;
 	
 	insert into Usuario.Usuarios values (@matricula,HashBytes('sha1',@matricula),'ALU');
 	
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (1,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (2,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (3,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (4,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (5,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (6,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (7,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (8,@matricula,'pendiente',getdate())
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion,ubicacion) VALUES (9,@matricula,'RECIBIDO',getdate(),(@matricula+'/alta'+@matricula+'.pdf'))
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (10,@matricula,'pendiente',getdate())
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (1,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (2,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (3,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (4,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (5,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (6,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (7,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (8,@matricula,'pendiente',getdate());
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion,ubicacion) VALUES (9,@matricula,'RECIBIDO',getdate(),(@matricula+'/alta'+@matricula+'.pdf'));
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (10,@matricula,'pendiente',getdate());
 end 
 
 select * from documento.documentos
@@ -114,3 +113,7 @@ select * from documento.documentos
 --PROBAR STORED_PROCEDURE
 exec ADD_ESTADIA '0315110141','vivo aqui','665121321','notengo@gmail.com','Steam','desarrollo','josean','perez','lopez','gerente','no hay','7:00','17:00',0,'Estadia','no tengo definidos','2016-12-05','intro',
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
+
+
+SELECT * FROM Alumno.getInfoEst('0315110133');
+

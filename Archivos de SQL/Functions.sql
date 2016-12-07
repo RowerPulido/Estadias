@@ -25,7 +25,7 @@ SELECT * FROM getInfoEst('0315110132')
 
 --MUESTRA TODA LA INFO PARA EL DOCUMENTO DE ALTA -- SELECT * FROM getInfoEst('0315110132');--drop function getInfoEst
 ----------------------------------
-create function getInfoEst(@matricula char(10))
+create function Alumno.getInfoEst(@matricula char(10))
 	returns @tabla table(
 	carrera varchar(50),
 	director varchar(50),

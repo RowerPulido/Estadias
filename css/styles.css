@@ -476,6 +476,12 @@ tr.rowtable-docs {
 	left: 50%;
 	top:50px;
 }
+#tabla-misDocs{
+	text-align: left;
+	position: relative;
+	left: 20%;
+	top:50px;
+}
 
 table#table-docs td{
 	border: 5px solid gray;
@@ -627,6 +633,7 @@ legend{
 	left: 80%;
 	top: 600px;
 }
+
 
 /*NO TOCAR*/
 

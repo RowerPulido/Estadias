@@ -37,9 +37,9 @@ $query=sprintf('exec ADD_ESTADIA ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 $connection->execute_procedure($query,array($matricula,$aluDir,$aluTel,$aluEmail,$empNom,$area,$nomAse,$patAse,$matAse,$cargoAse,$visita,$hora1,$hora2,
 										   $apoyo,$proNom,$proObj,$inicioEst,$act1,$durAct1,$act2,$durAct2,$act3,$durAct3,$act4,$durAct4,$act5,$durAct5));
 $connection->close();
-	echo '{"status" : 0, "descripcion" : "Succesful" , "matricula" : "'.$matricula.'"}';
+	echo '{ "status" : 0, "descripcion" : "Succesful" , "matricula" : "'.$matricula.'"}';
 }
 catch(Exception $ex){
-	echo '{"status" : 1, "descripcion" : "error:'.$ex.'" }';
+	echo '{ "status" : 1, "descripcion" : "error:'.$ex.'" }';
 }
 ?>

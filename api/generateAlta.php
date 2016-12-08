@@ -4,7 +4,7 @@
  header('Access-Control-Allow-Origin:*');
    use Dompdf\Dompdf;
 try{
-	$matricula=$_POST['matricula'];
+	$matricula=$_GET['matricula'];
   $connection= new SqlServerConnection();
   $query=sprintf("SELECT * FROM Alumno.getInfoEst('".$matricula."');");
   $data=$connection->execute_query($query);
@@ -106,7 +106,7 @@ try{
       <table id="tcarrera">
         <tr>
           <td class="1carrera"> CARRERA DE:</td>
-          <td class="2carrera"><table id="tdcarreras"><tr><td>TSU</td><td class="wborder">'.$tsu.'</td><td>IP</td><td class="wborder">'.$ip.'</td><td>ING</td><td class="wborder">'.$ing.'</td></tr></table></td>
+          <td class="2carrera"><table id="tdcarreras"><tr><td>TSU</td><td class="wborder">'.$tsu.'</td><td>LP</td><td class="wborder">'.$ip.'</td><td>ING</td><td class="wborder">'.$ing.'</td></tr></table></td>
         </tr>
         <tr>
           <td class="1carrera">NOMBRE DE LA CARRERA:</td>

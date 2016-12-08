@@ -146,7 +146,7 @@ function sendMessage()
 			var JSONdata = JSON.parse(x.responseText);
 			if (JSONdata.status == 0) 
 			{
-				
+				document.getElementById('frmMsg').reset();
 			}
 			else
 			{
@@ -481,16 +481,19 @@ function checkRegistro(){
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstadia.php',true);
 	x.send(new FormData(document.getElementById('frmRegistro')));
+	var matricula=document.getElementById('inMatricula').value;
 	x.onreadystatechange= function(){
 	if (x.readyState == 4 && x.status == 200) 
-	{
+	{ 
+		setTimeout(function(){
+			window.open('http://localhost:8080/Estadias/api/generateAlta.php?matricula='+matricula,'ALTA '+matricula);},3000,"JScript");
+		
 		var JSONdata = JSON.parse(x.responseText);
 		if (JSONdata.status == 0) 
 		{
-			var mat= JSONdata.matricula;
-			
-			
-		}
+			alert('Registro exitoso');
+			document.getElementById('frmRegistro').reset();
+			}
 		else
 		{
 			console.log('error');
@@ -524,7 +527,7 @@ function pdfAlta(){
 }
 function generarAlta(){
 			var y=new XMLHttpRequest();
-			y.open("POST",'http://localhost:8080/Estadias/api/generateAlta.php',true);
+			y.open("GET",'http://localhost:8080/Estadias/api/generateAlta.php',true);
 			y.send(new FormData(document.getElementById('frmAl')));
 			y.onreadystatechange= function(){
 				if(y.readyState == 4 && y.status==200)
@@ -675,7 +678,7 @@ function verDocs()
 function misDocs()
 {
 	var x = new XMLHttpRequest();
-	x.open('GET', 'http://localhost:8080/Estadias/api/get_docStatus.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.open('GET', 'http://localhost:8080/Estadias/api/getDocAlu.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
 	x.onreadystatechange = function()
 	{
 		if(x.status == 200 && x.readyState == 4)
@@ -685,7 +688,7 @@ function misDocs()
 	        if(JSONdata.status == 0)
             {
 
-            	var docs = JSONdata.Doc;
+            	var docs = JSONdata.docs;
             	console.log(docs);
 				var body=document.getElementById('cuerpo');
 				body.innerHTML="";
@@ -694,7 +697,7 @@ function misDocs()
 				p.innerHTML="Lista de Documentos";
 				body.appendChild(p);
 				var table=document.createElement('table');
-				table.setAttribute('id','tabla-docs');
+				table.setAttribute('id','tabla-misDocs');
 				var tr =document.createElement('tr');
 				var td=document.createElement('td');
 				td.setAttribute('class','rowheader');
@@ -708,6 +711,10 @@ function misDocs()
 				td.setAttribute('class','rowheader');
 				td.innerHTML="Estatus";
 				tr.appendChild(td);
+				var td= document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Subir Archivo";
+				tr.appendChild(td);
 				table.appendChild(tr);
 				
 				for (var i = 0; i < docs.length; i++) {
@@ -718,14 +725,29 @@ function misDocs()
 					td.setAttribute('class','rownormal');
 					tr.appendChild(td);	
 					var td = document.createElement('td');
-					td.innerHTML=a.nombre;
+					if (a.status!='pendiente ') {td.innerHTML='<a href="http://localhost:8080/Estadias/api/copiar.php?+id='+a.id+'&matricula='+JSON.parse(sessionStorage['user']).User.userID+'" target="_new">'+a.name+'</a>';}
+					else
+					td.innerHTML=a.name;
 					td.setAttribute('class','rownormal');
 					tr.appendChild(td);
 					var td = document.createElement('td');
 					//if(docs[i][2]==2){var status="<center>---</center>"; td.setAttribute('class','no-entregar');}else if(docs[i][2]==1){var status="ENTREGADO";td.setAttribute('class','entregado');}else if(docs[i][2]==0){var status="NO ENTREGADO";td.setAttribute('class','no-entregado');}else{"ERROR";td.setAttribute('class','error');}
-					td.innerHTML=a.estado;
-					if(a.estado == 'Pendiente'){td.setAttribute('class','no-entregar');}
-					if(a.estado == 'Entregado'){td.setAttribute('class','entregado');}
+					td.innerHTML=a.status;
+					if(a.status == 'Pendiente'){td.setAttribute('class','no-entregar');}
+					if(a.status == 'Entregado'){td.setAttribute('class','entregado');}
+					var td=document.createElement('td');
+					td.setAttribute('class','rownormal');
+					td.innerHTML=a.status;
+					tr.appendChild(td);
+					var td=document.createElement('td');
+					td.setAttribute('class','rownormal');
+					var frmFile=createForm('frmFile','frmFile','POST');
+					frmFile.setAttribute('action','api/upload.php');
+					frmFile.setAttribute('enctype',"multipart/form-data");
+					var inFile=createInput(frmFile,'seleccione','file','file','Seleccione Archivo','file','file');
+					var inSubmit=createInput(frmFile,'subir archivo','button','file','Subir','inUpFile','upFile');
+					inSubmit.setAttribute('onClick','subirFile('+a.id+')');
+					td.appendChild(frmFile);
 					tr.appendChild(td);
 					tr.setAttribute('class','rowtable-docs');
 
@@ -737,6 +759,40 @@ function misDocs()
 	}
 	console.log(x);
 	x.send();
+}
+function subirFile(id){
+	var frm=document.getElementById('frmFile');
+
+	var inMatricula=document.createElement('input');
+	var inId=document.createElement('input');
+	inMatricula.value=JSON.parse(sessionStorage['user']).User.userID;
+	inId.value=id;
+	inMatricula.setAttribute('hidden','hidden');
+	inId.setAttribute('hidden','hidden');
+	inId.setAttribute('name','id');
+	inMatricula.setAttribute('name','matricula');
+	frm.appendChild(inMatricula);
+	frm.appendChild(inId);
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/upload.php',true);
+	x.send(new FormData(document.getElementById('frmFile')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+			{
+				frm.reset();
+				window.alert('subido exitosamente');
+			}
+			else
+			{
+				
+			}
+		}
+		console.log(x);
+	}
 }
 function misCalis()
 {
@@ -1317,8 +1373,11 @@ function realizarCambiosPass()
 		if (x.readyState == 4 && x.status == 200) 
 		{
 			var JSONdata = JSON.parse(x.responseText);
-			if (JSONdata.status == 0) 
+			if (JSONdata.status == 0) {
 				alert(JSONdata.descripccion);
+				logout();
+			}
+			
 			else
 				alert(JSONdata.descripccion);
 		}

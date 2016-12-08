@@ -158,9 +158,10 @@ insert into Documento.typesofdocs values(8, 'Bibliografia, indice e introduccion
 insert into Documento.typesofdocs values(9, 'Alta de estadia'); 
 insert into Documento.typesofdocs values(10, 'Finalizacion de estadia'); 
 
-use estadias
+
 ----
 select id,nombre from alluser
 -- matricula p1 p2 p3 p4 final
 --INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
 -- id name
+insert into Documento.typesofdocs values ('','');

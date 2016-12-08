@@ -266,6 +266,7 @@ function registrarEstadia(){
 	var body = document.getElementById('cuerpo');
 
 	cuerpo.innerHTML='';
+	document.getElementById('menu-lateral').setAttribute('height','1289px');
 		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
 		var fsAlumno=createFieldsetAndLegend('fsAlumno','Datos Alumno');
 
@@ -1478,7 +1479,7 @@ function dashboard(){
 		var td=document.createElement('td');
 		td.setAttribute('id','frase');
 		td.setAttribute('rowspan',2);
-		td.innerHTML='"A veces una herida te recuerda que estas vivo, es esto el amor, mi estupida muerte, como explicartelo, si no estas viva"';
+		td.innerHTML="El miedo es el camino hacia el Lado Oscuro, el miedo lleva a la ira, la ira lleva al odio, el odio lleva al sufrimiento. Veo mucho miedo en ti.<br> -Maestro Yoda"
 		tr.appendChild(td);
 		table.appendChild(tr);
 		var tr=document.createElement('tr');

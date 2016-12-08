@@ -229,6 +229,7 @@ function menuOfUser(){
 		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
 		registrar.style.display='none';
 		calisalums.style.display='none';
+        infoTutor();
 	}
 	if (typeofuser=='TUT') {
 		divDocumentos.style.display='none';
@@ -1473,6 +1474,71 @@ function alumwe(){
 			else
 				alert(JSONdata.descripccion);
 			aluWE=matriz;
+		}
+	}
+}
+
+function infoTutor(){
+    var x = new XMLHttpRequest();
+	x.open("GET",'http://localhost:8080/Estadias/api/gettutorinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.send();
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0){
+				var divTutor = document.createElement('div');
+                divTutor.setAttribute('id','divTutor');
+                var body = document.getElementById('cuerpo');
+                
+                var lblNombT = createLabel('','Nombre: ');
+                var lblMailT = createLabel('','E-Mail: ');
+                var lblTelT = createLabel('','Telefono: ');
+                var lblNomb = createLabel('',''+JSONdata.nombre+' '+JSONdata.paterno+' '+JSONdata.materno+' ','lblNombreT');
+                var lblMail = createLabel('',''+JSONdata.email+' ','lblMailT');
+                var lblTel = createLabel('',''+JSONdata.telefono+' ','lblTelT');
+                
+                body.appendChild(divTutor);
+                
+                lblMailT.setAttribute('class','titTutor');
+                lblNombT.setAttribute('class','titTutor');
+                lblTelT.setAttribute('class','titTutor');
+                
+                var tabTutor = document.createElement('table');
+                
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                tr.appendChild(td);
+                td.setAttribute('id','tituloDiv');
+                td.innerHTML='Informacion del tutor:';
+                tabTutor.appendChild(tr);
+                
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                tr.appendChild(td);                
+                td.appendChild(lblNombT);
+                td.appendChild(lblNomb);
+                tabTutor.appendChild(tr);
+                
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                tr.appendChild(td); 
+                td.appendChild(lblMailT);
+                td.appendChild(lblMail);
+                tabTutor.appendChild(tr);
+                
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                tr.appendChild(td); 
+                td.appendChild(lblTelT);
+                td.appendChild(lblTel);
+                tabTutor.appendChild(tr);        
+                
+                divTutor.appendChild(tabTutor);
+            }
+			else
+				alert(JSONdata.descripccion);
 		}
 	}
 }

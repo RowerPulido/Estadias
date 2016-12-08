@@ -150,8 +150,7 @@ from documento.Documentos d
 join estadia.estadias e
 on d.alumno=e.idAlumno
 join Documento.typesofdocs t
-on d.typeDocs=t.id
-
+on d.id=t.id
 
 select * from getDocsAlus
 

@@ -742,7 +742,7 @@ function misDocs()
 					tr.appendChild(td);
 					var td=document.createElement('td');
 					td.setAttribute('class','rownormal');
-					var frmFile=createForm('frmFile','frmFile','POST');
+					var frmFile=createForm('frmFile'+a.id,'frmFile'+a.id,'POST');
 					frmFile.setAttribute('action','api/upload.php');
 					frmFile.setAttribute('enctype',"multipart/form-data");
 					var inFile=createInput(frmFile,'seleccione','file','file','Seleccione Archivo','file','file');
@@ -762,7 +762,7 @@ function misDocs()
 	x.send();
 }
 function subirFile(id){
-	var frm=document.getElementById('frmFile');
+	var frm=document.getElementById('frmFile'+id);
 
 	var inMatricula=document.createElement('input');
 	var inId=document.createElement('input');
@@ -776,7 +776,7 @@ function subirFile(id){
 	frm.appendChild(inId);
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/upload.php',true);
-	x.send(new FormData(document.getElementById('frmFile')));
+	x.send(new FormData(document.getElementById('frmFile'+id)));
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 
@@ -786,6 +786,7 @@ function subirFile(id){
 			{
 				frm.reset();
 				window.alert('subido exitosamente');
+				misDocs();
 			}
 			else
 			{

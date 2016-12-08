@@ -150,12 +150,36 @@ from documento.Documentos d
 join estadia.estadias e
 on d.alumno=e.idAlumno
 join Documento.typesofdocs t
-on d.id=t.id
+on d.typeDocs=t.id
 
-select * from getDocsAlus
+select * from getDocsAlus where idAlumno='0315110141'
 
 select * from myMessages('0315110150')
 
 select typeDocs,name,status,ubicacion,idAlumno from getDocsAlus where idAlumno='0315110151'
 
+--------------------------------------------------------------------------------------------
+create function alumsConEst(@tut char(10))
+returns @tabla table(
+nombres varchar(50),
+paterno varchar(50),
+materno varchar(50),
+matricula char(10),
+estado_estadia char(11)
+)
+as
+begin
+insert @tabla
+SELECT nombres, paterno, materno, matricula,'CON ESTADIA' as estado_estadia 
+from Alumno.Alumnos  
+where grupo =(select ag.id from Alumno.grupos ag where ag.tutor = @tut) and exists 
+(select * from Estadia.Estadias ee where matricula = ee.idAlumno)
+union
+SELECT nombres, paterno, materno, matricula,'SIN ESTADIA' as estado_estadia 
+from Alumno.Alumnos  
+where grupo =(select ag.id from Alumno.grupos ag where ag.tutor = @tut) and not exists 
+(select * from Estadia.Estadias ee where matricula = ee.idAlumno)
+return
+end
 
+select * from alumsConEst('1')

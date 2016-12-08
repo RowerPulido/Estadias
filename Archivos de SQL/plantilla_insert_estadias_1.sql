@@ -158,17 +158,9 @@ insert into Documento.typesofdocs values(8, 'Bibliografia, indice e introduccion
 insert into Documento.typesofdocs values(9, 'Alta de estadia'); 
 insert into Documento.typesofdocs values(10, 'Finalizacion de estadia'); 
 
-<<<<<<< HEAD
 use estadias
-=======
-
->>>>>>> parent of 590a9b9... asda
 ----
 select id,nombre from alluser
 -- matricula p1 p2 p3 p4 final
 --INSERT INTO Calificacion.calificaciones values ('0315110152','10','9','8','7','10');
 -- id name
-<<<<<<< HEAD
-=======
-insert into Documento.typesofdocs values ('','');
->>>>>>> parent of 590a9b9... asda

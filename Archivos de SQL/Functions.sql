@@ -150,7 +150,6 @@ from documento.Documentos d
 join estadia.estadias e
 on d.alumno=e.idAlumno
 join Documento.typesofdocs t
-<<<<<<< HEAD
 on d.id=t.id
 
 select * from getDocsAlus
@@ -160,6 +159,3 @@ select * from myMessages('0315110150')
 select typeDocs,name,status,ubicacion,idAlumno from getDocsAlus where idAlumno='0315110151'
 
 
-=======
-on d.id=t.id
->>>>>>> parent of 590a9b9... asda

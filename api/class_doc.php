@@ -56,6 +56,14 @@
 				$this->estado=$args[2];
 			
 			}
+			if (func_num_args()==4) {
+				$args=func_get_args();
+
+				$this->id=$args[0];
+				$this->estado=$args[1];
+				$this->ubicacion=$args[2];
+				$this->matricula=$args[3];
+			}
 			if(func_num_args()==7)
 			{
 				require_once('MODELS/connection_sql_server.php');
@@ -79,7 +87,7 @@
 	            											 $this->fecha_limit,
 	            											 $this->ruta));
 			}
-			if(func_num_args()==5)
+			if(func_num_args()==6)
 			{
 				$arguments = func_get_args();			
 				
@@ -121,6 +129,35 @@
 				$connection->close();
 			}
 			return $list;
+ 		}
+
+ 		public function getDocsOfAlum($matricula){
+ 			require_once('MODELS/connection_sql_server.php');
+
+ 			$list=array();
+ 			$connection=new SqlServerConnection();
+ 			$query=sprintf("select typeDocs,name,status,ubicacion,idAlumno from getDocsAlus where idAlumno='".$matricula."'");
+ 			$data=$connection->execute_query($query);
+ 			$found=odbc_num_rows($data)>0;
+ 			if (!$found) {
+ 				echo 'error in query'.$query;
+ 				die;
+ 			}
+ 			else{
+ 				while (odbc_fetch_array($data)) {
+ 					array_push($list, new Doc(
+ 												odbc_result($data, 'typeDocs'),
+ 												odbc_result($data, 'name'),
+ 												odbc_result($data, 'status'),
+ 												odbc_result($data, 'ubicacion'),
+ 												odbc_result($data, 'idAlumno'),''
+ 						));
+ 				}
+
+ 				return $list;
+ 			}
+
+ 			$connection->close();
  		}
 
         public function get_docs()

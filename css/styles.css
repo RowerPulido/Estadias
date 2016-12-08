@@ -1,0 +1,646 @@
+*{font-family: arial; }
+body{	border:0px; margin: 0px;}
+/*LOGIN*/
+#datos{
+	font-size: 15pt;
+	position: absolute;
+	top: 150px;
+	left: 950px;
+	border-left: 5px solid #03A9F4;
+	height: 250px;
+	width: 350px;
+	padding: 65px 0 0 25px;
+}
+#contenido{
+	width: 400px;
+	position: absolute;
+	top: 220px;
+	left: 450px;
+}
+#datos input{
+	width: 100%;
+	height: 35px;
+	outline: none;
+	border: none;
+	margin-bottom: 20px;
+}
+#datos input:focus{
+		border-bottom: 5px solid #03A9F4;
+		color: #00AD47;
+}
+#datos label{
+	top: 100px;
+	font-size: 20pt;
+	color: #5d5e60;
+}
+#img-login{
+	width: 100%;
+}
+#datos button{
+	margin-top: 20px;
+	margin-right: 20px;
+	width: 125px;
+	height: 25px;
+	background-color: #00AD47;
+	color: #fff;
+}
+
+/*Index*/
+#user-name p{
+	font-weight: bold;
+}
+
+div#menu-lateral{
+	position: absolute;
+	width: 100px;
+	height: 100%;
+	background-color: #03A9F4;
+	color: white;
+	overflow: hidden;
+	-webkit-transition:width 0.5s;
+}
+
+div#menu-lateral:hover{
+	width: 250px;
+	border-right: 5px solid #00AD47;
+}
+#menu-lateral div{
+	cursor: pointer;
+}
+div#menu-icon{
+	width: 80px;
+	height: 80px;
+	margin: 10px;
+	align-items: center;
+}
+/*confugracion Victor*/
+div #configuracion{
+    cursor: pointer;
+}
+/*termina configuracion*/
+div.option{
+	width: 100%;
+	padding-left: 25px;
+	padding-top: 20px;
+	overflow: hidden;
+	transition: background-color 0.4s linear;
+}
+div.option .opciones{
+	height: 0px;
+}
+div.option img{
+	float: left;
+	width: 50px;
+	height: 50px;
+}
+
+p.titulo-opcion{
+	line-height: 50px;
+	margin-left: 80px;
+	font-size: 15pt;
+}
+
+#user-img{
+	margin: 10px
+	width:70px;
+	height: 70px;
+	margin-top: 20px;
+}
+
+div#user{
+	text-align: center;
+}
+
+div#inicio{
+	margin-top: 50px;
+}
+div#user p{
+	margin-top: 10px;
+	font-size: 10pt;
+}
+
+div.option:hover{
+	background-color: #00AD47;
+
+}
+div.option:hover .opciones{
+	height: auto;
+}
+
+.opciones nav a:link{
+	text-decoration: none;
+	color:white;
+}
+.opciones nav a:visited{
+	color: white;
+}
+
+}
+.opciones nav a{
+	font-size: 13pt;
+	color: white;
+	width: 100%;
+}
+.op :hover{
+	font-size: 18pt;
+	color: blue;
+}
+
+.opciones :hover nav{
+	padding-bottom: 10px;
+}
+
+#body{
+	background-image: url("../images/template/logo-estadias.jpg");
+	background-size: 1920px 1080px;
+}
+
+div#menu-lateral footer{
+	margin-top: 250px;
+	text-align: center;
+}
+/*css Victor*/
+#datosConfig #formaConfig .campo
+{
+	position: relative;
+	left: 360px;
+	width: 50%;
+	height: 20px;
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: none;
+	border-bottom: solid 5px #81D4FA;
+	transition: border 0.1s;
+	outline: none;
+	background: transparent;
+}
+#datosConfig #formaConfig .campo:focus
+{
+	outline: none;
+	border-bottom: solid 5px #03A9F4;
+}
+#divPassword .campo
+{
+	height: 20px;
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: none;
+	border-bottom: solid 5px #81D4FA;
+	transition: border 0.1s;
+	outline: none;
+	background: transparent;
+	color:#fff;
+}
+#divPassword .campo:focus
+{
+	outline: none;
+	border-bottom: solid 5px #03A9F4;
+	color:#fff;
+}
+#datosConfig .buttonDisabled
+{
+	
+	position: relative;
+	left: 250px;
+	padding: 10px;
+	margin: 40px;
+	background-color: #2E7D32;
+	color: #E0E0E0;
+	font-size: 20pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	cursor: pointer;
+}
+#datosConfig .button
+{
+	position: relative;
+	left: 250px;
+	padding: 10px;
+	margin: 40px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 20pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	cursor: pointer;
+}
+#datosConfig .btnPassword
+{
+	position: absolute;
+	top: 640px;
+	left: 340px;
+	padding: 10px;
+	margin: 40px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 12pt;
+	width: 200px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	cursor: pointer;
+}
+
+#datosConfig .btnPassword:hover
+{
+ 	color: #fff;
+ 	box-shadow: inset 0 0 0 3px #2E7D32;
+
+}
+#datosConfig .button:hover
+{
+ 	color: #fff;
+ 	box-shadow: inset 0 0 0 3px #2E7D32;
+
+}
+#divPassword .button
+{
+	padding: 10px;
+	margin: 30px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 16pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	text-align: center;
+ 	cursor: pointer;
+ 	position: relative;
+ 	top: 80px;
+ 	left: 60px;
+}
+#divPassword .button:hover
+{
+	color: #fff;
+ 	box-shadow: inset 0 0 0 3px #2E7D32;
+}
+#datosConfig #formaConfig .label
+{
+	position: relative;
+	left: 80%;
+	font-size: 18pt;
+	color: #757575;
+}
+#divPassword .label
+{
+	color: #E0E0E0;
+	font-size: 18pt;
+}
+#cuerpo #datosConfig .labelConfiguracion
+{
+	font-size: 28pt;
+	position: relative;
+	left: 58%;
+	text-align: center;
+	text-decoration: none;
+}
+#divIma
+{
+	position: relative;
+	left: 625px;
+	top: -50px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+#divIma .tooltiptext 
+{
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#divIma .tooltiptext::after 
+{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+#divIma:hover .tooltiptext 
+{
+    visibility: visible;
+    opacity: 1;
+}
+.opaca
+{
+
+	filter: blur(6px);
+}
+
+.normal
+{
+	filter: none;
+
+}
+.imaExitPassword{cursor: pointer;}
+
+#divPassword
+{
+	position: fixed;
+	top: 50px;
+    width: 390px;
+    left: 550px;
+    right: 100px;
+    bottom: 50px;
+	background: #000000;
+	opacity: 0.6;
+}
+#formPassword
+{
+    padding-left: 80px;
+    padding-right: 60px;
+}
+#cuerpo .parrafoCali
+{
+	left: 200px;
+	padding: 15px;
+}
+select {
+     background: transparent;
+     border: none;
+     font-size: 14px;
+     height: 30px;
+     padding: 5px;
+     width: 140px;
+  }
+#tabla-alums
+{
+	width: 900px;
+}
+#tab
+{
+    padding-top: 40px;
+    top: 230px;
+}
+#formCalif
+{
+	padding-left: 100px;
+}
+.campo
+{
+	background: transparent;
+	text-align: center;
+	font-size: 14pt;
+	
+}
+/*	CSS calificaciones*/
+
+#svg, #chart {position: relative; float: left;}
+.cuerpoCalificaciones {position: relative; left: 260px; width: 1200px; height: 800px;}
+#svg {  width:80%; height:100%; }
+#chart { width: 80%; height: 100%; background: transparent;}
+.textHeader{text-anchor:middle; font-size: 34pt; font-weight: bold; fill:#00AD47;}
+.textBottom{text-anchor:middle; font-size: 24pt; font-weight: bold; fill:#777;}
+.axis {stroke:#000; stroke-width:1px;}
+.axis2 {stroke:#000; stroke-width:1px;}
+.num {text-anchor:middle; font-size: 13pt; font-weight: bold; fill: #777}
+.parcialName {text-anchor:end; font-size: 18pt; fill:#000;}
+.bar {fill: #999; stroke:#666; stroke-width: 1px;}
+.barGreen {fill:#76FF03; stroke:#64DD17; stroke-width:1px;}
+.barYellow {fill:#FFFF00; stroke:#FFD600; stroke-width:1px;}
+.barRed {fill:#B71C1C; stroke:#D50000; stroke-width:1px;}
+/*termina css Victor*/
+/*Cuerpo*/
+#cuerpo{
+	position: absolute;
+	left: 260px;
+	padding-top: 20px;
+}
+
+#cuerpo #tab{
+	position: absolute;
+	left: 0px;
+	padding-top: 10px;
+}
+
+#cuerpo #divTutor{
+	background-color: #03A9F4;
+	padding: 10px;
+	width: 600px;
+	color: white;
+	border-radius: 15px;
+	position: absolute;
+	left: 1%;
+	top: 500px;
+    font-size: 20pt;    
+}
+
+.titTutor{
+font-weight: bold;    
+}
+
+#tituloDiv{    
+    font-size: 24pt;
+    text-align: center;
+    font-weight: bold;     
+}
+
+.rowheader{
+background-color: #03A9F4;
+text-align: center;
+color: white;
+font-weight: bold;
+font-size: 20pt;
+height: 40px;
+padding: 10px;
+}
+.rownormal{
+	font-size: 15pt;
+	padding: 5px 10px 5px 10px;
+}
+tr.rowtable-docs {
+		transition: background-color 1s ease-out;
+
+}
+#tabla-docs{
+	text-align: left;
+	position: relative;
+	left: 50%;
+	top:50px;
+}
+#tabla-misDocs{
+	text-align: left;
+	position: relative;
+	left: 20%;
+	top:50px;
+}
+
+table#table-docs td{
+	border: 5px solid gray;
+}
+#cuerpo  p{
+	position: relative;
+	left: 75%;
+	top: 30px;
+	font-size: 20pt;
+	font-weight: bolder;
+	color: #00AD47;
+}
+
+tr.rowtable-docs:hover{
+	background-color: #00AD47;
+	color: white;
+}
+
+.no-entregar,.entregado,.no-entregado{
+	padding: 10px;
+
+}
+.entregado{
+	color: white;
+	background-color: #009688;
+}
+.no-entregado{
+	color: white;
+background-color: #F44336;
+
+}
+#tableDQ{
+	position: static;
+	background-color: rgba(230, 255, 230 ,0.8);
+<<<<<<< HEAD
+	width: 75%;
+=======
+	width: 85%;
+>>>>>>> parent of 590a9b9... asda
+	height: 100px;
+	font-size: 15pt;
+	text-align: center;
+}
+
+#numDia{
+	text-align: center;
+	font-size: 100pt;
+	color: #00AD47;
+}
+#frase{
+	font-size: 15pt;
+	font-style: italic;
+	padding-left: 10px;
+}
+#anio{
+	vertical-align: text-top;
+}
+#nomMes{
+	vertical-align: bottom;
+	border-bottom: dashed 2px gray;
+}
+
+#nomMes,#anio{
+	font-size: 30pt;
+	color:#03A9F4;
+}
+
+#divTwitter{
+	position: static;
+	right: 10%;
+	top:60%;
+}
+
+div#notificacion{
+	position: fixed;
+	top:5%;
+	right: 0%;
+	background-color: #03A9F4;
+	color: white;
+	font-size: 15pt;
+	width: 5%;
+	height: 60pt;
+	border-left: solid #00AD47 5px;
+	vertical-align:middle;
+	overflow: hidden;
+	-webkit-transition:height 1s ,width 1s , left 1s;
+}
+#divNumNot{
+	position: relative;
+	width: 100%;
+	font-size: 50pt;
+		text-align: center;
+	border-bottom:dotted 5px white;
+}
+div#notificacion:hover{
+	cursor:pointer;
+	width: 25%;
+	right: 0px;
+	height: auto;
+	max-height: 80%;
+overflow: auto;
+
+}
+.notis{
+	border-bottom: 3px solid white;
+	padding: 5px 2px 5px 10px;
+}
+
+/**registro estadia*/
+#frmRegistro div{
+	padding: 10px;
+}
+#frmRegistro input{
+	width: 20%;
+	margin: 0 10px 0 10px;
+	font-size: 12pt;
+	outline: none;
+	border: 0px;
+	border-bottom: 2px solid #03A9F4;
+	color: #00AD47;
+}
+#frmRegistro label{
+	font-size: 18pt;
+	color: gray;
+}
+
+legend{
+	color: #03A9F4;
+	font-size: 18pt;
+}
+.btn{
+	padding: 10px;
+	background-color: #00AD47;
+	color: #E0E0E0;
+	font-size: 16pt;
+	width: 150px;
+	border-radius: 7px;
+ 	transition: 1s;
+ 	text-align: center;
+ 	cursor: pointer;
+ 	position:relative;
+ 	left: 90%;
+ 	margin-top:15px;
+}
+
+#divMsg{
+	background-color: #03A9F4;
+	padding: 10px;
+	width: 400px;
+	color: white;
+	border-radius: 15px;
+	position: absolute;
+	left: 80%;
+	top: 600px;
+}
+
+
+/*NO TOCAR*/
+
+@media only screen and (max-width: 500px){
+	
+}

@@ -151,11 +151,3 @@ join estadia.estadias e
 on d.alumno=e.idAlumno
 join Documento.typesofdocs t
 on d.id=t.id
-
-select * from getDocsAlus
-
-select * from myMessages('0315110150')
-
-select typeDocs,name,status,ubicacion,idAlumno from getDocsAlus where idAlumno='0315110151'
-
-

@@ -431,6 +431,28 @@ select {
 	padding-top: 10px;
 }
 
+#cuerpo #divTutor{
+	background-color: #03A9F4;
+	padding: 10px;
+	width: 600px;
+	color: white;
+	border-radius: 15px;
+	position: absolute;
+	left: 1%;
+	top: 500px;
+    font-size: 20pt;    
+}
+
+.titTutor{
+font-weight: bold;    
+}
+
+#tituloDiv{    
+    font-size: 24pt;
+    text-align: center;
+    font-weight: bold;     
+}
+
 .rowheader{
 background-color: #03A9F4;
 text-align: center;

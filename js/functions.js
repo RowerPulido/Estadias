@@ -490,7 +490,7 @@ function checkRegistro(){
 		var JSONdata = JSON.parse(x.responseText);
 		if (JSONdata.status == 0) 
 		{
-			alert('Registro exitoso');
+			window.alert('Registro exitoso');
 			document.getElementById('frmRegistro').reset();
 			}
 		else

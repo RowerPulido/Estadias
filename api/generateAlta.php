@@ -285,7 +285,7 @@ try{
   $dir='../docs/'.$matricula;
   mkdir($dir,0777);
   $pdf= $dompdf->output();
-  file_put_contents($dir.'/alta'.$matricula.'.PDF', $pdf);
+  file_put_contents($dir.'/9-'.$matricula.'.pdf', $pdf);
   // Output the generated PDF to Browser
   $dompdf->stream();
 	echo '{"status" : 0 , "descripcion" : "succesful" }';

@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin:*');
 require_once('MODELS/connection_sql_server.php');
 require_once('MODELS/User.php');
 
-
+try{
 	$json='{ "status" : 0 , "users" : [';
 	$first=true;
 	foreach (User::get_users_est() as $u) {
@@ -18,5 +18,9 @@ require_once('MODELS/User.php');
 	$json.='] }';
 	if(!$found){echo '{ "status" : 1 , "description" : "no users found" }';die;}
 	echo $json;
-
+}
+catch(Exception $ex)
+{
+	echo '{ "status" : 1 , "description" : "ERROR" }';
+}
 ?>

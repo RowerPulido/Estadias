@@ -6,7 +6,7 @@
 
 	$idUser=$_GET['userID'];
 	$found=false;
-
+try{
 	$json='{ "status" : 0 , "mensajes" : [';
 	$first=true;
 	foreach (Mensajes::getAllMyMessages($idUser) as $m) {
@@ -21,4 +21,9 @@
 	$json.='] }';
 	if(!$found){echo '{ "status" : 1 , "description" : "no messages found" }';die;}
 	echo $json;
+}
+catch(Exception $ex){
+	'{ "status" : 2 , "description" : "ERROR" }';
+ }
+
  ?>

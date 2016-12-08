@@ -102,11 +102,11 @@ declare @lastEstadia char;
 	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (6,@matricula,'pendiente',getdate());
 	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (7,@matricula,'pendiente',getdate());
 	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (8,@matricula,'pendiente',getdate());
-	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion,ubicacion) VALUES (9,@matricula,'RECIBIDO',getdate(),(@matricula+'/alta'+@matricula+'.pdf'));
+	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion,ubicacion) VALUES (9,@matricula,'RECIBIDO',getdate(),(@matricula+'/1-'+@matricula+'.pdf'));
 	INSERT INTO DOCUMENTO.DOCUMENTOS (typeDocs,alumno,status,fecha_actualizacion) VALUES (10,@matricula,'pendiente',getdate());
 end 
 
-select * from documento.documentos
+select * from Estadia.estadias
 --BORRAR STORED PROCEDURE
 --drop procedure ADD_ESTADIA
 
@@ -115,5 +115,15 @@ exec ADD_ESTADIA '0315110141','vivo aqui','665121321','notengo@gmail.com','Steam
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
 
 
-SELECT * FROM Alumno.getInfoEst('0315110133');
+SELECT * FROM Alumno.getInfoEst('0315110150');
 
+SELECT * FROM ALUMNO.TUTORES
+
+select * from Documento.Documentos
+
+
+drop view getDocsAlus
+select * from getDocsAlus where idAlumno='0315110150'
+select * from Estadia.Estadias
+
+SELECT * FROM Usuario.Usuarios

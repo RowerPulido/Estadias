@@ -266,7 +266,10 @@ function registrarEstadia(){
 	var body = document.getElementById('cuerpo');
 
 	cuerpo.innerHTML='';
+<<<<<<< HEAD
 	document.getElementById('menu-lateral').setAttribute('height','1289px');
+=======
+>>>>>>> parent of 590a9b9... asda
 		var frmRegistro= createForm('frmRegistro','frmRegistro','post');
 		var fsAlumno=createFieldsetAndLegend('fsAlumno','Datos Alumno');
 
@@ -742,7 +745,11 @@ function misDocs()
 					tr.appendChild(td);
 					var td=document.createElement('td');
 					td.setAttribute('class','rownormal');
+<<<<<<< HEAD
 					var frmFile=createForm('frmFile','frmFile','POST');
+=======
+					var frmFile=createForm('frmFile'+a.id,'frmFile'+a.id,'POST');
+>>>>>>> parent of 590a9b9... asda
 					frmFile.setAttribute('action','api/upload.php');
 					frmFile.setAttribute('enctype',"multipart/form-data");
 					var inFile=createInput(frmFile,'seleccione','file','file','Seleccione Archivo','file','file');
@@ -762,7 +769,11 @@ function misDocs()
 	x.send();
 }
 function subirFile(id){
+<<<<<<< HEAD
 	var frm=document.getElementById('frmFile');
+=======
+	var frm=document.getElementById('frmFile'+id);
+>>>>>>> parent of 590a9b9... asda
 
 	var inMatricula=document.createElement('input');
 	var inId=document.createElement('input');
@@ -776,7 +787,11 @@ function subirFile(id){
 	frm.appendChild(inId);
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/upload.php',true);
+<<<<<<< HEAD
 	x.send(new FormData(document.getElementById('frmFile')));
+=======
+	x.send(new FormData(document.getElementById('frmFile'+id)));
+>>>>>>> parent of 590a9b9... asda
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 
@@ -786,6 +801,10 @@ function subirFile(id){
 			{
 				frm.reset();
 				window.alert('subido exitosamente');
+<<<<<<< HEAD
+=======
+				misDocs();
+>>>>>>> parent of 590a9b9... asda
 			}
 			else
 			{
@@ -1479,7 +1498,11 @@ function dashboard(){
 		var td=document.createElement('td');
 		td.setAttribute('id','frase');
 		td.setAttribute('rowspan',2);
+<<<<<<< HEAD
 		td.innerHTML="El miedo es el camino hacia el Lado Oscuro, el miedo lleva a la ira, la ira lleva al odio, el odio lleva al sufrimiento. Veo mucho miedo en ti.<br> -Maestro Yoda"
+=======
+		td.innerHTML='"A veces una herida te recuerda que estas vivo, es esto el amor, mi estupida muerte, como explicartelo, si no estas viva"';
+>>>>>>> parent of 590a9b9... asda
 		tr.appendChild(td);
 		table.appendChild(tr);
 		var tr=document.createElement('tr');

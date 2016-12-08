@@ -115,7 +115,11 @@ exec ADD_ESTADIA '0315110141','vivo aqui','665121321','notengo@gmail.com','Steam
 2,'desar',3,'presentacion',2,'conclusion',1,'fin',3;
 
 
+<<<<<<< HEAD
 SELECT * FROM Alumno.getInfoEst('0315110132');
+=======
+SELECT * FROM Alumno.getInfoEst('0315110150');
+>>>>>>> parent of 590a9b9... asda
 
 SELECT * FROM ALUMNO.TUTORES
 
@@ -123,6 +127,7 @@ select * from Documento.Documentos
 
 
 drop view getDocsAlus
+<<<<<<< HEAD
 select * from getDocsAlus where idAlumno='0315110132'
 
 select * from Estadia.Estadias
@@ -132,3 +137,9 @@ select * from Documento.Documentos
 update documento.documentos
 set status ='RECIBIDO'
 where id=1 and alumno='0315110159'
+=======
+select * from getDocsAlus where idAlumno='0315110150'
+select * from Estadia.Estadias
+
+SELECT * FROM Usuario.Usuarios
+>>>>>>> parent of 590a9b9... asda

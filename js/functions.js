@@ -177,17 +177,18 @@ function misAlumnos(mat)
 					
                 	selectEstado.appendChild(createOption('Estado','Estado:'));
                 	selectEstado.appendChild(createOption('Entregado','Entregado'));
-                	selectEstado.appendChild(createOption('En Revision','En Revision'));
-					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
+                	selectEstado.appendChild(createOption('Revision','En Revision'));
+					
 					frmEstado.appendChild(selectEstado);
 					td.appendChild(frmEstado);
 
-					var combo = document.getElementById('id'+a.id).value;
 					
-					createInput(frmEstado,'','hidden','',combo,'','estado');
-					createInput(frmEstado,'','hidden','',mat,'','mat');
-					createInput(frmEstado,'','hidden','',a.id,'','mat');
+					selectEstado.setAttribute('onchange','get_text("id'+a.id+'")');
 					
+					createInput(frmEstado,'','hidden','','','estado','estado');
+					createInput(frmEstado,'','hidden','',mat,'mat','mat');
+					createInput(frmEstado,'','hidden','',a.id,'doc','doc');
+					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
 					inSubmit.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
 					
 					
@@ -202,11 +203,18 @@ function misAlumnos(mat)
 	}
 	x.send();
 }
+function get_text(id)
+{
+	var combo = document.getElementById(id);
+	var select = combo.value;
+	var estado = document.getElementById('estado');
+	estado.value = select;
+}
 function cambiarEstado(forma)
 {
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstado.php',true);
-	x.send(new FormData(document.getElementById('forma')));
+	x.send(new FormData(document.getElementById(forma)));
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 

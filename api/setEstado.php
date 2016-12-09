@@ -2,7 +2,7 @@
 	require_once('MODELS/connection_sql_server.php');
 	header('Access-Control-Allow-Origin:*');
 
-	$estado = $_POST['selects'];
+	$estado = $_POST['estado'];
     $matricula = $_POST['mat'];
 	$doc = $_POST['doc'];
 
@@ -13,9 +13,12 @@
 			echo $result='{"status" : 4 , "descripccion" : "Invalid parameters" }';
 				die;
 		}
-		$connection = new SqlServerConnection();
+
 		echo $result='{"status": 0, "descripccion" : "Estado de Documento Cambiado"}';
+		$connection = new SqlServerConnection();
+		
 		$query = sprintf("update Documento.Documentos set status=? where alumno = ? and typeDocs= ?;");
+		
 		$connection->execute_non_query($query,array($estado,$matricula,$doc));
 
 		$connection->close();

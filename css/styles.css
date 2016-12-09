@@ -737,6 +737,10 @@ table.inProcess{
 table.complete{
 	background-color: gold;
 }
+.txt{
+}
+
+
 /*NO TOCAR*/
 
 @media only screen and (max-width: 500px){

@@ -164,7 +164,7 @@ function misAlumnos(mat)
 					img.setAttribute('src','images/check1.png');
 					img.setAttribute('class','check');
 
-					img.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
+					img.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'",'+mat+')');
 					
 					frmEstado.appendChild(selectEstado);
 					frmEstado.appendChild(img);
@@ -196,7 +196,7 @@ function get_text(id,estado)
 	var estado = document.getElementById(estado);
 	estado.value = select;
 }
-function cambiarEstado(forma)
+function cambiarEstado(forma,mat)
 {
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstado.php',true);
@@ -206,8 +206,10 @@ function cambiarEstado(forma)
 		if (x.readyState == 4 && x.status == 200) 
 		{
 			var JSONdata = JSON.parse(x.responseText);
-			if (JSONdata.status == 0) 
+			if (JSONdata.status == 0) {
 				alert(JSONdata.descripccion);
+				misAlumnos(mat);
+			}
 			else
 				alert(JSONdata.descripccion);
 		}
@@ -1867,8 +1869,63 @@ function loadAlumnos()
 		}
 	}
 }
-function createGraph(){
-matricula='0315110132';
+function alumnosAva(){
+    var body=document.getElementById('cuerpo');
+	body.innerHTML="";
+	body.setAttribute('class','');
+	var p= document.createElement('p');
+	p.innerHTML="Mis Alumnos";
+	var seleccionar = document.createElement('h4');
+	seleccionar.innerHTML = 'Seleccionar Alumno';
+	p.setAttribute('class','parrafoCali');
+	body.appendChild(p);
+	body.appendChild(seleccionar);
+	
+    var x = new XMLHttpRequest();
+    var fAlums = document.createElement('form');
+    fAlums.setAttribute('id','fAlums');
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_por_grupo_con_estadia.php?tutor='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.send();
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+	
+	        if(JSONdata.status == 0)
+            {
+                var alums = JSONdata.alumnos;
+
+                var ini = 0;
+                var sAlums = document.createElement('select');
+                sAlums.setAttribute('id','alums');
+                sAlums.setAttribute('class','selects');
+		        sAlums.setAttribute('onchange','createGraph(this.value);');
+                
+                body.appendChild(fAlums);
+                fAlums.appendChild(sAlums);
+                sAlums.appendChild(createOption('Alumnos:','Alumnos:'));
+                for(var i = 0; i < alums.length; i++)
+                {
+                    var a = alums[i];
+                    
+                    var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
+                    
+		            sAlums.appendChild(createOption(a.matricula,nom));
+			         
+		      }	
+	       }
+		}        
+	}	
+    
+    var divTabla=document.createElement('div');
+    divTabla.setAttribute('id','tab');
+    
+    body.appendChild(divTabla);
+}
+function createGraph(matricula){
+
 			var docs=[];
 			var acts=[];
 	console.log(matricula);
@@ -1899,7 +1956,6 @@ matricula='0315110132';
 						divActs.setAttribute('height','200px');
 						body.appendChild(divActs);
 						//var ActText=writeText(SVGActs,'tActs','40%','10%','Progreso En Actividades','text');
-						console.log(acts.length);
 						for(var i=0; i<acts.length;i++)
 						{
 							var divtabla=createDiv('divT'+(i+1),'divT');
@@ -1947,16 +2003,21 @@ matricula='0315110132';
 						var SVGDocs=createSvg(body,'SVGDocs');
 						SVGDocs.setAttribute('width','1000px');
 						SVGDocs.setAttribute('height','300px');
-						var rectDocs= drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
+						var progreso=0;
+						var rectDocs=drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
 						var rectProDocs=drawRectangle(SVGDocs,'rectProDocs','10%','20%','1%','20%','rectPro');
 						var ActText=writeText(SVGDocs,'tActs','40%','10%','Avance en Documento Recepcional','text');
 						console.log(docs.length);
-						var X=70/docs.length;
-						for(var i=0;i<docs.length;i++){
+						var X=70/(docs.length-3);
+						for(var i=0;i<docs.length-2;i++){
 							var posX=(20+(X*i))+'%';
-
 							var lineAct=drawLine(SVGDocs,posX,'20%',posX,'40%','lines');
-			}
+							var txt=writeText(SVGDocs,'doc'+(1+i),posX,'45%',docs[i].id,'txt');
+							if(docs[i].status!='pendiente ')progreso++;	
+						}
+						console.log(X);
+						console.log(progreso);
+						rectProDocs.setAttribute('width',(X*progreso)+'%');
 					}
 				else
 					console.log('error');

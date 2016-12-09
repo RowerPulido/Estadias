@@ -29,6 +29,7 @@ function drawRectangle(svgParent,id,x,y,width,height,cssClass){
     r.setAttribute('height',height);
     r.setAttribute('class',cssClass);
     svgParent.appendChild(r);
+	return r;
 }
 
 function createSvg(parent,id){

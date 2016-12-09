@@ -160,6 +160,8 @@ function misAlumnos(mat)
                 	selectEstado.appendChild(createOption('Estado','Estado:'));
                 	selectEstado.appendChild(createOption('Entregado','Entregado'));
                 	selectEstado.appendChild(createOption('Revision','En Revision'));
+                	selectEstado.appendChild(createOption('Aceptado','Aceptado'));
+                	selectEstado.appendChild(createOption('Rechazado','Rechazado'));
 					var img= document.createElement('img');
 					img.setAttribute('src','images/check1.png');
 					img.setAttribute('class','check');
@@ -468,7 +470,11 @@ function menuOfUser(){
 	var calisalums=document.getElementById('calisalums');
 	var alumnTutor = document.getElementById('alumnTutor');
 	var grupo = document.getElementById('grupo');
+<<<<<<< HEAD
 	var avancesalu=document.getElementById('avancealu');
+=======
+	var alumnAvances = document.getElementById('alumnAvances');
+>>>>>>> fb911f08b392135e2f7ee3db30ce096f163ce7bd
 	if (typeofuser=="ALU") {
 		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
 		registrar.style.display='none';
@@ -480,6 +486,7 @@ function menuOfUser(){
 	}
 	if (typeofuser=='TUT') {
 		divDocumentos.style.display='none';
+		alumnAvances.style.display = 'none';
 		document.getElementById('vercalis').style.display='none';
 	}
 }
@@ -2055,10 +2062,8 @@ var matricula=JSON.parse(sessionStorage['user']).User.userID;
 						
 						var body=document.getElementById('cuerpo');
 						body.innerHTML='';
-						body.setAttribute('class','100body');
+						body.setAttribute('class','bodyGraph');
 						var divActs=createDiv('divActs');
-						divActs.setAttribute('width','1000px');
-						divActs.setAttribute('height','200px');
 						body.appendChild(divActs);
 						//var ActText=writeText(SVGActs,'tActs','40%','10%','Progreso En Actividades','text');
 						for(var i=0; i<acts.length;i++)
@@ -2096,7 +2101,6 @@ var matricula=JSON.parse(sessionStorage['user']).User.userID;
 							tr.appendChild(td);
 							table.appendChild(tr);
 							divtabla.appendChild(table);
-							divtabla.setAttribute('width','200px');
 							divtabla.setAttribute('left',(i*10)+'%');
 							if(today>=dInicio && today<=dFin) table.setAttribute('class','inProcess');
 							if(today>dFin)table.setAttribute('class','complete');
@@ -2106,6 +2110,7 @@ var matricula=JSON.parse(sessionStorage['user']).User.userID;
 
 
 						var SVGDocs=createSvg(body,'SVGDocs');
+						var rectDocs= drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
 						SVGDocs.setAttribute('width','1000px');
 						SVGDocs.setAttribute('height','300px');
 						var progreso=0;

@@ -3,21 +3,24 @@
 <head>
 	<title>Inicio Sesion | Estadias</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<script src="js/function.js" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="js/functions.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="js/login.js" type="text/javascript"></script>
+	<script src="js/elements_config.js" type="text/javascript" charset="utf-8s"></script>
+	<link rel="icon" href="images/template/logo-utt.png">
 </head>
 <body>
 	<div id="contenido">
 		<img src="images/template/logo-utt.png" id="img-login">
 	</div>
 	<div id="datos">
-		<form action="login.php" method="POST">
+		<form id="frmlogin" name="frmlogin" method="POST">
 			<label>Usuario: </label>
 			<input type="text" name="usr_id" placeholder="Matricula / ID">
-			<label>Contrase&ntilde;a: </label>
-			<input type="text" name="usr_pswd" placeholder="Contrase&ntilde;a">
+			<label id="lblpass">Contrase&ntilde;a: </label>
+			<input name="usr_psw" placeholder="Contrase&ntilde;a" type="password">
 		</form>
-		<button type="submit">Ingresar</button>
-		<button type="button">Cancelar</button>
+		<button onclick="login()">Ingresar</button>
+		<button onclick="cancelar()">Cancelar</button>
 	</div>
 </body>
 </html>

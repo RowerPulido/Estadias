@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Inicio | Control de Estadias</title>
-		<link rel="stylesheet" type="text/css" href="css/styles1.css">
-		<script type="text/javascript" src="js/functions.js"></script>
+		<title>Estadias Inicio</title>
+		<script src="js/functions.js" type="text/javascript"></script>
+		<meta name="twitter:dnt" content="on">
+		<script src="js/elements_config.js"></script>
+		<script src="js/svg.js" type="text/javascript" ></script>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="icon" href="images/template/logo-utt.png">
 	</head>
-	<body onload="init();">
-		<div id="menu">
-			<img src="images/users/default.png" id="userpic">
-			<div id="usuarioid">
-				ID
+	<body id="body" onload="initAlum()">
+
+		<div id="menu-lateral" class = 'normal'>
+			<div id="user">
+				<img src="images//users/avatar.png" alt="" id="user-img">
+				<div id="user-id">
+					
+				</div>
+				<div id="user-name">
+					
+				</div>
 			</div>
-			<div id="nombre">
-				Name
+			
+			<div id="inicio" class="option" onclick="initAlum()">
+				<img src="images/template/home.png" alt="" id="home-img" class="img-option">
+				<p class="titulo-opcion">Inicio</p>
 			</div>
-			<nav id="menunav">
-					<div id="documentosnav" onmouseover="documentosMenu();">
-						<img src="images/template/files.png"> 
-						Documentos
-					</div>
-					<div id="estadisticasnav">
-						<img src="images/template/stadistics.png">
-						Estadisticas
-					</div> 
-					<div id="configuracionnav">
-						<img src="images/template/settings.png"> 
-						Configuracion
-					</div>
+			
+			<div id="documentos" class="option">
+				<img src="images/template/printer.png" alt="" id="documentos-img" class="img-option">
+				<p class="titulo-opcion">documentos</p>
+					<br>
+			<nav id="documentos-opciones" class="opciones">
+				<nav id="verdocs" class="op" onclick="verDocs();"><a href="#" title="">Lista de documentos</a></nav>
+				<nav id="misdocs" class="op" onclick="misDocs();"><a href="#" title="">Mis Documentos</a></nav>
 			</nav>
+			</div>
+
+			<div id="estadisticas" class="option">
+				<img src="images/template/pie-chart.png" alt="" id="estadisticas-img" class="img-option">
+				<p class="titulo-opcion">Estadisticas</p>
+				<br>
+			<nav id="estadisticas-opciones" class="opciones">
+					<nav id="vercalis" class="op">
+						<a href="#" title="" onclick="misCalis();">Mis Calificaciones</a>
+					</nav>
+                    <nav id="calisalums" class="op">                        
+						<a href="#" title="" onclick="calis();">Calificaciones</a>
+                    </nav>
+                    <nav id="grupo" class="op">                        
+						<a href="#" title="" onclick="miGrupo();">Mi Grupo</a>
+                    </nav>
+                    <nav id="alumnTutor" class="op">                        
+						<a href="#" title="" onclick="alumnos();">Mis Alumnos</a>
+                    </nav>
+				 <nav id="alumnAvances" class="op">                        
+						<a href="#" title="" onclick="createmyGraph();">Mis Avances</a>
+						</nav>
+				 <nav id="avances" class="op">                        
+						<a href="#" title="" onclick="alumnosAva();">Avance del alumno</a>
+                  </nav>
+
+			</nav>
+			</div>
+			<div id="registrar" class="option">
+				<img src="images/template/register.png" class="img-option">
+				<p class="titulo-opcion">Registro</p>
+				<br>
+			<nav id="registrar-opciones" class="opciones">
+					<nav id="vercalis" class="op">
+						<a href="#" title="" onclick="registrarEstadia()">Registrar Estadia.</a>
+					</nav>
+
+			</nav>
+			</div>
+			<div id="configuracion" class="option" onclick="configuracion();">
+				<img src="images/template/setting.png" alt="" id="configuracion-img" class="img-option">
+				<p class="titulo-opcion">Configuracion</p>
+			
+			</div>
+				<div id="logout" onclick="logout();" class="option">
+					<img src="images/template/logout.png" class="img-option">
+					<p class="titulo-opcion">Salir</p>
+				</div>
 		</div>
-		<div id="opciones">
-			Options
+
+		<div id="cuerpo">
 		</div>
-		<div id="contenedor">
-			Body
-		</div>
+
 	</body>
 </html>

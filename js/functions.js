@@ -1,22 +1,3 @@
-var docs=
-	[
-	['F-VI-001 R05','Formato de evaluación de Estadias',2],//P-VI-01
-	['F-VI-003 R08','Definicion de Proyecto de estadias',1],//F-VI-003
-	['F-VI-002 R02','Relacion Empresas vinculadas',2],//
-	['CARTA-TER','Carta de terminacion de estadias',0],
-	['ACT-01','Antecedentes de la empresa',1],
-	['ACT-02','Descripcion del Área de trabajo',1],
-	['ACT-03','Descripcion del problema y objetivos',1],
-	['ACT-04','Marco de referencia técnico',0],
-	['ACT-05','Desarrollo del proyecto',0],
-	['ACT-06','Resultados Obtenidos',0],
-	['ACT-07','Conclusiones y recomendaciones',0],
-	['ACT-08','Bibliografía, índice e introducción',0],
-	['ACT-09',"2 CD's del trabajo recepcional",0],
-	['ACT-10','Presentacion del trabajo recepcional',0],
-	['POR-CD','PORTADA DE CD',2],
-	['ETI-CD','ETIQUETA DE CD',2]
-	];
 
 var alum='';
 var tut='';
@@ -869,6 +850,7 @@ function subirFile(id){
 				frm.reset();
 				window.alert('subido exitosamente');
 				misDocs();
+
 			}
 			else
 			{

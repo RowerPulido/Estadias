@@ -57,7 +57,7 @@
 			$found=odbc_num_rows($data)>0;
 			if (!$found) {
 				# code...
-				echo '{ "status" : 404 , "descripcion" : "'.$query'" }';die;
+				echo '{ "status" : 404 , "descripcion" : "'.$query.'" }';die;
 			}
 			while (odbc_fetch_array($data))
 			 {

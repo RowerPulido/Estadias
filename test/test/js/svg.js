@@ -8,7 +8,8 @@ function drawLine(svgParent,x1,y1,x2,y2,cssClass){
     line.setAttribute('class',cssClass);
     
     svgParent.appendChild(line);
-    
+   
+   return line; 
 }
 function writeText(svgParent,id,x,y,innetText,cssClass){
     var t = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -18,6 +19,8 @@ function writeText(svgParent,id,x,y,innetText,cssClass){
     t.innerHTML = innetText;
     t.setAttribute('class',cssClass);
     svgParent.appendChild(t);
+
+    return t;
 }
 
 function drawRectangle(svgParent,id,x,y,width,height,cssClass){
@@ -29,13 +32,8 @@ function drawRectangle(svgParent,id,x,y,width,height,cssClass){
     r.setAttribute('height',height);
     r.setAttribute('class',cssClass);
     svgParent.appendChild(r);
-}
 
-function createSvg(parent,id){
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('id',id);
-    parent.appendChild(svg);
-    return svg;
+    return r;
 }
 
 function createSvg(parent,id){
@@ -51,4 +49,12 @@ function createTooltip(parent,text){
     t.innerHTML=text;
     parent.appendChild(t);
     return t;
+}
+
+function createDiv(id,cssClass){
+    var d=document.createElement('div');
+    d.setAttribute('id',id);
+    d.setAttribute('class',cssClass);
+
+    return d;
 }

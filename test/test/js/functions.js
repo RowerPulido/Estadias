@@ -1,4 +1,22 @@
-
+var docs=
+	[
+	['F-VI-001 R05','Formato de evaluación de Estadias',2],//P-VI-01
+	['F-VI-003 R08','Definicion de Proyecto de estadias',1],//F-VI-003
+	['F-VI-002 R02','Relacion Empresas vinculadas',2],//
+	['CARTA-TER','Carta de terminacion de estadias',0],
+	['ACT-01','Antecedentes de la empresa',1],
+	['ACT-02','Descripcion del Área de trabajo',1],
+	['ACT-03','Descripcion del problema y objetivos',1],
+	['ACT-04','Marco de referencia técnico',0],
+	['ACT-05','Desarrollo del proyecto',0],
+	['ACT-06','Resultados Obtenidos',0],
+	['ACT-07','Conclusiones y recomendaciones',0],
+	['ACT-08','Bibliografía, índice e introducción',0],
+	['ACT-09',"2 CD's del trabajo recepcional",0],
+	['ACT-10','Presentacion del trabajo recepcional',0],
+	['POR-CD','PORTADA DE CD',2],
+	['ETI-CD','ETIQUETA DE CD',2]
+	];
 
 var alum='';
 var tut='';
@@ -106,7 +124,7 @@ function misAlumnos(mat)
 				var body=document.getElementById('tab');
 				body.innerHTML = '';
 				var table=document.createElement('table');
-				table.setAttribute('id','tabla-Alumn');
+				table.setAttribute('id','tabla-misDocs');
 				var tr =document.createElement('tr');
 				var td=document.createElement('td');
 				td.setAttribute('class','rowheader');
@@ -159,18 +177,17 @@ function misAlumnos(mat)
 					
                 	selectEstado.appendChild(createOption('Estado','Estado:'));
                 	selectEstado.appendChild(createOption('Entregado','Entregado'));
-                	selectEstado.appendChild(createOption('Revision','En Revision'));
-					
+                	selectEstado.appendChild(createOption('En Revision','En Revision'));
+					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
 					frmEstado.appendChild(selectEstado);
 					td.appendChild(frmEstado);
 
+					var combo = document.getElementById('id'+a.id).value;
 					
-					selectEstado.setAttribute('onchange','get_text("id'+a.id+'","estado'+a.id+'")');
+					createInput(frmEstado,'','hidden','',combo,'','estado');
+					createInput(frmEstado,'','hidden','',mat,'','mat');
+					createInput(frmEstado,'','hidden','',a.id,'','mat');
 					
-					createInput(frmEstado,'','hidden','','','estado'+a.id,'estado');
-					createInput(frmEstado,'','hidden','',mat,'mat','mat');
-					createInput(frmEstado,'','hidden','',a.id,'doc','doc');
-					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
 					inSubmit.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
 					
 					
@@ -185,18 +202,11 @@ function misAlumnos(mat)
 	}
 	x.send();
 }
-function get_text(id,estado)
-{
-	var combo = document.getElementById(id);
-	var select = combo.value;
-	var estado = document.getElementById(estado);
-	estado.value = select;
-}
 function cambiarEstado(forma)
 {
 	var x = new XMLHttpRequest();
 	x.open("POST",'http://localhost:8080/Estadias/api/setEstado.php',true);
-	x.send(new FormData(document.getElementById(forma)));
+	x.send(new FormData(document.getElementById('forma')));
 	x.onreadystatechange = function()
 	{
 		if (x.readyState == 4 && x.status == 200) 
@@ -1859,102 +1869,4 @@ function loadAlumnos()
 		}
 	}
 }
-function createGraph(){
-matricula='0315110132';
-			var docs=[];
-			var acts=[];
-	console.log(matricula);
-			var x= new XMLHttpRequest();
-			x.open('GET','http://localhost:8080/Estadias/api/getProgress.php?matricula='+matricula);
-			x.send();
-			x.onreadystatechange = function()
-			{
-				console.log('entro');
-			if(x.readyState==4 && x.status == 200)
-				{
-				console.log('si entra');
-				var JSONdata=JSON.parse(x.responseText);
-				if(JSONdata.status==0)
-					{
-						docs=JSONdata.documentos;
-						console.log(docs);
-						acts=JSONdata.actividades;
-						console.log(acts);
-						
-						var today=new Date();
-						
-						var body=document.getElementById('cuerpo');
-						body.innerHTML='';
-						body.setAttribute('class','100body');
-						var divActs=createDiv('divActs');
-						divActs.setAttribute('width','1000px');
-						divActs.setAttribute('height','200px');
-						body.appendChild(divActs);
-						//var ActText=writeText(SVGActs,'tActs','40%','10%','Progreso En Actividades','text');
-						console.log(acts.length);
-						for(var i=0; i<acts.length;i++)
-						{
-							var divtabla=createDiv('divT'+(i+1),'divT');
-							var dInicio=new Date(acts[i].inicio);
-							var dFin=new Date(acts[i].fin);
-							console.log(dInicio+'-'+dFin);
-							console.log(dInicio>dFin);
-							var table=document.createElement('table');
-							table.setAttribute('id','act'+(i+1));
-							table.setAttribute('class','tActs');
-							var tr=document.createElement('tr');
-							tr.setAttribute('class','rowH');
-							table.appendChild(tr);
-							var td=document.createElement('td');
-							td.innerHTML=acts[i].nombre;
-							td.setAttribute('colspan',2);
-							tr.appendChild(td);
-							table.appendChild(tr);
-							var tr=document.createElement('tr');
-							var td=document.createElement('td');
-							td.innerHTML='Inicio';
-							tr.appendChild(td);
-							var td=document.createElement('td');
-							td.innerHTML=acts[i].inicio;
-							tr.appendChild(td);
-							table.appendChild(tr);
-							var tr=document.createElement('tr');
-							var td=document.createElement('td');
-							td.innerHTML='Fin';
-							tr.appendChild(td);
-							var td=document.createElement('td');
-							td.innerHTML=acts[i].fin;
-							tr.appendChild(td);
-							table.appendChild(tr);
-							divtabla.appendChild(table);
-							divtabla.setAttribute('width','200px');
-							divtabla.setAttribute('left',(i*10)+'%');
-							if(today>=dInicio && today<=dFin) table.setAttribute('class','inProcess');
-							if(today>dFin)table.setAttribute('class','complete');
-							if(today<dInicio)table.setAttribute('class','incomplete');
-							divActs.appendChild(divtabla);
-						}
-
-
-						var SVGDocs=createSvg(body,'SVGDocs');
-						SVGDocs.setAttribute('width','1000px');
-						SVGDocs.setAttribute('height','300px');
-						var rectDocs= drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
-						var rectProDocs=drawRectangle(SVGDocs,'rectProDocs','10%','20%','1%','20%','rectPro');
-						var ActText=writeText(SVGDocs,'tActs','40%','10%','Avance en Documento Recepcional','text');
-						console.log(docs.length);
-						var X=70/docs.length;
-						for(var i=0;i<docs.length;i++){
-							var posX=(20+(X*i))+'%';
-
-							var lineAct=drawLine(SVGDocs,posX,'20%',posX,'40%','lines');
-			}
-					}
-				else
-					console.log('error');
-				}
-				
-			}
-			
-		}
 /*ALTA - FIN*/

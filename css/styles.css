@@ -398,6 +398,11 @@ select {
     appearance:none;
     cursor:pointer;
 }
+td .selects
+{
+	vertical-align: middle;
+}
+.check{cursor: pointer;}
 #tabla-alums
 {	
 	position: relative;
@@ -691,7 +696,7 @@ legend{
 	color: white;
 	border-radius: 15px;
 	position: absolute;
-	left: 80%;
+	left: 70%;
 	top: 600px;
 }
 		#SVGActs{

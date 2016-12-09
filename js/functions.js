@@ -160,8 +160,14 @@ function misAlumnos(mat)
                 	selectEstado.appendChild(createOption('Estado','Estado:'));
                 	selectEstado.appendChild(createOption('Entregado','Entregado'));
                 	selectEstado.appendChild(createOption('Revision','En Revision'));
+					var img= document.createElement('img');
+					img.setAttribute('src','images/check1.png');
+					img.setAttribute('class','check');
+
+					img.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
 					
 					frmEstado.appendChild(selectEstado);
+					frmEstado.appendChild(img);
 					td.appendChild(frmEstado);
 
 					
@@ -170,9 +176,7 @@ function misAlumnos(mat)
 					createInput(frmEstado,'','hidden','','','estado'+a.id,'estado');
 					createInput(frmEstado,'','hidden','',mat,'mat','mat');
 					createInput(frmEstado,'','hidden','',a.id,'doc','doc');
-					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
-					inSubmit.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
-					
+
 					
 					tr.appendChild(td);
 					tr.setAttribute('class','rowtable-docs');
@@ -460,10 +464,14 @@ function menuOfUser(){
 	var divConfiguracion=document.getElementById('configuracion');
 	var registrar=document.getElementById('registrar');
 	var calisalums=document.getElementById('calisalums');
+	var alumnTutor = document.getElementById('alumnTutor');
+	var grupo = document.getElementById('grupo');
 	if (typeofuser=="ALU") {
 		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
 		registrar.style.display='none';
 		calisalums.style.display='none';
+		alumnTutor.style.display='none';
+		grupo.style.display = 'none';
         infoTutor();
 	}
 	if (typeofuser=='TUT') {

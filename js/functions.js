@@ -1,3 +1,22 @@
+var docs=
+	[
+	['F-VI-001 R05','Formato de evaluación de Estadias',2],//P-VI-01
+	['F-VI-003 R08','Definicion de Proyecto de estadias',1],//F-VI-003
+	['F-VI-002 R02','Relacion Empresas vinculadas',2],//
+	['CARTA-TER','Carta de terminacion de estadias',0],
+	['ACT-01','Antecedentes de la empresa',1],
+	['ACT-02','Descripcion del Área de trabajo',1],
+	['ACT-03','Descripcion del problema y objetivos',1],
+	['ACT-04','Marco de referencia técnico',0],
+	['ACT-05','Desarrollo del proyecto',0],
+	['ACT-06','Resultados Obtenidos',0],
+	['ACT-07','Conclusiones y recomendaciones',0],
+	['ACT-08','Bibliografía, índice e introducción',0],
+	['ACT-09',"2 CD's del trabajo recepcional",0],
+	['ACT-10','Presentacion del trabajo recepcional',0],
+	['POR-CD','PORTADA DE CD',2],
+	['ETI-CD','ETIQUETA DE CD',2]
+	];
 
 var alum='';
 var tut='';
@@ -32,7 +51,143 @@ function initAlum()
 
 }
 
-function misAlumnos()
+function alumnos(){
+    var body=document.getElementById('cuerpo');
+	body.innerHTML="";
+	body.setAttribute('class','');
+	var p= document.createElement('p');
+	p.innerHTML="Mis Alumnos";
+	var seleccionar = document.createElement('h4');
+	seleccionar.innerHTML = 'Seleccionar Alumno';
+	p.setAttribute('class','parrafoCali');
+	body.appendChild(p);
+	body.appendChild(seleccionar);
+	
+    var x = new XMLHttpRequest();
+    var fAlums = document.createElement('form');
+    fAlums.setAttribute('id','fAlums');
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_por_grupo_con_estadia.php?tutor='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.send();
+	
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+	
+	        if(JSONdata.status == 0)
+            {
+                var alums = JSONdata.alumnos;
+
+                var ini = 0;
+                var sAlums = document.createElement('select');
+                sAlums.setAttribute('id','alums');
+                sAlums.setAttribute('class','selects');
+		        sAlums.setAttribute('onchange','misAlumnos(this.value);');
+                
+                body.appendChild(fAlums);
+                fAlums.appendChild(sAlums);
+                sAlums.appendChild(createOption('Alumnos:','Alumnos:'));
+                for(var i = 0; i < alums.length; i++)
+                {
+                    var a = alums[i];
+                    
+                    var nom = a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
+                    
+		            sAlums.appendChild(createOption(a.matricula,nom));
+			         
+		      }	
+	       }
+		}        
+	}	
+    
+    var divTabla=document.createElement('div');
+    divTabla.setAttribute('id','tab');
+    
+    body.appendChild(divTabla);
+}
+
+function misAlumnos(mat)
+{
+	var x = new XMLHttpRequest();
+	x.open('GET', 'http://localhost:8080/Estadias/api/getDocAlu.php?matricula='+mat,true);
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+	
+	        if(JSONdata.status == 0)
+            {
+            	var docs = JSONdata.docs;
+            	console.log(docs);
+				var body=document.getElementById('tab');
+				var table=document.createElement('table');
+				table.setAttribute('id','tabla-misDocs');
+				var tr =document.createElement('tr');
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Clave DOC";
+				tr.appendChild(td);
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Nombre DOC";
+				tr.appendChild(td);
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Estatus";
+				tr.appendChild(td);
+				var td= document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Subir Archivo";
+				tr.appendChild(td);
+				table.appendChild(tr);
+				
+				for (var i = 0; i < docs.length; i++) {                    
+					var a = docs[i];
+                    console.log(a);
+					var tr=document.createElement('tr');
+					var td = document.createElement('td');
+					td.innerHTML=a.id;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);	
+					var td = document.createElement('td');
+					if (a.status!='pendiente ') {td.innerHTML='<a href="http://localhost:8080/Estadias/api/copiar.php?+id='+a.id+'&matricula='+JSON.parse(sessionStorage['user']).User.userID+'" target="_new">'+a.name+'</a>';}
+					else
+					td.innerHTML=a.name;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);
+					var td = document.createElement('td');
+					//if(docs[i][2]==2){var status="<center>---</center>"; td.setAttribute('class','no-entregar');}else if(docs[i][2]==1){var status="ENTREGADO";td.setAttribute('class','entregado');}else if(docs[i][2]==0){var status="NO ENTREGADO";td.setAttribute('class','no-entregado');}else{"ERROR";td.setAttribute('class','error');}
+					td.innerHTML=a.status;
+					if(a.status == 'Pendiente'){td.setAttribute('class','no-entregar');}
+					if(a.status == 'Entregado'){td.setAttribute('class','entregado');}
+					var td=document.createElement('td');
+					td.setAttribute('class','rownormal');
+					td.innerHTML=a.status;
+					tr.appendChild(td);
+					var td=document.createElement('td');
+					td.setAttribute('class','rownormal');
+					var frmFile=createForm('frmFile'+a.id,'frmFile'+a.id,'POST');
+					frmFile.setAttribute('action','api/upload.php');
+					frmFile.setAttribute('enctype',"multipart/form-data");
+					var inFile=createInput(frmFile,'seleccione','file','file','Seleccione Archivo','file','file');
+					var inSubmit=createInput(frmFile,'subir archivo','button','file','Subir','inUpFile','upFile');
+					inSubmit.setAttribute('onClick','subirFile('+a.id+')');
+					td.appendChild(frmFile);
+					tr.appendChild(td);
+					tr.setAttribute('class','rowtable-docs');
+
+					table.appendChild(tr);
+				}
+				body.appendChild(table);
+			}
+		}
+	}
+	x.send();
+}
+
+function miGrupo()
 {
 	var x = new XMLHttpRequest();
 	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_por_grupo_con_estadia.php?tutor='+JSON.parse(sessionStorage['user']).User.userID,true);
@@ -52,7 +207,7 @@ function misAlumnos()
 				body.setAttribute('class','');
 				var p= document.createElement('p');
 				p.setAttribute('class','Mi_Alumnos');
-				p.innerHTML="Mis Alumnos";
+				p.innerHTML="Mi Grupo";
 				body.appendChild(p);
 				var table=document.createElement('table');
 				table.setAttribute('id','tabla-AlumnoEst');
@@ -850,7 +1005,6 @@ function subirFile(id){
 				frm.reset();
 				window.alert('subido exitosamente');
 				misDocs();
-
 			}
 			else
 			{
@@ -940,8 +1094,7 @@ function misCalis()
 }
 
 function calis()
-{
-    
+{    
     var body=document.getElementById('cuerpo');
 	body.innerHTML="";
 	body.setAttribute('class','');
@@ -1016,7 +1169,11 @@ function actGrupos(grupo)
                 var alumns = JSONdata.alumnos;
                 console.log(alumns);
                 
-                var ini = 0;                
+                var ini = 0;          
+                
+                
+                var forma = document.createElement('form');
+                forma.setAttribute('id','forCalif'+i); 
                 
                 var tab = document.getElementById('tab');
                 tab.innerHTML='';
@@ -1058,116 +1215,95 @@ function actGrupos(grupo)
                     
                     var tds = [];
                     
-                    console.log(pars);
-                    
-                        var tr=document.createElement('tr');
-                        var forma = document.createElement('form');
-                        forma.setAttribute('id','forCalif'+i);                       
-                    
-                        var td = document.createElement('td');
-                        td.innerHTML=a.matricula;
-                        td.setAttribute('class','rownormal');
-                        td.setAttribute('id',a.matricula);
-                        tr.appendChild(td);	
-                    
-                        var td = document.createElement('td');
-                        td.innerHTML=a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
-                        td.setAttribute('class','rownormal');
-                        tr.appendChild(td);	                        
-                    
-                        var td1 = document.createElement('td');
-                        td1.innerHTML='';
-                        td1.setAttribute('id','camp1'+i);
-                        td1.setAttribute('class','rownormal');                    
-                    
-                        var camp = document.createElement('input');
-                        camp.setAttribute('class','campo');
-                        camp.setAttribute('PlaceHolder','Ingresa Calificacion');
-                        camp.setAttribute('id','in1'+i);                        
-                        camp.setAttribute('name','in1'+i);
-                    
-                        tds[0]=camp;
-                    
-                        var forma = document.createElement('form');
-                        forma.setAttribute('id','forCalif'+i);
-                        forma.appendChild(camp);
-                        td1.appendChild(forma);
-                    
-                        tr.appendChild(td1);	
-                        var td2 = document.createElement('td');
-                        td2.innerHTML='';
-                        td2.setAttribute('id','camp2'+i);
-                        td2.setAttribute('class','rownormal');
-                    
-                        var camp = document.createElement('input');
-                        camp.setAttribute('class','campo');
-                        camp.setAttribute('PlaceHolder','Ingresa Calificacion');
-                        camp.setAttribute('id','in2'+i);                      
-                        camp.setAttribute('name','in2'+i);
-                        tds[1]=camp;
-                    
-                        var forma = document.createElement('form');
-                        forma.setAttribute('id','forCalif'+i);
-                        forma.appendChild(camp);
-                        td2.appendChild(forma);
-                    
-                        tr.appendChild(td2);	
-                        var td3 = document.createElement('td');
-                        td3.innerHTML='';
-                        td3.setAttribute('id','camp3'+i);
-                        td3.setAttribute('class','rownormal');
-                    
-                        var camp = document.createElement('input');
-                        camp.setAttribute('class','campo');
-                        camp.setAttribute('PlaceHolder','Ingresa Calificacion');
-                        camp.setAttribute('id','in3'+i);                      
-                        camp.setAttribute('name','in3'+i);
-                        tds[2]=camp;
-                    
-                        var forma = document.createElement('form');
-                        forma.setAttribute('id','forCalif'+i);
-                        forma.appendChild(camp);
-                        td3.appendChild(forma);
-                    
-                        tr.appendChild(td3);
-                    	
-                        var td4 = document.createElement('td');
-                        td4.innerHTML='';
-                        td4.setAttribute('id','camp4'+i);
-                        td4.setAttribute('class','rownormal');
-                    
-                        var camp = document.createElement('input');
-                        camp.setAttribute('class','campo');
-                        camp.setAttribute('PlaceHolder','Ingresa Calificacion');
-                        camp.setAttribute('id','in4'+i);                      
-                        camp.setAttribute('name','in4'+i);
-                        tds[3]=camp;
-                    
-                        var forma = document.createElement('form');
-                        forma.setAttribute('id','forCalif'+i);
-                        forma.appendChild(camp);
-                        td4.appendChild(forma);
-                               
-                        tr.appendChild(td4);
-                    
-                        getCalis(a.matricula,tds);
-                        
-                        var td = document.createElement('td');
-                        td.innerHTML='';
-                        td.setAttribute('id','camp5'+i);
-                        td.setAttribute('class','rownormal');
-                        var but = document.createElement('input');
-                        but.setAttribute('class','button');
-                        but.setAttribute('type','button');
-                        but.setAttribute('value','Guardar');
+                    var tr=document.createElement('tr');                      
 
-                        but.setAttribute('onClick','cambioCalif("'+a.matricula+'",'+i+');');
-                        td.appendChild(but);
-                        tr.setAttribute('class','rowtable-docs');
-                        tr.appendChild(td);	
-                        table.appendChild(tr);                    
+                    var td = document.createElement('td');
+                    td.innerHTML=a.matricula;
+                    td.setAttribute('class','rownormal');
+                    td.setAttribute('id',a.matricula);
+                    tr.appendChild(td);	
+
+                    var td = document.createElement('td');
+                    td.innerHTML=a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
+                    td.setAttribute('class','rownormal');
+                    tr.appendChild(td);	                        
+
+                    var td1 = document.createElement('td');
+                    td1.innerHTML='';
+                    td1.setAttribute('id','camp1'+i);
+                    td1.setAttribute('class','rownormal');                    
+
+                    var camp = document.createElement('input');
+                    camp.setAttribute('class','campo');
+                    camp.setAttribute('PlaceHolder','Ingresa Calificacion');
+                    camp.setAttribute('id','in1'+i);                        
+                    camp.setAttribute('name','in1'+i);
+                    td1.appendChild(camp);
+                    tds[0]=camp;
+
+                    tr.appendChild(td1);	
+                    var td2 = document.createElement('td');
+                    td2.innerHTML='';
+                    td2.setAttribute('id','camp2'+i);
+                    td2.setAttribute('class','rownormal');
+
+                    var camp = document.createElement('input');
+                    camp.setAttribute('class','campo');
+                    camp.setAttribute('PlaceHolder','Ingresa Calificacion');
+                    camp.setAttribute('id','in2'+i);                      
+                    camp.setAttribute('name','in2'+i);
+                    td2.appendChild(camp);
+                    tds[1]=camp;
+
+                    tr.appendChild(td2);	
+                    var td3 = document.createElement('td');
+                    td3.innerHTML='';
+                    td3.setAttribute('id','camp3'+i);
+                    td3.setAttribute('class','rownormal');
+
+                    var camp = document.createElement('input');
+                    camp.setAttribute('class','campo');
+                    camp.setAttribute('PlaceHolder','Ingresa Calificacion');
+                    camp.setAttribute('id','in3'+i);                      
+                    camp.setAttribute('name','in3'+i);
+                    td3.appendChild(camp);
+                    tds[2]=camp;
+
+                    tr.appendChild(td3);                    	
+                    var td4 = document.createElement('td');
+                    td4.innerHTML='';
+                    td4.setAttribute('id','camp4'+i);
+                    td4.setAttribute('class','rownormal');
+
+                    var camp = document.createElement('input');
+                    camp.setAttribute('class','campo');
+                    camp.setAttribute('PlaceHolder','Ingresa Calificacion');
+                    camp.setAttribute('id','in4'+i);                      
+                    camp.setAttribute('name','in4'+i);
+                    td4.appendChild(camp);
+                    tds[3]=camp;
+
+                    tr.appendChild(td4);
+
+                    getCalis(a.matricula,tds);
+
+                    var td = document.createElement('td');
+                    td.innerHTML='';
+                    td.setAttribute('id','camp5'+i);
+                    td.setAttribute('class','rownormal');
+                    var but = document.createElement('input');
+                    but.setAttribute('class','button');
+                    but.setAttribute('type','button');
+                    but.setAttribute('value','Guardar');
+
+                    but.setAttribute('onClick','cambioCalif("'+a.matricula+'",'+i+');');
+                    td.appendChild(but);
+                    tr.setAttribute('class','rowtable-docs');
+                    tr.appendChild(td);
+                    table.appendChild(tr);                    
 		      }	
-                tab.appendChild(table);
+                forma.appendChild(table);
+                tab.appendChild(forma);
 	       }
 		}
 	}

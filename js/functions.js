@@ -160,6 +160,8 @@ function misAlumnos(mat)
                 	selectEstado.appendChild(createOption('Estado','Estado:'));
                 	selectEstado.appendChild(createOption('Entregado','Entregado'));
                 	selectEstado.appendChild(createOption('Revision','En Revision'));
+                	selectEstado.appendChild(createOption('Aceptado','Aceptado'));
+                	selectEstado.appendChild(createOption('Rechazado','Rechazado'));
 					var img= document.createElement('img');
 					img.setAttribute('src','images/check1.png');
 					img.setAttribute('class','check');
@@ -466,6 +468,7 @@ function menuOfUser(){
 	var calisalums=document.getElementById('calisalums');
 	var alumnTutor = document.getElementById('alumnTutor');
 	var grupo = document.getElementById('grupo');
+	var alumnAvances = document.getElementById('alumnAvances');
 	if (typeofuser=="ALU") {
 		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
 		registrar.style.display='none';
@@ -476,6 +479,7 @@ function menuOfUser(){
 	}
 	if (typeofuser=='TUT') {
 		divDocumentos.style.display='none';
+		alumnAvances.style.display = 'none';
 		document.getElementById('vercalis').style.display='none';
 	}
 }
@@ -1893,10 +1897,8 @@ matricula='0315110132';
 						
 						var body=document.getElementById('cuerpo');
 						body.innerHTML='';
-						body.setAttribute('class','100body');
+						body.setAttribute('class','bodyGraph');
 						var divActs=createDiv('divActs');
-						divActs.setAttribute('width','1000px');
-						divActs.setAttribute('height','200px');
 						body.appendChild(divActs);
 						//var ActText=writeText(SVGActs,'tActs','40%','10%','Progreso En Actividades','text');
 						console.log(acts.length);
@@ -1935,7 +1937,6 @@ matricula='0315110132';
 							tr.appendChild(td);
 							table.appendChild(tr);
 							divtabla.appendChild(table);
-							divtabla.setAttribute('width','200px');
 							divtabla.setAttribute('left',(i*10)+'%');
 							if(today>=dInicio && today<=dFin) table.setAttribute('class','inProcess');
 							if(today>dFin)table.setAttribute('class','complete');
@@ -1945,8 +1946,6 @@ matricula='0315110132';
 
 
 						var SVGDocs=createSvg(body,'SVGDocs');
-						SVGDocs.setAttribute('width','1000px');
-						SVGDocs.setAttribute('height','300px');
 						var rectDocs= drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
 						var rectProDocs=drawRectangle(SVGDocs,'rectProDocs','10%','20%','1%','20%','rectPro');
 						var ActText=writeText(SVGDocs,'tActs','40%','10%','Avance en Documento Recepcional','text');

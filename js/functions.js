@@ -50,6 +50,82 @@ function initAlum()
 	}
 
 }
+
+function misAlumnos()
+{
+	var x = new XMLHttpRequest();
+	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_por_grupo_con_estadia.php?tutor='+JSON.parse(sessionStorage['user']).User.userID,true);
+	x.onreadystatechange = function()
+	{
+		if(x.status == 200 && x.readyState == 4)
+		{
+            var JSONdata = JSON.parse(x.responseText);
+	
+	        if(JSONdata.status == 0)
+            {
+
+            	var alumns = JSONdata.alumnos;
+
+            	var body=document.getElementById('cuerpo');
+				body.innerHTML="";
+				body.setAttribute('class','');
+				var p= document.createElement('p');
+				p.setAttribute('class','Mi_Alumnos');
+				p.innerHTML="Mis Alumnos";
+				body.appendChild(p);
+				var table=document.createElement('table');
+				table.setAttribute('id','tabla-AlumnoEst');
+				var tr =document.createElement('tr');
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Matricula";
+				tr.appendChild(td);
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Nombres";
+				tr.appendChild(td); 
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				td.innerHTML="Estado";
+				tr.appendChild(td);      
+				var td=document.createElement('td');
+				td.setAttribute('class','rowheader');
+				table.appendChild(tr);
+
+				for (var i = 0; i < alumns.length; i++) 
+				{
+					var a = alumns[i];
+					var tr=document.createElement('tr');
+					
+					var td = document.createElement('td');
+					td.innerHTML=a.matricula;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);	
+					
+					var td = document.createElement('td');
+					td.innerHTML=a.nombre + ' ' + a.apellidoPaterno + ' ' + a.apellidoMaterno;
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);
+					
+					var td = document.createElement('td');
+					td.innerHTML=a.estado_estadia;
+					td.setAttribute('id','estado');
+					if(a.estado_estadia=='CON ESTADIA')
+						td.setAttribute('id','conEstadia');
+					else
+						td.setAttribute('id','sinEstadia');
+					td.setAttribute('class','rownormal');
+					tr.appendChild(td);
+					tr.setAttribute('class','rowtable-docs');
+					table.appendChild(tr);
+				}
+				body.appendChild(table);
+			}
+		}
+	}
+	x.send();
+}
+
 function createFormMsg()
 {
 	var uID=JSON.parse(sessionStorage['user']).User.userID;
@@ -155,7 +231,8 @@ function sendMessage()
 		}
 	}
 }
-function myMessages(){
+function myMessages()
+{
 	var uID=JSON.parse(sessionStorage['user']).User.userID;
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/get_all_mensajes_by_user.php?userID='+uID,true);
@@ -565,7 +642,8 @@ function check9Hours(){
 	document.getElementById('inEstHr2').value=shora;
 }
 
-function horasSem(){
+function horasSem()
+{
 	var hora1=document.getElementById('inEstHr1').value;
 	var hora2=document.getElementById('inEstHr2').value;
 	hora1=parseInt(hora1.charAt(0)+hora1.charAt(1));
@@ -576,18 +654,21 @@ function horasSem(){
 	return thoras;
 }
 
-function actualizarValoresAlum(){
+function actualizarValoresAlum()
+{
 	var alumSelect= document.getElementById('alumSelect');
 	var selectedOption=alumSelect.selectedIndex;
 	console.log(alumSelect[selectedOption].value);
 }
-function divTwitter(){
+function divTwitter()
+{
 	var cuerpo=document.getElementById('cuerpo');
 	var divTwitter=createDiv('divTwitter');
 	divTwitter.innerHTML='<a class="twitter-timeline" href="https://twitter.com/UTTIJ">Tweets by UTTIJ</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 	cuerpo.appendChild(divTwitter);
 }
-function createNotification(){
+function createNotification()
+{
 	var body=document.getElementById('body');
 		if (document.getElementById('notificacion')) {
 		var not=document.getElementById('notificacion');
@@ -611,7 +692,8 @@ function createNotification(){
 
 }
 
-function openNotificaciones(){
+function openNotificaciones()
+{
 	
 	var notificacion=document.getElementById('notificacion');
 	notificacion.classList.toggle('opennotificaciones');
@@ -934,7 +1016,8 @@ function calis()
     body.appendChild(divTabla);
 }
 
-function actGrupos(grupo){
+function actGrupos(grupo)
+{
     var x = new XMLHttpRequest();
 
 	x.open('GET', 'http://localhost:8080/Estadias/api/get_alumno_by_group.php?group='+grupo,'true');
@@ -1442,7 +1525,8 @@ function cambiarContrasenia()
 	}
 	x.send();
 }
-function logout(){
+function logout()
+{
 	sessionStorage['user']='';
 	window.location='login.html';
 }
@@ -1456,7 +1540,8 @@ function normal()
 	body.removeChild(divEnsimaRemove);
 }
 
-function dashboard(){
+function dashboard()
+{
 
 	var cuerpo=	document.getElementById('cuerpo');
 	cuerpo.innerHTML=" ";
@@ -1491,7 +1576,8 @@ function dashboard(){
 		table.appendChild(tr);
 		cuerpo.appendChild(table);
 }
-function loadEmpresas(){
+function loadEmpresas()
+{
 
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/getEmpresa.php',true);
@@ -1513,7 +1599,8 @@ function loadEmpresas(){
 	}
 }
 
-function alumwe(){
+function alumwe()
+{
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/get_all_users_we.php',true);
 	x.send();
@@ -1539,7 +1626,8 @@ function alumwe(){
 	}
 }
 
-function infoTutor(){
+function infoTutor()
+{
     var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/gettutorinfo.php?matricula='+JSON.parse(sessionStorage['user']).User.userID,true);
 	x.send();
@@ -1604,7 +1692,8 @@ function infoTutor(){
 	}
 }
 
-function loadAlumnos(){
+function loadAlumnos()
+{
 	var x = new XMLHttpRequest();
 	x.open("GET",'http://localhost:8080/Estadias/api/get_all_alumnos.php',true);
 	x.send();

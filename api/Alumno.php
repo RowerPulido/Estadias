@@ -106,7 +106,39 @@ require_once('MODELS/connection_sql_server.php');
 				$this->estado=$args[7];
 				
 			}
+			if (func_num_args() == 5) 
+			{
+				$args = func_get_args();
+				$this->nombre=$args[0];
+				$this->apellidoPaterno=$args[1];
+				$this->apellidoMaterno=$args[2];
+				$this->matricula=$args[3];
+				$this->estado=$args[4];
+				
+			}
 			
+		}
+		public static function get_alumno_por_grupo_con_estadia($tutor)
+		{
+			$list = array();
+			$connection = new SqlServerConnection();
+			try
+			{
+				$query = sprintf('select * from alumsConEst(\''.$tutor.'\')');
+				$data = $connection->execute_query($query);
+				$found = odbc_num_rows($data) > 0 ;
+				if(!$found){echo "Error in Query: ".$query; die;}
+				while( odbc_fetch_array($data))
+				{
+					array_push($list, new Alumno(odbc_result($data, 'nombres'),
+												 odbc_result($data, 'paterno'),
+												 odbc_result($data, 'materno'),
+												 odbc_result($data, 'matricula'),
+												 odbc_result($data, 'estado_estadia')));
+				}
+			}
+			finally{$connection->close();}
+			return $list;
 		}
 		public static function get_all_Alumnos()
 		{

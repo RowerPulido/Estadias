@@ -159,6 +159,7 @@ select * from myMessages('0315110150')
 select typeDocs,name,status,ubicacion,idAlumno from getDocsAlus where idAlumno='0315110151'
 
 --------------------------------------------------------------------------------------------
+drop function alumsConEst
 create function alumsConEst(@tut char(10))
 returns @tabla table(
 nombres varchar(50),
@@ -170,7 +171,7 @@ estado_estadia char(11)
 as
 begin
 insert @tabla
-SELECT nombres, paterno, materno, matricula,'CON ESTADIA' as estado_estadia 
+SELECT nombres, paterno, materno, matricula,'CON ESTADIA' as estado_estadia
 from Alumno.Alumnos  
 where grupo =(select ag.id from Alumno.grupos ag where ag.tutor = @tut) and exists 
 (select * from Estadia.Estadias ee where matricula = ee.idAlumno)

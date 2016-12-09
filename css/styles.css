@@ -476,6 +476,40 @@ tr.rowtable-docs {
 	left: 50%;
 	top:50px;
 }
+#tabla-AlumnoEst
+{
+	text-align: center;
+	position: relative;
+	left: 30%;
+	top:50px;
+	width: 130%;
+}
+#cuerpo .Mi_Alumnos
+{
+	position: relative;
+	color: #00AD47;
+	left: 65%;
+	top: 30px;
+	font-size: 20pt;
+	font-weight: bolder;
+}
+#conEstadia
+{
+	background-color: #43A047;
+}
+#conEstadia:hover
+{
+	background-color: #2E7D32;
+}
+#sinEstadia
+{
+	background-color: #E53935;
+}
+#sinEstadia:hover
+{
+	background-color: #C62828;
+}
+
 #tabla-misDocs{
 	text-align: left;
 	position: relative;

@@ -124,7 +124,7 @@ function misAlumnos(mat)
 				var body=document.getElementById('tab');
 				body.innerHTML = '';
 				var table=document.createElement('table');
-				table.setAttribute('id','tabla-misDocs');
+				table.setAttribute('id','tabla-Alumn');
 				var tr =document.createElement('tr');
 				var td=document.createElement('td');
 				td.setAttribute('class','rowheader');
@@ -183,9 +183,9 @@ function misAlumnos(mat)
 					td.appendChild(frmEstado);
 
 					
-					selectEstado.setAttribute('onchange','get_text("id'+a.id+'")');
+					selectEstado.setAttribute('onchange','get_text("id'+a.id+'","estado'+a.id+'")');
 					
-					createInput(frmEstado,'','hidden','','','estado','estado');
+					createInput(frmEstado,'','hidden','','','estado'+a.id,'estado');
 					createInput(frmEstado,'','hidden','',mat,'mat','mat');
 					createInput(frmEstado,'','hidden','',a.id,'doc','doc');
 					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
@@ -203,11 +203,11 @@ function misAlumnos(mat)
 	}
 	x.send();
 }
-function get_text(id)
+function get_text(id,estado)
 {
 	var combo = document.getElementById(id);
 	var select = combo.value;
-	var estado = document.getElementById('estado');
+	var estado = document.getElementById(estado);
 	estado.value = select;
 }
 function cambiarEstado(forma)

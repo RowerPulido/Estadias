@@ -468,12 +468,14 @@ function menuOfUser(){
 	var calisalums=document.getElementById('calisalums');
 	var alumnTutor = document.getElementById('alumnTutor');
 	var grupo = document.getElementById('grupo');
+	var avancesalu=document.getElementById('avancealu');
 	if (typeofuser=="ALU") {
 		//alumDatos(JSON.parse(sessionStorage['user']).User.userID);
 		registrar.style.display='none';
 		calisalums.style.display='none';
 		alumnTutor.style.display='none';
 		grupo.style.display = 'none';
+		avancesalu.setAttribute('onclick',"createGraph()");
         infoTutor();
 	}
 	if (typeofuser=='TUT') {
@@ -1925,7 +1927,110 @@ function alumnosAva(){
     body.appendChild(divTabla);
 }
 function createGraph(matricula){
+if(matricula='')matricula=JSON.parse(sessionStorage['user']).User.userID;
+			var docs=[];
+			var acts=[];
+	console.log(matricula);
+			var x= new XMLHttpRequest();
+			x.open('GET','http://localhost:8080/Estadias/api/getProgress.php?matricula='+matricula);
+			x.send();
+			x.onreadystatechange = function()
+			{
+				console.log('entro');
+			if(x.readyState==4 && x.status == 200)
+				{
+				console.log('si entra');
+				var JSONdata=JSON.parse(x.responseText);
+				if(JSONdata.status==0)
+					{
+						docs=JSONdata.documentos;
+						console.log(docs);
+						acts=JSONdata.actividades;
+						console.log(acts);
+						
+						var today=new Date();
+						
+						var body=document.getElementById('cuerpo');
+						body.innerHTML='';
+						body.setAttribute('class','100body');
+						var divActs=createDiv('divActs');
+						divActs.setAttribute('width','1000px');
+						divActs.setAttribute('height','200px');
+						body.appendChild(divActs);
+						//var ActText=writeText(SVGActs,'tActs','40%','10%','Progreso En Actividades','text');
+						for(var i=0; i<acts.length;i++)
+						{
+							var divtabla=createDiv('divT'+(i+1),'divT');
+							var dInicio=new Date(acts[i].inicio);
+							var dFin=new Date(acts[i].fin);
+							console.log(dInicio+'-'+dFin);
+							console.log(dInicio>dFin);
+							var table=document.createElement('table');
+							table.setAttribute('id','act'+(i+1));
+							table.setAttribute('class','tActs');
+							var tr=document.createElement('tr');
+							tr.setAttribute('class','rowH');
+							table.appendChild(tr);
+							var td=document.createElement('td');
+							td.innerHTML=acts[i].nombre;
+							td.setAttribute('colspan',2);
+							tr.appendChild(td);
+							table.appendChild(tr);
+							var tr=document.createElement('tr');
+							var td=document.createElement('td');
+							td.innerHTML='Inicio';
+							tr.appendChild(td);
+							var td=document.createElement('td');
+							td.innerHTML=acts[i].inicio;
+							tr.appendChild(td);
+							table.appendChild(tr);
+							var tr=document.createElement('tr');
+							var td=document.createElement('td');
+							td.innerHTML='Fin';
+							tr.appendChild(td);
+							var td=document.createElement('td');
+							td.innerHTML=acts[i].fin;
+							tr.appendChild(td);
+							table.appendChild(tr);
+							divtabla.appendChild(table);
+							divtabla.setAttribute('width','200px');
+							divtabla.setAttribute('left',(i*10)+'%');
+							if(today>=dInicio && today<=dFin) table.setAttribute('class','inProcess');
+							if(today>dFin)table.setAttribute('class','complete');
+							if(today<dInicio)table.setAttribute('class','incomplete');
+							divActs.appendChild(divtabla);
+						}
 
+
+						var SVGDocs=createSvg(body,'SVGDocs');
+						SVGDocs.setAttribute('width','1000px');
+						SVGDocs.setAttribute('height','300px');
+						var progreso=0;
+						var rectDocs=drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
+						var rectProDocs=drawRectangle(SVGDocs,'rectProDocs','10%','20%','1%','20%','rectPro');
+						var ActText=writeText(SVGDocs,'tActs','40%','10%','Avance en Documento Recepcional','text');
+						console.log(docs.length);
+						var X=70/(docs.length-3);
+						for(var i=0;i<docs.length-2;i++){
+							var posX=(20+(X*i))+'%';
+							var lineAct=drawLine(SVGDocs,posX,'20%',posX,'40%','lines');
+							var txt=writeText(SVGDocs,'doc'+(1+i),posX,'45%',docs[i].id,'txt');
+							if(docs[i].status!='pendiente ')progreso++;	
+						}
+						console.log(X);
+						console.log(progreso);
+						rectProDocs.setAttribute('width',(X*progreso)+'%');
+					}
+				else
+					console.log('error');
+				}
+				
+			}
+			
+		}
+
+function createGraph(){
+var matricula=JSON.parse(sessionStorage['user']).User.userID;
 			var docs=[];
 			var acts=[];
 	console.log(matricula);

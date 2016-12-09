@@ -122,6 +122,7 @@ function misAlumnos(mat)
             	var docs = JSONdata.docs;
             	console.log(docs);
 				var body=document.getElementById('tab');
+				body.innerHTML = '';
 				var table=document.createElement('table');
 				table.setAttribute('id','tabla-misDocs');
 				var tr =document.createElement('tr');
@@ -139,13 +140,12 @@ function misAlumnos(mat)
 				tr.appendChild(td);
 				var td= document.createElement('td');
 				td.setAttribute('class','rowheader');
-				td.innerHTML="Subir Archivo";
+				td.innerHTML="Cambiar Estado";
 				tr.appendChild(td);
 				table.appendChild(tr);
 				
 				for (var i = 0; i < docs.length; i++) {                    
 					var a = docs[i];
-                    console.log(a);
 					var tr=document.createElement('tr');
 					var td = document.createElement('td');
 					td.innerHTML=a.id;
@@ -168,13 +168,29 @@ function misAlumnos(mat)
 					tr.appendChild(td);
 					var td=document.createElement('td');
 					td.setAttribute('class','rownormal');
-					var frmFile=createForm('frmFile'+a.id,'frmFile'+a.id,'POST');
-					frmFile.setAttribute('action','api/upload.php');
-					frmFile.setAttribute('enctype',"multipart/form-data");
-					var inFile=createInput(frmFile,'seleccione','file','file','Seleccione Archivo','file','file');
-					var inSubmit=createInput(frmFile,'subir archivo','button','file','Subir','inUpFile','upFile');
-					inSubmit.setAttribute('onClick','subirFile('+a.id+')');
-					td.appendChild(frmFile);
+					var frmEstado=createForm('frmEstado'+a.id,'frmEstado'+a.id,'POST');
+					//frmEstado.setAttribute('action','api/upload.php');
+					var selectEstado = document.createElement('select');
+					selectEstado.setAttribute('id','id'+a.id);
+					selectEstado.setAttribute('class','selects');
+					selectEstado.setAttribute('name','selects');
+					
+                	selectEstado.appendChild(createOption('Estado','Estado:'));
+                	selectEstado.appendChild(createOption('Entregado','Entregado'));
+                	selectEstado.appendChild(createOption('En Revision','En Revision'));
+					var inSubmit=createInput(frmEstado,'','button','file','Cambiar Estado','inUpEstado','upFile');
+					frmEstado.appendChild(selectEstado);
+					td.appendChild(frmEstado);
+
+					var combo = document.getElementById('id'+a.id).value;
+					
+					createInput(frmEstado,'','hidden','',combo,'','estado');
+					createInput(frmEstado,'','hidden','',mat,'','mat');
+					createInput(frmEstado,'','hidden','',a.id,'','mat');
+					
+					inSubmit.setAttribute('onClick','cambiarEstado("frmEstado'+a.id+'")');
+					
+					
 					tr.appendChild(td);
 					tr.setAttribute('class','rowtable-docs');
 
@@ -186,7 +202,23 @@ function misAlumnos(mat)
 	}
 	x.send();
 }
-
+function cambiarEstado(forma)
+{
+	var x = new XMLHttpRequest();
+	x.open("POST",'http://localhost:8080/Estadias/api/setEstado.php',true);
+	x.send(new FormData(document.getElementById('forma')));
+	x.onreadystatechange = function()
+	{
+		if (x.readyState == 4 && x.status == 200) 
+		{
+			var JSONdata = JSON.parse(x.responseText);
+			if (JSONdata.status == 0) 
+				alert(JSONdata.descripccion);
+			else
+				alert(JSONdata.descripccion);
+		}
+	}
+}
 function miGrupo()
 {
 	var x = new XMLHttpRequest();

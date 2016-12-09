@@ -2002,11 +2002,14 @@ function createGraph(matricula){
 
 
 						var SVGDocs=createSvg(body,'SVGDocs');
+<<<<<<< HEAD
 						var rectDocs= drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
+=======
 						SVGDocs.setAttribute('width','1000px');
 						SVGDocs.setAttribute('height','300px');
 						var progreso=0;
 						var rectDocs=drawRectangle(SVGDocs,'rectDocs','10%','20%','80%',"20%",'rectLine');
+>>>>>>> origin/master
 						var rectProDocs=drawRectangle(SVGDocs,'rectProDocs','10%','20%','1%','20%','rectPro');
 						var ActText=writeText(SVGDocs,'tActs','40%','10%','Avance en Documento Recepcional','text');
 						console.log(docs.length);
